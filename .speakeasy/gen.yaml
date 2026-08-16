@@ -16,6 +16,7 @@ go:
   maxMethodParams: 0
   clientServerStatusCodesAsErrors: true
   responseFormat: envelope-http
+  envVarPrefix: X402API
   modulePath: github.com/x402api-com/x402api-go
   sdkPackageName: x402api
   defaultErrorName: X402ApiError
