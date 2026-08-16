@@ -1,0 +1,22 @@
+configVersion: 2.0.0
+generation:
+  sdkClassName: X402Api
+  maintainOpenAPIOrder: true
+  persistentEdits:
+    enabled: true
+  repoUrl: https://github.com/x402api-com/x402api-go
+  fixes:
+    nameResolutionDec2023: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+    securityFeb2025: true
+    nameOverrideFeb2026: true
+go:
+  version: 1.0.0
+  maxMethodParams: 0
+  clientServerStatusCodesAsErrors: true
+  responseFormat: envelope-http
+  modulePath: github.com/x402api-com/x402api-go
+  sdkPackageName: x402api
+  defaultErrorName: X402ApiError
+  forwardCompatibleEnumsByDefault: true
