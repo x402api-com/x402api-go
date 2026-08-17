@@ -4,15 +4,13 @@ All URIs are relative to *https://api.x402api.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PaymentReadinessRetrieve**](AssetsAndPaymentControlsAPI.md#PaymentReadinessRetrieve) | **Get** /v1/payment-readiness | Retrieve payment readiness
+[**V1PaymentReadinessRetrieve**](AssetsAndPaymentControlsAPI.md#V1PaymentReadinessRetrieve) | **Get** /v1/payment-readiness |
 
 
 
-## PaymentReadinessRetrieve
+## V1PaymentReadinessRetrieve
 
-> PaymentReadiness PaymentReadinessRetrieve(ctx).Execute()
-
-Retrieve payment readiness
+> PaymentReadiness V1PaymentReadinessRetrieve(ctx).Execute()
 
 
 
@@ -32,13 +30,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AssetsAndPaymentControlsAPI.PaymentReadinessRetrieve(context.Background()).Execute()
+	resp, r, err := apiClient.AssetsAndPaymentControlsAPI.V1PaymentReadinessRetrieve(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AssetsAndPaymentControlsAPI.PaymentReadinessRetrieve``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AssetsAndPaymentControlsAPI.V1PaymentReadinessRetrieve``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PaymentReadinessRetrieve`: PaymentReadiness
-	fmt.Fprintf(os.Stdout, "Response from `AssetsAndPaymentControlsAPI.PaymentReadinessRetrieve`: %v\n", resp)
+	// response from `V1PaymentReadinessRetrieve`: PaymentReadiness
+	fmt.Fprintf(os.Stdout, "Response from `AssetsAndPaymentControlsAPI.V1PaymentReadinessRetrieve`: %v\n", resp)
 }
 ```
 
@@ -48,7 +46,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPaymentReadinessRetrieveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiV1PaymentReadinessRetrieveRequest struct via the builder pattern
 
 
 ### Return type

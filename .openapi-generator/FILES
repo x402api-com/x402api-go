@@ -9,8 +9,6 @@ api_resources_and_pricing.go
 api_wallets_and_transfers.go
 client.go
 configuration.go
-docs/ApiError.md
-docs/ApiErrorEnvelope.md
 docs/AssetsAndPaymentControlsAPI.md
 docs/BalanceAsset.md
 docs/DynamicChargeCreate.md
@@ -101,8 +99,6 @@ docs/WalletVersionStateEnum.md
 docs/WalletsAndTransfersAPI.md
 go.mod
 go.sum
-model_api_error.go
-model_api_error_envelope.go
 model_balance_asset.go
 model_dynamic_charge_create.go
 model_dynamic_charge_price.go
