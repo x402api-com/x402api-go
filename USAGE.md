@@ -1,100 +1,143 @@
-## Using the x402api Go SDK
+# Go usage guide
 
-The examples below show the configured public surface. Generated request and
-response model names are documented under `docs/` after the first SDK generation.
+The [README](README.md) contains installation instructions and the complete function index. This guide focuses on safe production patterns.
 
-### Configure authentication
+## Create and reuse a client
 
-Create a scoped tenant API key in x402api and expose it to the server process as
-`X402API_TENANT_API_KEY`. The SDK sends it as a bearer credential. Never embed a
-tenant API key in browser, mobile, desktop, or other distributed client code.
-
-### Initialize the client
+Create one configuration and API client for a service. Pass credentials, deadlines, tracing, and cancellation through `context.Context`.
 
 ```go
-package main
+cfg := x402api.NewConfiguration()
+cfg.HTTPClient = &http.Client{Timeout: 15 * time.Second}
+client := x402api.NewAPIClient(cfg)
 
-import (
-    "context"
-    "fmt"
-    "log"
-    "os"
-
-    x402api "github.com/x402api-com/x402api-go"
+ctx := context.WithValue(
+    context.Background(),
+    x402api.ContextAccessToken,
+    os.Getenv("X402API_TENANT_API_KEY"),
 )
+```
 
-func main() {
-    client := x402api.New(
-        x402api.WithSecurity(os.Getenv("X402API_TENANT_API_KEY")),
-    )
+Do not store per-request tokens by mutating a shared global. Derive a context for each request or tenant.
 
-    response, err := client.PaymentReadiness.Retrieve(context.Background())
-    if err != nil {
-        log.Fatal(err)
+## Create and retrieve a charge
+
+```go
+request := x402api.NewDynamicChargeCreate(
+    "00000000-0000-4000-8000-000000000001",
+    "https://merchant.example.com/premium-report",
+    []x402api.DynamicChargePrice{
+        *x402api.NewDynamicChargePrice("base_usdc", "1000000"),
+    },
+    900,
+)
+request.SetMetadata(map[string]interface{}{
+    "order_id": "order-123",
+})
+
+idempotencyKey := "charge-order-123-v1"
+charge, response, err := client.ProgrammaticChargesAPI.
+    ChargesCreate(ctx).
+    IdempotencyKey(idempotencyKey).
+    DynamicChargeCreate(*request).
+    Execute()
+if response != nil {
+    defer response.Body.Close()
+}
+if err != nil {
+    handleError(response, err)
+}
+
+sameCharge, response, err := client.ProgrammaticChargesAPI.
+    ChargesRetrieve(ctx, charge.GetChargeId()).
+    Execute()
+```
+
+Prices use atomic-unit strings, not floating point. For example, `"1000000"` represents one token for an asset with six decimals.
+
+## Pagination and HTTP headers
+
+```go
+cursor := ""
+
+for {
+    request := client.OrdersAndPaymentsAPI.
+        PaymentsList(ctx).
+        PageSize(100)
+    if cursor != "" {
+        request = request.Cursor(cursor)
     }
-    fmt.Printf("%+v\n", response)
+
+    payments, response, err := request.Execute()
+    if err != nil {
+        handleError(response, err)
+        break
+    }
+
+    for _, payment := range payments {
+        process(payment)
+    }
+
+    cursor = response.Header.Get("X-X402API-Next-Cursor")
+    response.Body.Close()
+    if cursor == "" {
+        break
+    }
 }
 ```
 
-The idiomatic method shape for this SDK is `client.ResourceName.MethodName(ctx, request)`.
-All request fields are collected into a typed request object so new optional API
-fields do not break existing call sites.
+Treat the cursor as opaque and pass it back unchanged. The same pattern applies to orders, payment observations, receiving addresses, resources, and resource versions.
 
-### Create a charge
+## Error handling
 
-The logical SDK call is `charges.create`. Supply a unique `Idempotency-Key` for
-each intended mutation and reuse the same key only when retrying that exact
-request. The request contains a resource-version UUID, the protected URL, one or
-more asset prices expressed in atomic units, and an expiry between 30 and 3600
-seconds.
+```go
+func handleError(response *http.Response, err error) {
+    if response != nil {
+        requestID := response.Header.Get("X-Request-ID")
+        retryAfter := response.Header.Get("Retry-After")
+        log.Printf(
+            "x402api status=%d request_id=%s retry_after=%s",
+            response.StatusCode,
+            requestID,
+            retryAfter,
+        )
+    }
 
-The equivalent HTTP request is useful for validating credentials independently
-of the SDK:
+    var apiError *x402api.GenericOpenAPIError
+    if errors.As(err, &apiError) {
+        log.Printf("x402api response body: %s", apiError.Body())
+    }
 
-```bash
-curl --request POST https://api.x402api.com/v1/charges \
-  --header "Authorization: Bearer $X402API_TENANT_API_KEY" \
-  --header "Content-Type: application/json" \
-  --header "Idempotency-Key: charge-$(date +%s)" \
-  --data '{
-    "resource_version_id": "00000000-0000-4000-8000-000000000001",
-    "resource_url": "https://merchant.example.com/premium-report",
-    "prices": [{
-      "asset_id": "base_usdc",
-      "amount_atomic": "1000000"
-    }],
-    "expires_in_seconds": 900,
-    "metadata": {"customer_reference": "customer-123"}
-  }'
+    log.Printf("x402api request failed: %v", err)
+}
 ```
 
-### Read payment state and receipts
+Always inspect both `error` and `*http.Response`; an error can occur before a response exists. Close non-nil response bodies.
 
-Use `payments.list` for a tenant-wide view, `payments.retrieve` for one payment,
-`payments.listObservations` for chain evidence, and `payments.retrieveReceipt`
-for the signed final receipt. Retrieve the public verification-key history with
-`receiptVerificationKeys.retrieve` before verifying receipts offline.
+## Idempotency and retries
 
-### Cursor pagination
+Mutations require keys of 8-160 characters matching `[A-Za-z0-9._:-]+`. Persist the key with the intent you are executing.
 
-`orders.list`, `payments.list`, `payments.listObservations`,
-`receivingAddresses.list`, `resources.list`, and `resources.listVersions` accept
-`pageSize` (1-100) and an optional opaque `cursor`. Do not decode or construct
-cursors. Read the next cursor from `X-X402API-Next-Cursor` or the `Link` response
-header and pass it unchanged to the next call.
+- New intended mutation: generate a new key.
+- Timeout or connection reset after sending: retry the identical body with the same key.
+- Known validation failure: fix the request and use a new key.
+- Uncertain durable outcome: call `client.IdempotencyAPI.IdempotencyGetOutcome(ctx, key).Execute()`.
 
-### Idempotent mutations
+The SDK does not retry automatically. Bound application retries, use exponential backoff with jitter, respect `Retry-After`, and normally retry only connection failures plus HTTP `408`, `429`, `500`, `502`, `503`, and `504`.
 
-Every mutating operation marked in the function table requires an idempotency
-key of 8-160 characters matching `[A-Za-z0-9._:-]+`. A transport timeout does
-not prove that a mutation failed. Retry the same payload with the same key, or
-call `idempotency.getOutcome` to resolve its durable outcome.
+## Public endpoints
 
-### Errors, retries, and HTTP metadata
+These endpoints do not need a tenant key:
 
-The SDK raises or returns a typed `X402ApiError` for documented 4xx, 5xx, and
-default error responses. Generated responses use the `envelope-http` format so
-callers can inspect the decoded body, status code, and response headers. The SDK
-applies short exponential-backoff retries to connection failures and status
-codes 408, 429, 500, 502, 503, and 504. Application-level retries must still
-respect idempotency requirements.
+```go
+publicContext := context.Background()
+supported, response, err := client.FacilitatorDiscoveryAPI.
+    FacilitatorGetSupported(publicContext).
+    Execute()
+
+keys, response, err := client.OrdersAndPaymentsAPI.
+    ReceiptVerificationKeysRetrieve(publicContext).
+    Execute()
+```
+
+Do not edit generated `api_*.go`, `model_*.go`, or `docs/` files; update the OpenAPI contract or generator configuration instead.

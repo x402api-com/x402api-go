@@ -1,0 +1,9 @@
+packageName: x402api
+packageVersion: 1.0.0
+hideGenerationTimestamp: true
+withGoMod: true
+generateInterfaces: true
+enumClassPrefix: true
+disallowAdditionalPropertiesIfNotPresent: false
+useOneOfDiscriminatorLookup: true
+enumUnknownDefaultCase: true

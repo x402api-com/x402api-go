@@ -1,35 +1,33 @@
 # x402api Go SDK
 
-Official server-side Go SDK for the x402api public API.
-The package name is `github.com/x402api-com/x402api-go` and the production API endpoint is
-`https://api.x402api.com`.
+Official server-side Go client for the [x402api public API](https://api.x402api.com/openapi/openapi.json). It provides typed request and response models for programmatic x402 charges, resources, receiving addresses, payments, receipts, and wallet balances.
 
-> **Release status:** this repository contains the generation and release
-> configuration. The package installation command becomes available when the
-> first synchronized SDK release is published.
-
-## Requirements
-
-A supported Go toolchain.
+The module is `github.com/x402api-com/x402api-go`, targets Go 1.23+, and uses the standard `net/http` client. The production base URL is `https://api.x402api.com`.
 
 ## Installation
 
 ```bash
-go get github.com/x402api-com/x402api-go
+go get github.com/x402api-com/x402api-go@latest
 ```
 
-## Using the x402api Go SDK
+## Authentication
 
-The examples below show the configured public surface. Generated request and
-response model names are documented under `docs/` after the first SDK generation.
+Create a scoped tenant API key and provide it as a bearer token through the request context. Keep it in a server-side secret store; do not ship tenant credentials in browser, mobile, or desktop applications.
 
-### Configure authentication
+```go
+ctx := context.WithValue(
+    context.Background(),
+    x402api.ContextAccessToken,
+    os.Getenv("X402API_TENANT_API_KEY"),
+)
 
-Create a scoped tenant API key in x402api and expose it to the server process as
-`X402API_TENANT_API_KEY`. The SDK sends it as a bearer credential. Never embed a
-tenant API key in browser, mobile, desktop, or other distributed client code.
+cfg := x402api.NewConfiguration()
+client := x402api.NewAPIClient(cfg)
+```
 
-### Initialize the client
+`FacilitatorGetSupported` and `ReceiptVerificationKeysRetrieve` are public and may use `context.Background()` without a token. All other operations use tenant bearer authentication.
+
+## Quick start: create a charge
 
 ```go
 package main
@@ -44,136 +42,125 @@ import (
 )
 
 func main() {
-    client := x402api.New(
-        x402api.WithSecurity(os.Getenv("X402API_TENANT_API_KEY")),
+    cfg := x402api.NewConfiguration()
+    client := x402api.NewAPIClient(cfg)
+    ctx := context.WithValue(
+        context.Background(),
+        x402api.ContextAccessToken,
+        os.Getenv("X402API_TENANT_API_KEY"),
     )
 
-    response, err := client.PaymentReadiness.Retrieve(context.Background())
+    request := x402api.NewDynamicChargeCreate(
+        "00000000-0000-4000-8000-000000000001",
+        "https://merchant.example.com/premium-report",
+        []x402api.DynamicChargePrice{
+            *x402api.NewDynamicChargePrice("base_usdc", "1000000"),
+        },
+        900,
+    )
+
+    charge, response, err := client.ProgrammaticChargesAPI.
+        ChargesCreate(ctx).
+        IdempotencyKey("charge-example-001").
+        DynamicChargeCreate(*request).
+        Execute()
     if err != nil {
+        if response != nil {
+            log.Printf("x402api status: %s", response.Status)
+        }
         log.Fatal(err)
     }
-    fmt.Printf("%+v\n", response)
+
+    fmt.Printf("charge: %+v\n", charge)
 }
 ```
 
-The idiomatic method shape for this SDK is `client.ResourceName.MethodName(ctx, request)`.
-All request fields are collected into a typed request object so new optional API
-fields do not break existing call sites.
+`IdempotencyKey` is required for mutations. Use a new key for each intended mutation. If the outcome is uncertain, retry the identical payload with the same key.
 
-### Create a charge
+## Response metadata and pagination
 
-The logical SDK call is `charges.create`. Supply a unique `Idempotency-Key` for
-each intended mutation and reuse the same key only when retrying that exact
-request. The request contains a resource-version UUID, the protected URL, one or
-more asset prices expressed in atomic units, and an expiry between 30 and 3600
-seconds.
+Every `Execute()` call returns the decoded value, `*http.Response`, and `error`. Read pagination headers from the HTTP response and always close its body:
 
-The equivalent HTTP request is useful for validating credentials independently
-of the SDK:
+```go
+payments, response, err := client.OrdersAndPaymentsAPI.
+    PaymentsList(ctx).
+    PageSize(25).
+    Execute()
+if response != nil {
+    defer response.Body.Close()
+}
+if err != nil {
+    log.Fatal(err)
+}
 
-```bash
-curl --request POST https://api.x402api.com/v1/charges \
-  --header "Authorization: Bearer $X402API_TENANT_API_KEY" \
-  --header "Content-Type: application/json" \
-  --header "Idempotency-Key: charge-$(date +%s)" \
-  --data '{
-    "resource_version_id": "00000000-0000-4000-8000-000000000001",
-    "resource_url": "https://merchant.example.com/premium-report",
-    "prices": [{
-      "asset_id": "base_usdc",
-      "amount_atomic": "1000000"
-    }],
-    "expires_in_seconds": 900,
-    "metadata": {"customer_reference": "customer-123"}
-  }'
+for _, payment := range payments {
+    fmt.Printf("%+v\n", payment)
+}
+
+nextCursor := response.Header.Get("X-X402API-Next-Cursor")
+if nextCursor != "" {
+    nextPage, nextResponse, err := client.OrdersAndPaymentsAPI.
+        PaymentsList(ctx).
+        Cursor(nextCursor).
+        PageSize(25).
+        Execute()
+    _ = nextPage
+    _ = nextResponse
+    _ = err
+}
 ```
 
-### Read payment state and receipts
+Cursors are opaque. Pass them back unchanged; do not decode or construct them. Configure timeouts by assigning an `http.Client` to `cfg.HTTPClient` before calling `NewAPIClient`.
 
-Use `payments.list` for a tenant-wide view, `payments.retrieve` for one payment,
-`payments.listObservations` for chain evidence, and `payments.retrieveReceipt`
-for the signed final receipt. Retrieve the public verification-key history with
-`receiptVerificationKeys.retrieve` before verifying receipts offline.
+The client does not retry automatically. For connection failures and HTTP `408`, `429`, `500`, `502`, `503`, or `504`, add bounded exponential backoff in your application. Respect `Retry-After`, and preserve the same idempotency key and body when retrying a mutation. HTTP failures are returned as errors, commonly `*x402api.GenericOpenAPIError`; the accompanying `*http.Response` contains status and headers.
 
-### Cursor pagination
+## API services and functions
 
-`orders.list`, `payments.list`, `payments.listObservations`,
-`receivingAddresses.list`, `resources.list`, and `resources.listVersions` accept
-`pageSize` (1-100) and an optional opaque `cursor`. Do not decode or construct
-cursors. Read the next cursor from `X-X402API-Next-Cursor` or the `Link` response
-header and pass it unchanged to the next call.
+Methods with optional query or body values use a request builder: call the service method, set optional values such as `.Cursor(...)` or `.PageSize(...)`, then call `.Execute()`. Links lead to generated parameter and model documentation.
 
-### Idempotent mutations
+| API service | Function | HTTP endpoint |
+| --- | --- | --- |
+| [`ProgrammaticChargesAPI`](docs/ProgrammaticChargesAPI.md) | `ChargesCreate(ctx).IdempotencyKey(...).DynamicChargeCreate(...).Execute()` | `POST /v1/charges` |
+| [`ProgrammaticChargesAPI`](docs/ProgrammaticChargesAPI.md) | `ChargesRetrieve(ctx, chargeID).Execute()` | `GET /v1/charges/{charge_id}` |
+| [`FacilitatorDiscoveryAPI`](docs/FacilitatorDiscoveryAPI.md) | `FacilitatorGetSupported(ctx).Execute()` | `GET /v1/facilitator/supported` |
+| [`IdempotencyAPI`](docs/IdempotencyAPI.md) | `IdempotencyGetOutcome(ctx, idempotencyKey).Execute()` | `GET /v1/idempotency-outcomes/{idempotency_key}` |
+| [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `NetworkFeesCreateQuote(ctx).NetworkFeePreview(...).Execute()` | `POST /v1/network-fee-quotes` |
+| [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `OrdersList(ctx).Cursor(...).PageSize(...).Execute()` | `GET /v1/orders` |
+| [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `OrdersRetrieve(ctx, id).Execute()` | `GET /v1/orders/{id}` |
+| [`AssetsAndPaymentControlsAPI`](docs/AssetsAndPaymentControlsAPI.md) | `PaymentReadinessRetrieve(ctx).Execute()` | `GET /v1/payment-readiness` |
+| [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `PaymentsList(ctx).Cursor(...).PageSize(...).Execute()` | `GET /v1/payments` |
+| [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `PaymentsRetrieve(ctx, id).Execute()` | `GET /v1/payments/{id}` |
+| [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `PaymentsListObservations(ctx, id).Cursor(...).PageSize(...).Execute()` | `GET /v1/payments/{id}/observations` |
+| [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `PaymentsRetrieveReceipt(ctx, id).Execute()` | `GET /v1/payments/{id}/receipt` |
+| [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `ReceiptVerificationKeysRetrieve(ctx).Execute()` | `GET /v1/payment-receipt-verification-keys` |
+| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesGetControlCapabilities(ctx).Execute()` | `GET /v1/receiving-address-control-capabilities` |
+| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesCreateControlChallenge(ctx).IdempotencyKey(...).ExternalAddressControlChallengeCreate(...).Execute()` | `POST /v1/receiving-address-control-challenges` |
+| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesList(ctx).Cursor(...).PageSize(...).Execute()` | `GET /v1/receiving-addresses` |
+| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesRegister(ctx).IdempotencyKey(...).ExternalReceivingAddressCreate(...).Execute()` | `POST /v1/receiving-addresses` |
+| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesActivate(ctx, readinessID).IdempotencyKey(...).Execute()` | `POST /v1/receiving-addresses/{readiness_id}/activate` |
+| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesRefreshReadiness(ctx, readinessID).IdempotencyKey(...).Execute()` | `POST /v1/receiving-addresses/{readiness_id}/readiness-refreshes` |
+| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesRotate(ctx, readinessID).IdempotencyKey(...).ExternalReceivingAddressRotation(...).Execute()` | `POST /v1/receiving-addresses/{readiness_id}/rotations` |
+| [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesList(ctx).Cursor(...).PageSize(...).Execute()` | `GET /v1/resources` |
+| [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesCreate(ctx).IdempotencyKey(...).ResourceCreate(...).Execute()` | `POST /v1/resources` |
+| [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesListVersions(ctx, resourceID).Cursor(...).PageSize(...).Execute()` | `GET /v1/resources/{resource_id}/versions` |
+| [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesCreateVersion(ctx, resourceID).IdempotencyKey(...).ResourceVersionCreate(...).Execute()` | `POST /v1/resources/{resource_id}/versions` |
+| [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesActivateVersion(ctx, resourceID, versionID).IdempotencyKey(...).ResourceVersionActivate(...).Execute()` | `POST /v1/resources/{resource_id}/versions/{version_id}/activate` |
+| [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesRetireVersion(ctx, resourceID, versionID).IdempotencyKey(...).ResourceVersionRetire(...).Execute()` | `POST /v1/resources/{resource_id}/versions/{version_id}/retire` |
+| [`WalletsAndTransfersAPI`](docs/WalletsAndTransfersAPI.md) | `WalletsRetrieveBalance(ctx, id).Finality(...).Execute()` | `GET /v1/wallets/{id}/balances` |
 
-Every mutating operation marked in the function table requires an idempotency
-key of 8-160 characters matching `[A-Za-z0-9._:-]+`. A transport timeout does
-not prove that a mutation failed. Retry the same payload with the same key, or
-call `idempotency.getOutcome` to resolve its durable outcome.
+All request and response model documentation is in [`docs/`](docs/). See [`USAGE.md`](USAGE.md) for more complete patterns.
 
-### Errors, retries, and HTTP metadata
+## Automatic generation
 
-The SDK raises or returns a typed `X402ApiError` for documented 4xx, 5xx, and
-default error responses. Generated responses use the `envelope-http` format so
-callers can inspect the decoded body, status code, and response headers. The SDK
-applies short exponential-backoff retries to connection failures and status
-codes 408, 429, 500, 502, 503, and 504. Application-level retries must still
-respect idempotency requirements.
+This repository uses OpenAPI Generator 7.24.0, pinned by Docker image and digest in [`scripts/generate-sdk.sh`](scripts/generate-sdk.sh). The [`SDK generation workflow`](.github/workflows/sdk_generation.yaml) checks the live OpenAPI document hourly and on manual or repository dispatch. When its normalized contract changes, GitHub Actions regenerates, validates, and commits the SDK to `main`.
 
+To regenerate locally with Docker:
 
-## Available resources and functions
+```bash
+./scripts/generate-sdk.sh
+go test ./...
+```
 
-Method names below use the language-neutral generated names. The generator
-applies the normal casing conventions for this language.
+Persistent files such as this README, `USAGE.md`, workflow configuration, and generator scripts are protected by [`.openapi-generator-ignore`](.openapi-generator-ignore). Generated client and model files should not be edited manually.
 
-| SDK resource | Function | HTTP endpoint | Purpose |
-| --- | --- | --- | --- |
-| `charges` | `create` | `POST /v1/charges` | Create a programmatic charge. Requires an idempotency key. |
-| `charges` | `retrieve` | `GET /v1/charges/{charge_id}` | Retrieve a charge by UUID. |
-| `facilitator` | `getSupported` | `GET /v1/facilitator/supported` | Discover supported facilitator profiles. |
-| `idempotency` | `getOutcome` | `GET /v1/idempotency-outcomes/{idempotency_key}` | Inspect the recorded result for an idempotent mutation. |
-| `networkFees` | `createQuote` | `POST /v1/network-fee-quotes` | Preview network fees for one or more prices. |
-| `orders` | `list` | `GET /v1/orders` | List orders with cursor pagination. |
-| `orders` | `retrieve` | `GET /v1/orders/{id}` | Retrieve an order by UUID. |
-| `paymentReadiness` | `retrieve` | `GET /v1/payment-readiness` | Inspect assets and payment-control readiness. |
-| `receiptVerificationKeys` | `retrieve` | `GET /v1/payment-receipt-verification-keys` | Retrieve the public receipt-verification key history. |
-| `payments` | `list` | `GET /v1/payments` | List payments with cursor pagination. |
-| `payments` | `retrieve` | `GET /v1/payments/{id}` | Retrieve a payment by UUID. |
-| `payments` | `listObservations` | `GET /v1/payments/{id}/observations` | List chain observations for a payment. |
-| `payments` | `retrieveReceipt` | `GET /v1/payments/{id}/receipt` | Retrieve the signed payment receipt. |
-| `receivingAddresses` | `getControlCapabilities` | `GET /v1/receiving-address-control-capabilities` | Inspect supported address-control proofs. |
-| `receivingAddresses` | `createControlChallenge` | `POST /v1/receiving-address-control-challenges` | Create an address-control challenge. Requires an idempotency key. |
-| `receivingAddresses` | `list` | `GET /v1/receiving-addresses` | List receiving addresses with cursor pagination. |
-| `receivingAddresses` | `register` | `POST /v1/receiving-addresses` | Register a receiving address. Requires an idempotency key. |
-| `receivingAddresses` | `activate` | `POST /v1/receiving-addresses/{readiness_id}/activate` | Activate a ready receiving address. Requires an idempotency key. |
-| `receivingAddresses` | `refreshReadiness` | `POST /v1/receiving-addresses/{readiness_id}/readiness-refreshes` | Re-run readiness checks. Requires an idempotency key. |
-| `receivingAddresses` | `rotate` | `POST /v1/receiving-addresses/{readiness_id}/rotations` | Rotate a receiving address. Requires an idempotency key. |
-| `resources` | `list` | `GET /v1/resources` | List payment-gated resources with cursor pagination. |
-| `resources` | `create` | `POST /v1/resources` | Create a payment-gated resource. Requires an idempotency key. |
-| `resources` | `listVersions` | `GET /v1/resources/{resource_id}/versions` | List immutable resource versions. |
-| `resources` | `createVersion` | `POST /v1/resources/{resource_id}/versions` | Create a resource version. Requires an idempotency key. |
-| `resources` | `activateVersion` | `POST /v1/resources/{resource_id}/versions/{version_id}/activate` | Activate a resource version using optimistic concurrency. |
-| `resources` | `retireVersion` | `POST /v1/resources/{resource_id}/versions/{version_id}/retire` | Retire a resource version using optimistic concurrency. |
-| `wallets` | `retrieveBalance` | `GET /v1/wallets/{id}/balances` | Retrieve confirmed, finalized, or latest wallet balances. |
-
-## Source contract and releases
-
-This repository is generated from the versioned public OpenAPI contract at
-[`https://api.x402api.com/openapi/openapi.json`](https://api.x402api.com/openapi/openapi.json).
-SDK releases are prepared from an immutable Speakeasy registry tag only after
-the deployed production contract matches the source artifact at the JSON data
-model level.
-
-- All five official SDKs use the same stable SemVer as the public API contract.
-- Backward-compatible production contracts may publish automatically.
-- Breaking contracts require a new major version and explicit approval.
-- Every generation run records the source Git revision and contract digest.
-- `USAGE.md` contains hand-maintained examples that survive regeneration.
-
-## Contributing
-
-Most source files in this repository are generated. Open an issue for API or SDK
-feedback. Changes to the public contract, generator configuration, or persistent
-documentation should be made in the source repository so they propagate to all
-five SDKs consistently.
-
-Licensed under the MIT License.
+Licensed under the [MIT License](LICENSE).
