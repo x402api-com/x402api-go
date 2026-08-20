@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **WalletAddress** | **NullableString** |  |
 **RequestedFinality** | [**WalletObservationFinalityEnum**](WalletObservationFinalityEnum.md) |  |
 **ObservationState** | [**ObservationStateEnum**](ObservationStateEnum.md) |  |
+**TrackingStatus** | [**TrackingStatusEnum**](TrackingStatusEnum.md) |  |
 **ObservedAt** | **NullableTime** |  |
 **Assets** | [**[]BalanceAsset**](BalanceAsset.md) |  |
 **WalletVersions** | [**[]WalletVersionBalance**](WalletVersionBalance.md) |  |
@@ -18,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewWalletBalanceResponse
 
-`func NewWalletBalanceResponse(walletId string, network string, walletAddress NullableString, requestedFinality WalletObservationFinalityEnum, observationState ObservationStateEnum, observedAt NullableTime, assets []BalanceAsset, walletVersions []WalletVersionBalance, reseedContexts []WalletFencedChainReseedContext, ) *WalletBalanceResponse`
+`func NewWalletBalanceResponse(walletId string, network string, walletAddress NullableString, requestedFinality WalletObservationFinalityEnum, observationState ObservationStateEnum, trackingStatus TrackingStatusEnum, observedAt NullableTime, assets []BalanceAsset, walletVersions []WalletVersionBalance, reseedContexts []WalletFencedChainReseedContext, ) *WalletBalanceResponse`
 
 NewWalletBalanceResponse instantiates a new WalletBalanceResponse object
 This constructor will assign default values to properties that have it defined,
@@ -141,6 +142,26 @@ and a boolean to check if the value has been set.
 `func (o *WalletBalanceResponse) SetObservationState(v ObservationStateEnum)`
 
 SetObservationState sets ObservationState field to given value.
+
+
+### GetTrackingStatus
+
+`func (o *WalletBalanceResponse) GetTrackingStatus() TrackingStatusEnum`
+
+GetTrackingStatus returns the TrackingStatus field if non-nil, zero value otherwise.
+
+### GetTrackingStatusOk
+
+`func (o *WalletBalanceResponse) GetTrackingStatusOk() (*TrackingStatusEnum, bool)`
+
+GetTrackingStatusOk returns a tuple with the TrackingStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTrackingStatus
+
+`func (o *WalletBalanceResponse) SetTrackingStatus(v TrackingStatusEnum)`
+
+SetTrackingStatus sets TrackingStatus field to given value.
 
 
 ### GetObservedAt

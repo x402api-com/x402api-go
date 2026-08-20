@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **WalletAddress** | **string** |  |
 **State** | [**WalletVersionBalanceStateEnum**](WalletVersionBalanceStateEnum.md) |  |
 **ObservationState** | [**ObservationStateEnum**](ObservationStateEnum.md) |  |
+**TrackingStatus** | [**TrackingStatusEnum**](TrackingStatusEnum.md) |  |
 **ObservedAt** | **NullableTime** |  |
 **Assets** | [**[]BalanceAsset**](BalanceAsset.md) |  |
 **ReseedContext** | [**NullableWalletChainReseedContext**](WalletChainReseedContext.md) |  |
@@ -17,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewWalletVersionBalance
 
-`func NewWalletVersionBalance(walletVersionId string, version int32, walletAddress string, state WalletVersionBalanceStateEnum, observationState ObservationStateEnum, observedAt NullableTime, assets []BalanceAsset, reseedContext NullableWalletChainReseedContext, ) *WalletVersionBalance`
+`func NewWalletVersionBalance(walletVersionId string, version int32, walletAddress string, state WalletVersionBalanceStateEnum, observationState ObservationStateEnum, trackingStatus TrackingStatusEnum, observedAt NullableTime, assets []BalanceAsset, reseedContext NullableWalletChainReseedContext, ) *WalletVersionBalance`
 
 NewWalletVersionBalance instantiates a new WalletVersionBalance object
 This constructor will assign default values to properties that have it defined,
@@ -130,6 +131,26 @@ and a boolean to check if the value has been set.
 `func (o *WalletVersionBalance) SetObservationState(v ObservationStateEnum)`
 
 SetObservationState sets ObservationState field to given value.
+
+
+### GetTrackingStatus
+
+`func (o *WalletVersionBalance) GetTrackingStatus() TrackingStatusEnum`
+
+GetTrackingStatus returns the TrackingStatus field if non-nil, zero value otherwise.
+
+### GetTrackingStatusOk
+
+`func (o *WalletVersionBalance) GetTrackingStatusOk() (*TrackingStatusEnum, bool)`
+
+GetTrackingStatusOk returns a tuple with the TrackingStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTrackingStatus
+
+`func (o *WalletVersionBalance) SetTrackingStatus(v TrackingStatusEnum)`
+
+SetTrackingStatus sets TrackingStatus field to given value.
 
 
 ### GetObservedAt

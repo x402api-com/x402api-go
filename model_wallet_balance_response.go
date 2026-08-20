@@ -26,6 +26,7 @@ type WalletBalanceResponse struct {
 	WalletAddress NullableString `json:"wallet_address"`
 	RequestedFinality WalletObservationFinalityEnum `json:"requested_finality"`
 	ObservationState ObservationStateEnum `json:"observation_state"`
+	TrackingStatus TrackingStatusEnum `json:"tracking_status"`
 	ObservedAt NullableTime `json:"observed_at"`
 	Assets []BalanceAsset `json:"assets"`
 	WalletVersions []WalletVersionBalance `json:"wallet_versions"`
@@ -39,13 +40,14 @@ type _WalletBalanceResponse WalletBalanceResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWalletBalanceResponse(walletId string, network string, walletAddress NullableString, requestedFinality WalletObservationFinalityEnum, observationState ObservationStateEnum, observedAt NullableTime, assets []BalanceAsset, walletVersions []WalletVersionBalance, reseedContexts []WalletFencedChainReseedContext) *WalletBalanceResponse {
+func NewWalletBalanceResponse(walletId string, network string, walletAddress NullableString, requestedFinality WalletObservationFinalityEnum, observationState ObservationStateEnum, trackingStatus TrackingStatusEnum, observedAt NullableTime, assets []BalanceAsset, walletVersions []WalletVersionBalance, reseedContexts []WalletFencedChainReseedContext) *WalletBalanceResponse {
 	this := WalletBalanceResponse{}
 	this.WalletId = walletId
 	this.Network = network
 	this.WalletAddress = walletAddress
 	this.RequestedFinality = requestedFinality
 	this.ObservationState = observationState
+	this.TrackingStatus = trackingStatus
 	this.ObservedAt = observedAt
 	this.Assets = assets
 	this.WalletVersions = walletVersions
@@ -183,6 +185,30 @@ func (o *WalletBalanceResponse) SetObservationState(v ObservationStateEnum) {
 	o.ObservationState = v
 }
 
+// GetTrackingStatus returns the TrackingStatus field value
+func (o *WalletBalanceResponse) GetTrackingStatus() TrackingStatusEnum {
+	if o == nil {
+		var ret TrackingStatusEnum
+		return ret
+	}
+
+	return o.TrackingStatus
+}
+
+// GetTrackingStatusOk returns a tuple with the TrackingStatus field value
+// and a boolean to check if the value has been set.
+func (o *WalletBalanceResponse) GetTrackingStatusOk() (*TrackingStatusEnum, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TrackingStatus, true
+}
+
+// SetTrackingStatus sets field value
+func (o *WalletBalanceResponse) SetTrackingStatus(v TrackingStatusEnum) {
+	o.TrackingStatus = v
+}
+
 // GetObservedAt returns the ObservedAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
 func (o *WalletBalanceResponse) GetObservedAt() time.Time {
@@ -296,6 +322,7 @@ func (o WalletBalanceResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["wallet_address"] = o.WalletAddress.Get()
 	toSerialize["requested_finality"] = o.RequestedFinality
 	toSerialize["observation_state"] = o.ObservationState
+	toSerialize["tracking_status"] = o.TrackingStatus
 	toSerialize["observed_at"] = o.ObservedAt.Get()
 	toSerialize["assets"] = o.Assets
 	toSerialize["wallet_versions"] = o.WalletVersions
@@ -318,6 +345,7 @@ func (o *WalletBalanceResponse) UnmarshalJSON(data []byte) (err error) {
 		"wallet_address",
 		"requested_finality",
 		"observation_state",
+		"tracking_status",
 		"observed_at",
 		"assets",
 		"wallet_versions",
@@ -356,6 +384,7 @@ func (o *WalletBalanceResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "wallet_address")
 		delete(additionalProperties, "requested_finality")
 		delete(additionalProperties, "observation_state")
+		delete(additionalProperties, "tracking_status")
 		delete(additionalProperties, "observed_at")
 		delete(additionalProperties, "assets")
 		delete(additionalProperties, "wallet_versions")

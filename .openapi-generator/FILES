@@ -96,6 +96,7 @@ docs/TenantPaymentResourceProjection.md
 docs/TenantPaymentScreeningProjection.md
 docs/TenantPaymentScreeningSubjectProjection.md
 docs/TenantPaymentScreeningSubjectProjectionStatusEnum.md
+docs/TrackingStatusEnum.md
 docs/WalletBalanceResponse.md
 docs/WalletChainReseedContext.md
 docs/WalletFencedChainReseedContext.md
@@ -186,6 +187,7 @@ model_tenant_payment_resource_projection.go
 model_tenant_payment_screening_projection.go
 model_tenant_payment_screening_subject_projection.go
 model_tenant_payment_screening_subject_projection_status_enum.go
+model_tracking_status_enum.go
 model_wallet_balance_response.go
 model_wallet_chain_reseed_context.go
 model_wallet_fenced_chain_reseed_context.go
