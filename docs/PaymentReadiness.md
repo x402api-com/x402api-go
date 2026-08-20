@@ -4,6 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**State** | [**PaymentReadinessStateEnum**](PaymentReadinessStateEnum.md) |  | [readonly]
+**AcceptingNewPayments** | **bool** |  | [readonly]
+**PausedByTenant** | **bool** |  | [readonly]
+**PlatformAvailable** | **bool** |  | [readonly]
+**HealthValidUntil** | **time.Time** |  | [readonly]
 **ObservedAt** | **time.Time** |  | [readonly]
 **TenantStatus** | **string** |  | [readonly]
 **TenantAcceptingNewChallenges** | **bool** |  | [readonly]
@@ -13,12 +18,13 @@ Name | Type | Description | Notes
 **ControlPlaneReadyForSettlement** | **bool** |  | [readonly]
 **ExternalOnboarding** | **interface{}** |  | [readonly]
 **Rails** | [**[]PaymentReadinessRail**](PaymentReadinessRail.md) |  | [readonly]
+**CanonicalRails** | [**[]CanonicalPaymentReadinessRail**](CanonicalPaymentReadinessRail.md) |  | [readonly]
 
 ## Methods
 
 ### NewPaymentReadiness
 
-`func NewPaymentReadiness(observedAt time.Time, tenantStatus string, tenantAcceptingNewChallenges bool, globalChallengesEnabled bool, globalSettlementEnabled bool, controlPlaneReadyForNewChallenges bool, controlPlaneReadyForSettlement bool, externalOnboarding interface{}, rails []PaymentReadinessRail, ) *PaymentReadiness`
+`func NewPaymentReadiness(state PaymentReadinessStateEnum, acceptingNewPayments bool, pausedByTenant bool, platformAvailable bool, healthValidUntil time.Time, observedAt time.Time, tenantStatus string, tenantAcceptingNewChallenges bool, globalChallengesEnabled bool, globalSettlementEnabled bool, controlPlaneReadyForNewChallenges bool, controlPlaneReadyForSettlement bool, externalOnboarding interface{}, rails []PaymentReadinessRail, canonicalRails []CanonicalPaymentReadinessRail, ) *PaymentReadiness`
 
 NewPaymentReadiness instantiates a new PaymentReadiness object
 This constructor will assign default values to properties that have it defined,
@@ -32,6 +38,106 @@ will change when the set of required properties is changed
 NewPaymentReadinessWithDefaults instantiates a new PaymentReadiness object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetState
+
+`func (o *PaymentReadiness) GetState() PaymentReadinessStateEnum`
+
+GetState returns the State field if non-nil, zero value otherwise.
+
+### GetStateOk
+
+`func (o *PaymentReadiness) GetStateOk() (*PaymentReadinessStateEnum, bool)`
+
+GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetState
+
+`func (o *PaymentReadiness) SetState(v PaymentReadinessStateEnum)`
+
+SetState sets State field to given value.
+
+
+### GetAcceptingNewPayments
+
+`func (o *PaymentReadiness) GetAcceptingNewPayments() bool`
+
+GetAcceptingNewPayments returns the AcceptingNewPayments field if non-nil, zero value otherwise.
+
+### GetAcceptingNewPaymentsOk
+
+`func (o *PaymentReadiness) GetAcceptingNewPaymentsOk() (*bool, bool)`
+
+GetAcceptingNewPaymentsOk returns a tuple with the AcceptingNewPayments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAcceptingNewPayments
+
+`func (o *PaymentReadiness) SetAcceptingNewPayments(v bool)`
+
+SetAcceptingNewPayments sets AcceptingNewPayments field to given value.
+
+
+### GetPausedByTenant
+
+`func (o *PaymentReadiness) GetPausedByTenant() bool`
+
+GetPausedByTenant returns the PausedByTenant field if non-nil, zero value otherwise.
+
+### GetPausedByTenantOk
+
+`func (o *PaymentReadiness) GetPausedByTenantOk() (*bool, bool)`
+
+GetPausedByTenantOk returns a tuple with the PausedByTenant field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPausedByTenant
+
+`func (o *PaymentReadiness) SetPausedByTenant(v bool)`
+
+SetPausedByTenant sets PausedByTenant field to given value.
+
+
+### GetPlatformAvailable
+
+`func (o *PaymentReadiness) GetPlatformAvailable() bool`
+
+GetPlatformAvailable returns the PlatformAvailable field if non-nil, zero value otherwise.
+
+### GetPlatformAvailableOk
+
+`func (o *PaymentReadiness) GetPlatformAvailableOk() (*bool, bool)`
+
+GetPlatformAvailableOk returns a tuple with the PlatformAvailable field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlatformAvailable
+
+`func (o *PaymentReadiness) SetPlatformAvailable(v bool)`
+
+SetPlatformAvailable sets PlatformAvailable field to given value.
+
+
+### GetHealthValidUntil
+
+`func (o *PaymentReadiness) GetHealthValidUntil() time.Time`
+
+GetHealthValidUntil returns the HealthValidUntil field if non-nil, zero value otherwise.
+
+### GetHealthValidUntilOk
+
+`func (o *PaymentReadiness) GetHealthValidUntilOk() (*time.Time, bool)`
+
+GetHealthValidUntilOk returns a tuple with the HealthValidUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHealthValidUntil
+
+`func (o *PaymentReadiness) SetHealthValidUntil(v time.Time)`
+
+SetHealthValidUntil sets HealthValidUntil field to given value.
+
 
 ### GetObservedAt
 
@@ -221,6 +327,26 @@ and a boolean to check if the value has been set.
 `func (o *PaymentReadiness) SetRails(v []PaymentReadinessRail)`
 
 SetRails sets Rails field to given value.
+
+
+### GetCanonicalRails
+
+`func (o *PaymentReadiness) GetCanonicalRails() []CanonicalPaymentReadinessRail`
+
+GetCanonicalRails returns the CanonicalRails field if non-nil, zero value otherwise.
+
+### GetCanonicalRailsOk
+
+`func (o *PaymentReadiness) GetCanonicalRailsOk() (*[]CanonicalPaymentReadinessRail, bool)`
+
+GetCanonicalRailsOk returns a tuple with the CanonicalRails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanonicalRails
+
+`func (o *PaymentReadiness) SetCanonicalRails(v []CanonicalPaymentReadinessRail)`
+
+SetCanonicalRails sets CanonicalRails field to given value.
 
 
 

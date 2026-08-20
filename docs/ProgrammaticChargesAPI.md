@@ -4,16 +4,16 @@ All URIs are relative to *https://api.x402api.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateDynamicCharge**](ProgrammaticChargesAPI.md#CreateDynamicCharge) | **Post** /v1/charges |
-[**RetrieveDynamicCharge**](ProgrammaticChargesAPI.md#RetrieveDynamicCharge) | **Get** /v1/charges/{charge_id} |
+[**ChargesCreate**](ProgrammaticChargesAPI.md#ChargesCreate) | **Post** /v1/charges | Create a programmatic charge
+[**ChargesRetrieve**](ProgrammaticChargesAPI.md#ChargesRetrieve) | **Get** /v1/charges/{charge_id} | Retrieve a programmatic charge
 
 
 
-## CreateDynamicCharge
+## ChargesCreate
 
-> DynamicChargeResponse CreateDynamicCharge(ctx).IdempotencyKey(idempotencyKey).DynamicChargeCreate(dynamicChargeCreate).Execute()
+> DynamicChargeResponse ChargesCreate(ctx).IdempotencyKey(idempotencyKey).DynamicChargeCreate(dynamicChargeCreate).Execute()
 
-
+Create a programmatic charge
 
 
 
@@ -30,18 +30,18 @@ import (
 )
 
 func main() {
-	idempotencyKey := "idempotencyKey_example" // string | Unique mutation key; replaying different content returns HTTP 409.
+	idempotencyKey := "idempotencyKey_example" // string | Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.
 	dynamicChargeCreate := *openapiclient.NewDynamicChargeCreate("ResourceVersionId_example", "ResourceUrl_example", []openapiclient.DynamicChargePrice{*openapiclient.NewDynamicChargePrice("AssetId_example", "AmountAtomic_example")}, int32(123)) // DynamicChargeCreate |
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProgrammaticChargesAPI.CreateDynamicCharge(context.Background()).IdempotencyKey(idempotencyKey).DynamicChargeCreate(dynamicChargeCreate).Execute()
+	resp, r, err := apiClient.ProgrammaticChargesAPI.ChargesCreate(context.Background()).IdempotencyKey(idempotencyKey).DynamicChargeCreate(dynamicChargeCreate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProgrammaticChargesAPI.CreateDynamicCharge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProgrammaticChargesAPI.ChargesCreate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateDynamicCharge`: DynamicChargeResponse
-	fmt.Fprintf(os.Stdout, "Response from `ProgrammaticChargesAPI.CreateDynamicCharge`: %v\n", resp)
+	// response from `ChargesCreate`: DynamicChargeResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProgrammaticChargesAPI.ChargesCreate`: %v\n", resp)
 }
 ```
 
@@ -51,12 +51,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiCreateDynamicChargeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiChargesCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **idempotencyKey** | **string** | Unique mutation key; replaying different content returns HTTP 409. |
+ **idempotencyKey** | **string** | Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. |
  **dynamicChargeCreate** | [**DynamicChargeCreate**](DynamicChargeCreate.md) |  |
 
 ### Return type
@@ -77,11 +77,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## RetrieveDynamicCharge
+## ChargesRetrieve
 
-> DynamicChargeResponse RetrieveDynamicCharge(ctx, chargeId).Execute()
+> DynamicChargeResponse ChargesRetrieve(ctx, chargeId).Execute()
 
-
+Retrieve a programmatic charge
 
 
 
@@ -102,13 +102,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProgrammaticChargesAPI.RetrieveDynamicCharge(context.Background(), chargeId).Execute()
+	resp, r, err := apiClient.ProgrammaticChargesAPI.ChargesRetrieve(context.Background(), chargeId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ProgrammaticChargesAPI.RetrieveDynamicCharge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ProgrammaticChargesAPI.ChargesRetrieve``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveDynamicCharge`: DynamicChargeResponse
-	fmt.Fprintf(os.Stdout, "Response from `ProgrammaticChargesAPI.RetrieveDynamicCharge`: %v\n", resp)
+	// response from `ChargesRetrieve`: DynamicChargeResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProgrammaticChargesAPI.ChargesRetrieve`: %v\n", resp)
 }
 ```
 
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiRetrieveDynamicChargeRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiChargesRetrieveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

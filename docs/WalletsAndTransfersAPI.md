@@ -4,13 +4,15 @@ All URIs are relative to *https://api.x402api.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**V1WalletsBalancesRetrieve**](WalletsAndTransfersAPI.md#V1WalletsBalancesRetrieve) | **Get** /v1/wallets/{id}/balances |
+[**WalletsRetrieveBalance**](WalletsAndTransfersAPI.md#WalletsRetrieveBalance) | **Get** /v1/wallets/{id}/balances | Retrieve wallet balances
 
 
 
-## V1WalletsBalancesRetrieve
+## WalletsRetrieveBalance
 
-> WalletBalanceResponse V1WalletsBalancesRetrieve(ctx, id).Finality(finality).Execute()
+> WalletBalanceResponse WalletsRetrieveBalance(ctx, id).Finality(finality).Execute()
+
+Retrieve wallet balances
 
 
 
@@ -32,13 +34,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WalletsAndTransfersAPI.V1WalletsBalancesRetrieve(context.Background(), id).Finality(finality).Execute()
+	resp, r, err := apiClient.WalletsAndTransfersAPI.WalletsRetrieveBalance(context.Background(), id).Finality(finality).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAndTransfersAPI.V1WalletsBalancesRetrieve``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `WalletsAndTransfersAPI.WalletsRetrieveBalance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `V1WalletsBalancesRetrieve`: WalletBalanceResponse
-	fmt.Fprintf(os.Stdout, "Response from `WalletsAndTransfersAPI.V1WalletsBalancesRetrieve`: %v\n", resp)
+	// response from `WalletsRetrieveBalance`: WalletBalanceResponse
+	fmt.Fprintf(os.Stdout, "Response from `WalletsAndTransfersAPI.WalletsRetrieveBalance`: %v\n", resp)
 }
 ```
 
@@ -52,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiV1WalletsBalancesRetrieveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiWalletsRetrieveBalanceRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

@@ -4,7 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AssetId** | **string** |  | [readonly]
 **Network** | **string** |  | [readonly]
+**Symbol** | **string** |  | [readonly]
+**Selected** | **bool** |  | [readonly]
+**WalletReady** | **bool** |  | [readonly]
+**PlatformAvailable** | **bool** |  | [readonly]
+**AcceptingNewPayments** | **bool** |  | [readonly]
+**Status** | **string** |  | [readonly]
+**Blockers** | [**[]PaymentReadinessBlocker**](PaymentReadinessBlocker.md) |  | [readonly]
 **TenantChallengesEnabled** | **bool** |  | [readonly]
 **TenantSettlementEnabled** | **bool** |  | [readonly]
 **NetworkAssistanceEnabled** | **bool** |  | [readonly]
@@ -16,7 +24,7 @@ Name | Type | Description | Notes
 
 ### NewPaymentReadinessRail
 
-`func NewPaymentReadinessRail(network string, tenantChallengesEnabled bool, tenantSettlementEnabled bool, networkAssistanceEnabled bool, challengeControlReady bool, settlementControlReady bool, assets []PaymentReadinessAsset, ) *PaymentReadinessRail`
+`func NewPaymentReadinessRail(assetId string, network string, symbol string, selected bool, walletReady bool, platformAvailable bool, acceptingNewPayments bool, status string, blockers []PaymentReadinessBlocker, tenantChallengesEnabled bool, tenantSettlementEnabled bool, networkAssistanceEnabled bool, challengeControlReady bool, settlementControlReady bool, assets []PaymentReadinessAsset, ) *PaymentReadinessRail`
 
 NewPaymentReadinessRail instantiates a new PaymentReadinessRail object
 This constructor will assign default values to properties that have it defined,
@@ -30,6 +38,26 @@ will change when the set of required properties is changed
 NewPaymentReadinessRailWithDefaults instantiates a new PaymentReadinessRail object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAssetId
+
+`func (o *PaymentReadinessRail) GetAssetId() string`
+
+GetAssetId returns the AssetId field if non-nil, zero value otherwise.
+
+### GetAssetIdOk
+
+`func (o *PaymentReadinessRail) GetAssetIdOk() (*string, bool)`
+
+GetAssetIdOk returns a tuple with the AssetId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssetId
+
+`func (o *PaymentReadinessRail) SetAssetId(v string)`
+
+SetAssetId sets AssetId field to given value.
+
 
 ### GetNetwork
 
@@ -49,6 +77,146 @@ and a boolean to check if the value has been set.
 `func (o *PaymentReadinessRail) SetNetwork(v string)`
 
 SetNetwork sets Network field to given value.
+
+
+### GetSymbol
+
+`func (o *PaymentReadinessRail) GetSymbol() string`
+
+GetSymbol returns the Symbol field if non-nil, zero value otherwise.
+
+### GetSymbolOk
+
+`func (o *PaymentReadinessRail) GetSymbolOk() (*string, bool)`
+
+GetSymbolOk returns a tuple with the Symbol field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSymbol
+
+`func (o *PaymentReadinessRail) SetSymbol(v string)`
+
+SetSymbol sets Symbol field to given value.
+
+
+### GetSelected
+
+`func (o *PaymentReadinessRail) GetSelected() bool`
+
+GetSelected returns the Selected field if non-nil, zero value otherwise.
+
+### GetSelectedOk
+
+`func (o *PaymentReadinessRail) GetSelectedOk() (*bool, bool)`
+
+GetSelectedOk returns a tuple with the Selected field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelected
+
+`func (o *PaymentReadinessRail) SetSelected(v bool)`
+
+SetSelected sets Selected field to given value.
+
+
+### GetWalletReady
+
+`func (o *PaymentReadinessRail) GetWalletReady() bool`
+
+GetWalletReady returns the WalletReady field if non-nil, zero value otherwise.
+
+### GetWalletReadyOk
+
+`func (o *PaymentReadinessRail) GetWalletReadyOk() (*bool, bool)`
+
+GetWalletReadyOk returns a tuple with the WalletReady field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWalletReady
+
+`func (o *PaymentReadinessRail) SetWalletReady(v bool)`
+
+SetWalletReady sets WalletReady field to given value.
+
+
+### GetPlatformAvailable
+
+`func (o *PaymentReadinessRail) GetPlatformAvailable() bool`
+
+GetPlatformAvailable returns the PlatformAvailable field if non-nil, zero value otherwise.
+
+### GetPlatformAvailableOk
+
+`func (o *PaymentReadinessRail) GetPlatformAvailableOk() (*bool, bool)`
+
+GetPlatformAvailableOk returns a tuple with the PlatformAvailable field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlatformAvailable
+
+`func (o *PaymentReadinessRail) SetPlatformAvailable(v bool)`
+
+SetPlatformAvailable sets PlatformAvailable field to given value.
+
+
+### GetAcceptingNewPayments
+
+`func (o *PaymentReadinessRail) GetAcceptingNewPayments() bool`
+
+GetAcceptingNewPayments returns the AcceptingNewPayments field if non-nil, zero value otherwise.
+
+### GetAcceptingNewPaymentsOk
+
+`func (o *PaymentReadinessRail) GetAcceptingNewPaymentsOk() (*bool, bool)`
+
+GetAcceptingNewPaymentsOk returns a tuple with the AcceptingNewPayments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAcceptingNewPayments
+
+`func (o *PaymentReadinessRail) SetAcceptingNewPayments(v bool)`
+
+SetAcceptingNewPayments sets AcceptingNewPayments field to given value.
+
+
+### GetStatus
+
+`func (o *PaymentReadinessRail) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *PaymentReadinessRail) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *PaymentReadinessRail) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+
+### GetBlockers
+
+`func (o *PaymentReadinessRail) GetBlockers() []PaymentReadinessBlocker`
+
+GetBlockers returns the Blockers field if non-nil, zero value otherwise.
+
+### GetBlockersOk
+
+`func (o *PaymentReadinessRail) GetBlockersOk() (*[]PaymentReadinessBlocker, bool)`
+
+GetBlockersOk returns a tuple with the Blockers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBlockers
+
+`func (o *PaymentReadinessRail) SetBlockers(v []PaymentReadinessBlocker)`
+
+SetBlockers sets Blockers field to given value.
 
 
 ### GetTenantChallengesEnabled

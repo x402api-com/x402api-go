@@ -4,13 +4,15 @@ All URIs are relative to *https://api.x402api.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**FacilitatorSupportedRetrieve**](FacilitatorDiscoveryAPI.md#FacilitatorSupportedRetrieve) | **Get** /v1/facilitator/supported |
+[**FacilitatorGetSupported**](FacilitatorDiscoveryAPI.md#FacilitatorGetSupported) | **Get** /v1/facilitator/supported | Get supported facilitator profiles
 
 
 
-## FacilitatorSupportedRetrieve
+## FacilitatorGetSupported
 
-> SupportedResponse FacilitatorSupportedRetrieve(ctx).Execute()
+> SupportedResponse FacilitatorGetSupported(ctx).Execute()
+
+Get supported facilitator profiles
 
 
 
@@ -30,13 +32,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FacilitatorDiscoveryAPI.FacilitatorSupportedRetrieve(context.Background()).Execute()
+	resp, r, err := apiClient.FacilitatorDiscoveryAPI.FacilitatorGetSupported(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FacilitatorDiscoveryAPI.FacilitatorSupportedRetrieve``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `FacilitatorDiscoveryAPI.FacilitatorGetSupported``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `FacilitatorSupportedRetrieve`: SupportedResponse
-	fmt.Fprintf(os.Stdout, "Response from `FacilitatorDiscoveryAPI.FacilitatorSupportedRetrieve`: %v\n", resp)
+	// response from `FacilitatorGetSupported`: SupportedResponse
+	fmt.Fprintf(os.Stdout, "Response from `FacilitatorDiscoveryAPI.FacilitatorGetSupported`: %v\n", resp)
 }
 ```
 
@@ -46,7 +48,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiFacilitatorSupportedRetrieveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiFacilitatorGetSupportedRequest struct via the builder pattern
 
 
 ### Return type

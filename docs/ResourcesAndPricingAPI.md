@@ -4,19 +4,21 @@ All URIs are relative to *https://api.x402api.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**V1NetworkFeeQuotesCreate**](ResourcesAndPricingAPI.md#V1NetworkFeeQuotesCreate) | **Post** /v1/network-fee-quotes |
-[**V1ResourcesCreate**](ResourcesAndPricingAPI.md#V1ResourcesCreate) | **Post** /v1/resources |
-[**V1ResourcesList**](ResourcesAndPricingAPI.md#V1ResourcesList) | **Get** /v1/resources |
-[**V1ResourcesVersionsActivateCreate**](ResourcesAndPricingAPI.md#V1ResourcesVersionsActivateCreate) | **Post** /v1/resources/{resource_id}/versions/{version_id}/activate |
-[**V1ResourcesVersionsCreate**](ResourcesAndPricingAPI.md#V1ResourcesVersionsCreate) | **Post** /v1/resources/{resource_id}/versions |
-[**V1ResourcesVersionsList**](ResourcesAndPricingAPI.md#V1ResourcesVersionsList) | **Get** /v1/resources/{resource_id}/versions |
-[**V1ResourcesVersionsRetireCreate**](ResourcesAndPricingAPI.md#V1ResourcesVersionsRetireCreate) | **Post** /v1/resources/{resource_id}/versions/{version_id}/retire |
+[**NetworkFeesCreateQuote**](ResourcesAndPricingAPI.md#NetworkFeesCreateQuote) | **Post** /v1/network-fee-quotes | Create a network-fee quote
+[**ResourcesActivateVersion**](ResourcesAndPricingAPI.md#ResourcesActivateVersion) | **Post** /v1/resources/{resource_id}/versions/{version_id}/activate | Activate a resource version
+[**ResourcesCreate**](ResourcesAndPricingAPI.md#ResourcesCreate) | **Post** /v1/resources | Create a resource
+[**ResourcesCreateVersion**](ResourcesAndPricingAPI.md#ResourcesCreateVersion) | **Post** /v1/resources/{resource_id}/versions | Create a resource version
+[**ResourcesList**](ResourcesAndPricingAPI.md#ResourcesList) | **Get** /v1/resources | List resources
+[**ResourcesListVersions**](ResourcesAndPricingAPI.md#ResourcesListVersions) | **Get** /v1/resources/{resource_id}/versions | List resource versions
+[**ResourcesRetireVersion**](ResourcesAndPricingAPI.md#ResourcesRetireVersion) | **Post** /v1/resources/{resource_id}/versions/{version_id}/retire | Retire a resource version
 
 
 
-## V1NetworkFeeQuotesCreate
+## NetworkFeesCreateQuote
 
-> NetworkFeePreviewResponse V1NetworkFeeQuotesCreate(ctx).NetworkFeePreview(networkFeePreview).Execute()
+> NetworkFeePreviewResponse NetworkFeesCreateQuote(ctx).NetworkFeePreview(networkFeePreview).Execute()
+
+Create a network-fee quote
 
 
 
@@ -37,13 +39,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResourcesAndPricingAPI.V1NetworkFeeQuotesCreate(context.Background()).NetworkFeePreview(networkFeePreview).Execute()
+	resp, r, err := apiClient.ResourcesAndPricingAPI.NetworkFeesCreateQuote(context.Background()).NetworkFeePreview(networkFeePreview).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.V1NetworkFeeQuotesCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.NetworkFeesCreateQuote``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `V1NetworkFeeQuotesCreate`: NetworkFeePreviewResponse
-	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.V1NetworkFeeQuotesCreate`: %v\n", resp)
+	// response from `NetworkFeesCreateQuote`: NetworkFeePreviewResponse
+	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.NetworkFeesCreateQuote`: %v\n", resp)
 }
 ```
 
@@ -53,7 +55,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiV1NetworkFeeQuotesCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiNetworkFeesCreateQuoteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -78,9 +80,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## V1ResourcesCreate
+## ResourcesActivateVersion
 
-> Resource V1ResourcesCreate(ctx).IdempotencyKey(idempotencyKey).ResourceCreate(resourceCreate).Execute()
+> ResourceVersion ResourcesActivateVersion(ctx, resourceId, versionId).IdempotencyKey(idempotencyKey).ResourceVersionActivate(resourceVersionActivate).Execute()
+
+Activate a resource version
 
 
 
@@ -97,18 +101,95 @@ import (
 )
 
 func main() {
-	idempotencyKey := "idempotencyKey_example" // string | Unique mutation key; replaying different content returns HTTP 409.
+	idempotencyKey := "idempotencyKey_example" // string | Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.
+	resourceId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |
+	versionId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |
+	resourceVersionActivate := *openapiclient.NewResourceVersionActivate(int32(123), "ExpectedActiveVersionId_example") // ResourceVersionActivate |
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourcesAndPricingAPI.ResourcesActivateVersion(context.Background(), resourceId, versionId).IdempotencyKey(idempotencyKey).ResourceVersionActivate(resourceVersionActivate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.ResourcesActivateVersion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ResourcesActivateVersion`: ResourceVersion
+	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.ResourcesActivateVersion`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**resourceId** | **string** |  |
+**versionId** | **string** |  |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiResourcesActivateVersionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **idempotencyKey** | **string** | Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. |
+
+
+ **resourceVersionActivate** | [**ResourceVersionActivate**](ResourceVersionActivate.md) |  |
+
+### Return type
+
+[**ResourceVersion**](ResourceVersion.md)
+
+### Authorization
+
+[tenantApiKey](../README.md#tenantApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ResourcesCreate
+
+> Resource ResourcesCreate(ctx).IdempotencyKey(idempotencyKey).ResourceCreate(resourceCreate).Execute()
+
+Create a resource
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/x402api-com/x402api-go"
+)
+
+func main() {
+	idempotencyKey := "idempotencyKey_example" // string | Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.
 	resourceCreate := *openapiclient.NewResourceCreate("Key_example", "Name_example", openapiclient.HTTPMethodEnum("GET"), "Path_example", "Description_example", openapiclient.ResourceInputFulfillmentModeEnum("webhook"), []openapiclient.PriceInput{*openapiclient.NewPriceInput("AssetId_example", "WalletVersionId_example", "AmountAtomic_example", int32(123))}) // ResourceCreate |
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResourcesAndPricingAPI.V1ResourcesCreate(context.Background()).IdempotencyKey(idempotencyKey).ResourceCreate(resourceCreate).Execute()
+	resp, r, err := apiClient.ResourcesAndPricingAPI.ResourcesCreate(context.Background()).IdempotencyKey(idempotencyKey).ResourceCreate(resourceCreate).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.V1ResourcesCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.ResourcesCreate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `V1ResourcesCreate`: Resource
-	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.V1ResourcesCreate`: %v\n", resp)
+	// response from `ResourcesCreate`: Resource
+	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.ResourcesCreate`: %v\n", resp)
 }
 ```
 
@@ -118,12 +199,12 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiV1ResourcesCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiResourcesCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **idempotencyKey** | **string** | Unique mutation key; replaying different content returns HTTP 409. |
+ **idempotencyKey** | **string** | Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. |
  **resourceCreate** | [**ResourceCreate**](ResourceCreate.md) |  |
 
 ### Return type
@@ -144,9 +225,85 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## V1ResourcesList
+## ResourcesCreateVersion
 
-> []Resource V1ResourcesList(ctx).Cursor(cursor).PageSize(pageSize).Execute()
+> ResourceVersion ResourcesCreateVersion(ctx, resourceId).IdempotencyKey(idempotencyKey).ResourceVersionCreate(resourceVersionCreate).Execute()
+
+Create a resource version
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/x402api-com/x402api-go"
+)
+
+func main() {
+	idempotencyKey := "idempotencyKey_example" // string | Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.
+	resourceId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |
+	resourceVersionCreate := *openapiclient.NewResourceVersionCreate(int32(123), openapiclient.HTTPMethodEnum("GET"), "Path_example", "Description_example", openapiclient.ResourceInputFulfillmentModeEnum("webhook"), []openapiclient.PriceInput{*openapiclient.NewPriceInput("AssetId_example", "WalletVersionId_example", "AmountAtomic_example", int32(123))}) // ResourceVersionCreate |
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourcesAndPricingAPI.ResourcesCreateVersion(context.Background(), resourceId).IdempotencyKey(idempotencyKey).ResourceVersionCreate(resourceVersionCreate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.ResourcesCreateVersion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ResourcesCreateVersion`: ResourceVersion
+	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.ResourcesCreateVersion`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**resourceId** | **string** |  |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiResourcesCreateVersionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **idempotencyKey** | **string** | Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. |
+
+ **resourceVersionCreate** | [**ResourceVersionCreate**](ResourceVersionCreate.md) |  |
+
+### Return type
+
+[**ResourceVersion**](ResourceVersion.md)
+
+### Authorization
+
+[tenantApiKey](../README.md#tenantApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ResourcesList
+
+> []Resource ResourcesList(ctx).Cursor(cursor).PageSize(pageSize).Execute()
+
+List resources
 
 
 
@@ -168,13 +325,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResourcesAndPricingAPI.V1ResourcesList(context.Background()).Cursor(cursor).PageSize(pageSize).Execute()
+	resp, r, err := apiClient.ResourcesAndPricingAPI.ResourcesList(context.Background()).Cursor(cursor).PageSize(pageSize).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.V1ResourcesList``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.ResourcesList``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `V1ResourcesList`: []Resource
-	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.V1ResourcesList`: %v\n", resp)
+	// response from `ResourcesList`: []Resource
+	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.ResourcesList`: %v\n", resp)
 }
 ```
 
@@ -184,7 +341,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiV1ResourcesListRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiResourcesListRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -210,156 +367,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## V1ResourcesVersionsActivateCreate
+## ResourcesListVersions
 
-> ResourceVersion V1ResourcesVersionsActivateCreate(ctx, resourceId, versionId).IdempotencyKey(idempotencyKey).ResourceVersionActivate(resourceVersionActivate).Execute()
+> []ResourceVersion ResourcesListVersions(ctx, resourceId).Cursor(cursor).PageSize(pageSize).Execute()
 
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/x402api-com/x402api-go"
-)
-
-func main() {
-	idempotencyKey := "idempotencyKey_example" // string | Unique mutation key; replaying different content returns HTTP 409.
-	resourceId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |
-	versionId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |
-	resourceVersionActivate := *openapiclient.NewResourceVersionActivate(int32(123), "ExpectedActiveVersionId_example") // ResourceVersionActivate |
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResourcesAndPricingAPI.V1ResourcesVersionsActivateCreate(context.Background(), resourceId, versionId).IdempotencyKey(idempotencyKey).ResourceVersionActivate(resourceVersionActivate).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.V1ResourcesVersionsActivateCreate``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `V1ResourcesVersionsActivateCreate`: ResourceVersion
-	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.V1ResourcesVersionsActivateCreate`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** |  |
-**versionId** | **string** |  |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiV1ResourcesVersionsActivateCreateRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **idempotencyKey** | **string** | Unique mutation key; replaying different content returns HTTP 409. |
-
-
- **resourceVersionActivate** | [**ResourceVersionActivate**](ResourceVersionActivate.md) |  |
-
-### Return type
-
-[**ResourceVersion**](ResourceVersion.md)
-
-### Authorization
-
-[tenantApiKey](../README.md#tenantApiKey)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## V1ResourcesVersionsCreate
-
-> ResourceVersion V1ResourcesVersionsCreate(ctx, resourceId).IdempotencyKey(idempotencyKey).ResourceVersionCreate(resourceVersionCreate).Execute()
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/x402api-com/x402api-go"
-)
-
-func main() {
-	idempotencyKey := "idempotencyKey_example" // string | Unique mutation key; replaying different content returns HTTP 409.
-	resourceId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |
-	resourceVersionCreate := *openapiclient.NewResourceVersionCreate(int32(123), openapiclient.HTTPMethodEnum("GET"), "Path_example", "Description_example", openapiclient.ResourceInputFulfillmentModeEnum("webhook"), []openapiclient.PriceInput{*openapiclient.NewPriceInput("AssetId_example", "WalletVersionId_example", "AmountAtomic_example", int32(123))}) // ResourceVersionCreate |
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResourcesAndPricingAPI.V1ResourcesVersionsCreate(context.Background(), resourceId).IdempotencyKey(idempotencyKey).ResourceVersionCreate(resourceVersionCreate).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.V1ResourcesVersionsCreate``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `V1ResourcesVersionsCreate`: ResourceVersion
-	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.V1ResourcesVersionsCreate`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** |  |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiV1ResourcesVersionsCreateRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **idempotencyKey** | **string** | Unique mutation key; replaying different content returns HTTP 409. |
-
- **resourceVersionCreate** | [**ResourceVersionCreate**](ResourceVersionCreate.md) |  |
-
-### Return type
-
-[**ResourceVersion**](ResourceVersion.md)
-
-### Authorization
-
-[tenantApiKey](../README.md#tenantApiKey)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## V1ResourcesVersionsList
-
-> []ResourceVersion V1ResourcesVersionsList(ctx, resourceId).Cursor(cursor).PageSize(pageSize).Execute()
+List resource versions
 
 
 
@@ -382,13 +394,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResourcesAndPricingAPI.V1ResourcesVersionsList(context.Background(), resourceId).Cursor(cursor).PageSize(pageSize).Execute()
+	resp, r, err := apiClient.ResourcesAndPricingAPI.ResourcesListVersions(context.Background(), resourceId).Cursor(cursor).PageSize(pageSize).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.V1ResourcesVersionsList``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.ResourcesListVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `V1ResourcesVersionsList`: []ResourceVersion
-	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.V1ResourcesVersionsList`: %v\n", resp)
+	// response from `ResourcesListVersions`: []ResourceVersion
+	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.ResourcesListVersions`: %v\n", resp)
 }
 ```
 
@@ -402,7 +414,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiV1ResourcesVersionsListRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiResourcesListVersionsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -429,9 +441,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## V1ResourcesVersionsRetireCreate
+## ResourcesRetireVersion
 
-> ResourceVersion V1ResourcesVersionsRetireCreate(ctx, resourceId, versionId).IdempotencyKey(idempotencyKey).ResourceVersionRetire(resourceVersionRetire).Execute()
+> ResourceVersion ResourcesRetireVersion(ctx, resourceId, versionId).IdempotencyKey(idempotencyKey).ResourceVersionRetire(resourceVersionRetire).Execute()
+
+Retire a resource version
 
 
 
@@ -448,20 +462,20 @@ import (
 )
 
 func main() {
-	idempotencyKey := "idempotencyKey_example" // string | Unique mutation key; replaying different content returns HTTP 409.
+	idempotencyKey := "idempotencyKey_example" // string | Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.
 	resourceId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |
 	versionId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string |
 	resourceVersionRetire := *openapiclient.NewResourceVersionRetire(int32(123), openapiclient.ResourceVersionRetireExpectedStateEnum("draft")) // ResourceVersionRetire |
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ResourcesAndPricingAPI.V1ResourcesVersionsRetireCreate(context.Background(), resourceId, versionId).IdempotencyKey(idempotencyKey).ResourceVersionRetire(resourceVersionRetire).Execute()
+	resp, r, err := apiClient.ResourcesAndPricingAPI.ResourcesRetireVersion(context.Background(), resourceId, versionId).IdempotencyKey(idempotencyKey).ResourceVersionRetire(resourceVersionRetire).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.V1ResourcesVersionsRetireCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourcesAndPricingAPI.ResourcesRetireVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `V1ResourcesVersionsRetireCreate`: ResourceVersion
-	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.V1ResourcesVersionsRetireCreate`: %v\n", resp)
+	// response from `ResourcesRetireVersion`: ResourceVersion
+	fmt.Fprintf(os.Stdout, "Response from `ResourcesAndPricingAPI.ResourcesRetireVersion`: %v\n", resp)
 }
 ```
 
@@ -476,12 +490,12 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiV1ResourcesVersionsRetireCreateRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiResourcesRetireVersionRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **idempotencyKey** | **string** | Unique mutation key; replaying different content returns HTTP 409. |
+ **idempotencyKey** | **string** | Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome. |
 
 
  **resourceVersionRetire** | [**ResourceVersionRetire**](ResourceVersionRetire.md) |  |

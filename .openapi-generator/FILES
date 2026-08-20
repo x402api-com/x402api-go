@@ -9,8 +9,11 @@ api_resources_and_pricing.go
 api_wallets_and_transfers.go
 client.go
 configuration.go
+docs/ApiError.md
+docs/ApiErrorEnvelope.md
 docs/AssetsAndPaymentControlsAPI.md
 docs/BalanceAsset.md
+docs/CanonicalPaymentReadinessRail.md
 docs/DynamicChargeCreate.md
 docs/DynamicChargePrice.md
 docs/DynamicChargeResponse.md
@@ -46,7 +49,11 @@ docs/OrderStatusEnum.md
 docs/OrdersAndPaymentsAPI.md
 docs/PaymentReadiness.md
 docs/PaymentReadinessAsset.md
+docs/PaymentReadinessBlocker.md
+docs/PaymentReadinessBlockerOwnerEnum.md
 docs/PaymentReadinessRail.md
+docs/PaymentReadinessRailStatusEnum.md
+docs/PaymentReadinessStateEnum.md
 docs/PaymentReceipt.md
 docs/PriceInput.md
 docs/ProgrammaticChargesAPI.md
@@ -99,7 +106,10 @@ docs/WalletVersionStateEnum.md
 docs/WalletsAndTransfersAPI.md
 go.mod
 go.sum
+model_api_error.go
+model_api_error_envelope.go
 model_balance_asset.go
+model_canonical_payment_readiness_rail.go
 model_dynamic_charge_create.go
 model_dynamic_charge_price.go
 model_dynamic_charge_response.go
@@ -132,7 +142,11 @@ model_order.go
 model_order_status_enum.go
 model_payment_readiness.go
 model_payment_readiness_asset.go
+model_payment_readiness_blocker.go
+model_payment_readiness_blocker_owner_enum.go
 model_payment_readiness_rail.go
+model_payment_readiness_rail_status_enum.go
+model_payment_readiness_state_enum.go
 model_payment_receipt.go
 model_price_input.go
 model_readiness_status_enum.go

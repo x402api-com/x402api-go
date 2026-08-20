@@ -4,13 +4,15 @@ All URIs are relative to *https://api.x402api.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**V1IdempotencyOutcomesRetrieve**](IdempotencyAPI.md#V1IdempotencyOutcomesRetrieve) | **Get** /v1/idempotency-outcomes/{idempotency_key} |
+[**IdempotencyGetOutcome**](IdempotencyAPI.md#IdempotencyGetOutcome) | **Get** /v1/idempotency-outcomes/{idempotency_key} | Get an idempotency outcome
 
 
 
-## V1IdempotencyOutcomesRetrieve
+## IdempotencyGetOutcome
 
-> IdempotencyOutcome V1IdempotencyOutcomesRetrieve(ctx, idempotencyKey).Execute()
+> IdempotencyOutcome IdempotencyGetOutcome(ctx, idempotencyKey).Execute()
+
+Get an idempotency outcome
 
 
 
@@ -31,13 +33,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdempotencyAPI.V1IdempotencyOutcomesRetrieve(context.Background(), idempotencyKey).Execute()
+	resp, r, err := apiClient.IdempotencyAPI.IdempotencyGetOutcome(context.Background(), idempotencyKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdempotencyAPI.V1IdempotencyOutcomesRetrieve``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `IdempotencyAPI.IdempotencyGetOutcome``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `V1IdempotencyOutcomesRetrieve`: IdempotencyOutcome
-	fmt.Fprintf(os.Stdout, "Response from `IdempotencyAPI.V1IdempotencyOutcomesRetrieve`: %v\n", resp)
+	// response from `IdempotencyGetOutcome`: IdempotencyOutcome
+	fmt.Fprintf(os.Stdout, "Response from `IdempotencyAPI.IdempotencyGetOutcome`: %v\n", resp)
 }
 ```
 
@@ -51,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiV1IdempotencyOutcomesRetrieveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiIdempotencyGetOutcomeRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
