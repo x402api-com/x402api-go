@@ -35,6 +35,9 @@ type NetworkFeeAlternative struct {
 	NativeDecimals NullableInt32 `json:"nativeDecimals"`
 	NativeUsdQuoteMicros NullableString `json:"nativeUsdQuoteMicros" validate:"regexp=^[1-9][0-9]*$"`
 	EstimatedFeeQuoteMicros NullableString `json:"estimatedFeeQuoteMicros" validate:"regexp=^(0|[1-9][0-9]*)$"`
+	GasMode GasModeEnum `json:"gasMode"`
+	BuyerNativeFeeAtomic NullableString `json:"buyerNativeFeeAtomic" validate:"regexp=^(0|[1-9][0-9]*)$"`
+	MaximumTenantGasReservationMicros string `json:"maximumTenantGasReservationMicros" validate:"regexp=^(0|[1-9][0-9]*)$"`
 	ProviderDisagreementBps NullableInt32 `json:"providerDisagreementBps"`
 	FeeAllowanceQuoteMicros string `json:"feeAllowanceQuoteMicros" validate:"regexp=^(0|[1-9][0-9]*)$"`
 	FeeAllowanceAtomic string `json:"feeAllowanceAtomic" validate:"regexp=^(0|[1-9][0-9]*)$"`
@@ -54,7 +57,7 @@ type _NetworkFeeAlternative NetworkFeeAlternative
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNetworkFeeAlternative(type_ string, version int32, network string, assetId string, contractAddress string, feeMode FeePolicyModeInputEnum, quoteCurrency FeePolicyQuoteCurrencyInputEnum, listedAmountAtomic string, feeAllowanceCapQuoteMicros string, estimatedNativeFeeAtomic NullableString, nativeSymbol NullableString, nativeDecimals NullableInt32, nativeUsdQuoteMicros NullableString, estimatedFeeQuoteMicros NullableString, providerDisagreementBps NullableInt32, feeAllowanceQuoteMicros string, feeAllowanceAtomic string, buyerPaymentAtomic string, tenantProceedsAtomic string, quoteExpiresAt NullableTime, feeEvidence NetworkFeeEvidence, feeEvidenceDigest string, eligible bool, exclusionReason NullableString) *NetworkFeeAlternative {
+func NewNetworkFeeAlternative(type_ string, version int32, network string, assetId string, contractAddress string, feeMode FeePolicyModeInputEnum, quoteCurrency FeePolicyQuoteCurrencyInputEnum, listedAmountAtomic string, feeAllowanceCapQuoteMicros string, estimatedNativeFeeAtomic NullableString, nativeSymbol NullableString, nativeDecimals NullableInt32, nativeUsdQuoteMicros NullableString, estimatedFeeQuoteMicros NullableString, gasMode GasModeEnum, buyerNativeFeeAtomic NullableString, maximumTenantGasReservationMicros string, providerDisagreementBps NullableInt32, feeAllowanceQuoteMicros string, feeAllowanceAtomic string, buyerPaymentAtomic string, tenantProceedsAtomic string, quoteExpiresAt NullableTime, feeEvidence NetworkFeeEvidence, feeEvidenceDigest string, eligible bool, exclusionReason NullableString) *NetworkFeeAlternative {
 	this := NetworkFeeAlternative{}
 	this.Type = type_
 	this.Version = version
@@ -70,6 +73,9 @@ func NewNetworkFeeAlternative(type_ string, version int32, network string, asset
 	this.NativeDecimals = nativeDecimals
 	this.NativeUsdQuoteMicros = nativeUsdQuoteMicros
 	this.EstimatedFeeQuoteMicros = estimatedFeeQuoteMicros
+	this.GasMode = gasMode
+	this.BuyerNativeFeeAtomic = buyerNativeFeeAtomic
+	this.MaximumTenantGasReservationMicros = maximumTenantGasReservationMicros
 	this.ProviderDisagreementBps = providerDisagreementBps
 	this.FeeAllowanceQuoteMicros = feeAllowanceQuoteMicros
 	this.FeeAllowanceAtomic = feeAllowanceAtomic
@@ -437,6 +443,80 @@ func (o *NetworkFeeAlternative) SetEstimatedFeeQuoteMicros(v string) {
 	o.EstimatedFeeQuoteMicros.Set(&v)
 }
 
+// GetGasMode returns the GasMode field value
+func (o *NetworkFeeAlternative) GetGasMode() GasModeEnum {
+	if o == nil {
+		var ret GasModeEnum
+		return ret
+	}
+
+	return o.GasMode
+}
+
+// GetGasModeOk returns a tuple with the GasMode field value
+// and a boolean to check if the value has been set.
+func (o *NetworkFeeAlternative) GetGasModeOk() (*GasModeEnum, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.GasMode, true
+}
+
+// SetGasMode sets field value
+func (o *NetworkFeeAlternative) SetGasMode(v GasModeEnum) {
+	o.GasMode = v
+}
+
+// GetBuyerNativeFeeAtomic returns the BuyerNativeFeeAtomic field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *NetworkFeeAlternative) GetBuyerNativeFeeAtomic() string {
+	if o == nil || o.BuyerNativeFeeAtomic.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.BuyerNativeFeeAtomic.Get()
+}
+
+// GetBuyerNativeFeeAtomicOk returns a tuple with the BuyerNativeFeeAtomic field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NetworkFeeAlternative) GetBuyerNativeFeeAtomicOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BuyerNativeFeeAtomic.Get(), o.BuyerNativeFeeAtomic.IsSet()
+}
+
+// SetBuyerNativeFeeAtomic sets field value
+func (o *NetworkFeeAlternative) SetBuyerNativeFeeAtomic(v string) {
+	o.BuyerNativeFeeAtomic.Set(&v)
+}
+
+// GetMaximumTenantGasReservationMicros returns the MaximumTenantGasReservationMicros field value
+func (o *NetworkFeeAlternative) GetMaximumTenantGasReservationMicros() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.MaximumTenantGasReservationMicros
+}
+
+// GetMaximumTenantGasReservationMicrosOk returns a tuple with the MaximumTenantGasReservationMicros field value
+// and a boolean to check if the value has been set.
+func (o *NetworkFeeAlternative) GetMaximumTenantGasReservationMicrosOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MaximumTenantGasReservationMicros, true
+}
+
+// SetMaximumTenantGasReservationMicros sets field value
+func (o *NetworkFeeAlternative) SetMaximumTenantGasReservationMicros(v string) {
+	o.MaximumTenantGasReservationMicros = v
+}
+
 // GetProviderDisagreementBps returns the ProviderDisagreementBps field value
 // If the value is explicit nil, the zero value for int32 will be returned
 func (o *NetworkFeeAlternative) GetProviderDisagreementBps() int32 {
@@ -707,6 +787,9 @@ func (o NetworkFeeAlternative) ToMap() (map[string]interface{}, error) {
 	toSerialize["nativeDecimals"] = o.NativeDecimals.Get()
 	toSerialize["nativeUsdQuoteMicros"] = o.NativeUsdQuoteMicros.Get()
 	toSerialize["estimatedFeeQuoteMicros"] = o.EstimatedFeeQuoteMicros.Get()
+	toSerialize["gasMode"] = o.GasMode
+	toSerialize["buyerNativeFeeAtomic"] = o.BuyerNativeFeeAtomic.Get()
+	toSerialize["maximumTenantGasReservationMicros"] = o.MaximumTenantGasReservationMicros
 	toSerialize["providerDisagreementBps"] = o.ProviderDisagreementBps.Get()
 	toSerialize["feeAllowanceQuoteMicros"] = o.FeeAllowanceQuoteMicros
 	toSerialize["feeAllowanceAtomic"] = o.FeeAllowanceAtomic
@@ -744,6 +827,9 @@ func (o *NetworkFeeAlternative) UnmarshalJSON(data []byte) (err error) {
 		"nativeDecimals",
 		"nativeUsdQuoteMicros",
 		"estimatedFeeQuoteMicros",
+		"gasMode",
+		"buyerNativeFeeAtomic",
+		"maximumTenantGasReservationMicros",
 		"providerDisagreementBps",
 		"feeAllowanceQuoteMicros",
 		"feeAllowanceAtomic",
@@ -797,6 +883,9 @@ func (o *NetworkFeeAlternative) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "nativeDecimals")
 		delete(additionalProperties, "nativeUsdQuoteMicros")
 		delete(additionalProperties, "estimatedFeeQuoteMicros")
+		delete(additionalProperties, "gasMode")
+		delete(additionalProperties, "buyerNativeFeeAtomic")
+		delete(additionalProperties, "maximumTenantGasReservationMicros")
 		delete(additionalProperties, "providerDisagreementBps")
 		delete(additionalProperties, "feeAllowanceQuoteMicros")
 		delete(additionalProperties, "feeAllowanceAtomic")

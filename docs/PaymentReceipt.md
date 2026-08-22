@@ -17,13 +17,19 @@ Name | Type | Description | Notes
 **FeeQuoteDigest** | **NullableString** |  | [readonly]
 **FeeQuoteExpiresAt** | **NullableTime** |  | [readonly]
 **SettlementAmountAtomic** | **string** |  | [readonly]
+**GasMode** | **string** |  | [readonly]
+**BuyerNativeFeeAtomic** | **NullableString** |  | [readonly]
+**SponsoredNativeFeeAtomic** | **NullableString** |  | [readonly]
+**SponsoredNativeSymbol** | **NullableString** |  | [readonly]
+**TenantGasChargeMicros** | **NullableString** |  | [readonly]
+**GasSponsorshipEvidenceDigest** | **NullableString** |  | [readonly]
 **CreatedAt** | **time.Time** |  | [readonly]
 
 ## Methods
 
 ### NewPaymentReceipt
 
-`func NewPaymentReceipt(id string, orderId string, settlementJobId string, receipt interface{}, receiptDigest string, signature string, signingKeyVersion string, eligibleAlternatives []NetworkFeeAlternative, feePolicy NullableFeePolicyDocument, feeEvidence NullableNetworkFeeEvidence, feeQuoteDigest NullableString, feeQuoteExpiresAt NullableTime, settlementAmountAtomic string, createdAt time.Time, ) *PaymentReceipt`
+`func NewPaymentReceipt(id string, orderId string, settlementJobId string, receipt interface{}, receiptDigest string, signature string, signingKeyVersion string, eligibleAlternatives []NetworkFeeAlternative, feePolicy NullableFeePolicyDocument, feeEvidence NullableNetworkFeeEvidence, feeQuoteDigest NullableString, feeQuoteExpiresAt NullableTime, settlementAmountAtomic string, gasMode string, buyerNativeFeeAtomic NullableString, sponsoredNativeFeeAtomic NullableString, sponsoredNativeSymbol NullableString, tenantGasChargeMicros NullableString, gasSponsorshipEvidenceDigest NullableString, createdAt time.Time, ) *PaymentReceipt`
 
 NewPaymentReceipt instantiates a new PaymentReceipt object
 This constructor will assign default values to properties that have it defined,
@@ -348,6 +354,176 @@ and a boolean to check if the value has been set.
 SetSettlementAmountAtomic sets SettlementAmountAtomic field to given value.
 
 
+### GetGasMode
+
+`func (o *PaymentReceipt) GetGasMode() string`
+
+GetGasMode returns the GasMode field if non-nil, zero value otherwise.
+
+### GetGasModeOk
+
+`func (o *PaymentReceipt) GetGasModeOk() (*string, bool)`
+
+GetGasModeOk returns a tuple with the GasMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGasMode
+
+`func (o *PaymentReceipt) SetGasMode(v string)`
+
+SetGasMode sets GasMode field to given value.
+
+
+### GetBuyerNativeFeeAtomic
+
+`func (o *PaymentReceipt) GetBuyerNativeFeeAtomic() string`
+
+GetBuyerNativeFeeAtomic returns the BuyerNativeFeeAtomic field if non-nil, zero value otherwise.
+
+### GetBuyerNativeFeeAtomicOk
+
+`func (o *PaymentReceipt) GetBuyerNativeFeeAtomicOk() (*string, bool)`
+
+GetBuyerNativeFeeAtomicOk returns a tuple with the BuyerNativeFeeAtomic field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBuyerNativeFeeAtomic
+
+`func (o *PaymentReceipt) SetBuyerNativeFeeAtomic(v string)`
+
+SetBuyerNativeFeeAtomic sets BuyerNativeFeeAtomic field to given value.
+
+
+### SetBuyerNativeFeeAtomicNil
+
+`func (o *PaymentReceipt) SetBuyerNativeFeeAtomicNil(b bool)`
+
+ SetBuyerNativeFeeAtomicNil sets the value for BuyerNativeFeeAtomic to be an explicit nil
+
+### UnsetBuyerNativeFeeAtomic
+`func (o *PaymentReceipt) UnsetBuyerNativeFeeAtomic()`
+
+UnsetBuyerNativeFeeAtomic ensures that no value is present for BuyerNativeFeeAtomic, not even an explicit nil
+### GetSponsoredNativeFeeAtomic
+
+`func (o *PaymentReceipt) GetSponsoredNativeFeeAtomic() string`
+
+GetSponsoredNativeFeeAtomic returns the SponsoredNativeFeeAtomic field if non-nil, zero value otherwise.
+
+### GetSponsoredNativeFeeAtomicOk
+
+`func (o *PaymentReceipt) GetSponsoredNativeFeeAtomicOk() (*string, bool)`
+
+GetSponsoredNativeFeeAtomicOk returns a tuple with the SponsoredNativeFeeAtomic field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSponsoredNativeFeeAtomic
+
+`func (o *PaymentReceipt) SetSponsoredNativeFeeAtomic(v string)`
+
+SetSponsoredNativeFeeAtomic sets SponsoredNativeFeeAtomic field to given value.
+
+
+### SetSponsoredNativeFeeAtomicNil
+
+`func (o *PaymentReceipt) SetSponsoredNativeFeeAtomicNil(b bool)`
+
+ SetSponsoredNativeFeeAtomicNil sets the value for SponsoredNativeFeeAtomic to be an explicit nil
+
+### UnsetSponsoredNativeFeeAtomic
+`func (o *PaymentReceipt) UnsetSponsoredNativeFeeAtomic()`
+
+UnsetSponsoredNativeFeeAtomic ensures that no value is present for SponsoredNativeFeeAtomic, not even an explicit nil
+### GetSponsoredNativeSymbol
+
+`func (o *PaymentReceipt) GetSponsoredNativeSymbol() string`
+
+GetSponsoredNativeSymbol returns the SponsoredNativeSymbol field if non-nil, zero value otherwise.
+
+### GetSponsoredNativeSymbolOk
+
+`func (o *PaymentReceipt) GetSponsoredNativeSymbolOk() (*string, bool)`
+
+GetSponsoredNativeSymbolOk returns a tuple with the SponsoredNativeSymbol field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSponsoredNativeSymbol
+
+`func (o *PaymentReceipt) SetSponsoredNativeSymbol(v string)`
+
+SetSponsoredNativeSymbol sets SponsoredNativeSymbol field to given value.
+
+
+### SetSponsoredNativeSymbolNil
+
+`func (o *PaymentReceipt) SetSponsoredNativeSymbolNil(b bool)`
+
+ SetSponsoredNativeSymbolNil sets the value for SponsoredNativeSymbol to be an explicit nil
+
+### UnsetSponsoredNativeSymbol
+`func (o *PaymentReceipt) UnsetSponsoredNativeSymbol()`
+
+UnsetSponsoredNativeSymbol ensures that no value is present for SponsoredNativeSymbol, not even an explicit nil
+### GetTenantGasChargeMicros
+
+`func (o *PaymentReceipt) GetTenantGasChargeMicros() string`
+
+GetTenantGasChargeMicros returns the TenantGasChargeMicros field if non-nil, zero value otherwise.
+
+### GetTenantGasChargeMicrosOk
+
+`func (o *PaymentReceipt) GetTenantGasChargeMicrosOk() (*string, bool)`
+
+GetTenantGasChargeMicrosOk returns a tuple with the TenantGasChargeMicros field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTenantGasChargeMicros
+
+`func (o *PaymentReceipt) SetTenantGasChargeMicros(v string)`
+
+SetTenantGasChargeMicros sets TenantGasChargeMicros field to given value.
+
+
+### SetTenantGasChargeMicrosNil
+
+`func (o *PaymentReceipt) SetTenantGasChargeMicrosNil(b bool)`
+
+ SetTenantGasChargeMicrosNil sets the value for TenantGasChargeMicros to be an explicit nil
+
+### UnsetTenantGasChargeMicros
+`func (o *PaymentReceipt) UnsetTenantGasChargeMicros()`
+
+UnsetTenantGasChargeMicros ensures that no value is present for TenantGasChargeMicros, not even an explicit nil
+### GetGasSponsorshipEvidenceDigest
+
+`func (o *PaymentReceipt) GetGasSponsorshipEvidenceDigest() string`
+
+GetGasSponsorshipEvidenceDigest returns the GasSponsorshipEvidenceDigest field if non-nil, zero value otherwise.
+
+### GetGasSponsorshipEvidenceDigestOk
+
+`func (o *PaymentReceipt) GetGasSponsorshipEvidenceDigestOk() (*string, bool)`
+
+GetGasSponsorshipEvidenceDigestOk returns a tuple with the GasSponsorshipEvidenceDigest field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGasSponsorshipEvidenceDigest
+
+`func (o *PaymentReceipt) SetGasSponsorshipEvidenceDigest(v string)`
+
+SetGasSponsorshipEvidenceDigest sets GasSponsorshipEvidenceDigest field to given value.
+
+
+### SetGasSponsorshipEvidenceDigestNil
+
+`func (o *PaymentReceipt) SetGasSponsorshipEvidenceDigestNil(b bool)`
+
+ SetGasSponsorshipEvidenceDigestNil sets the value for GasSponsorshipEvidenceDigest to be an explicit nil
+
+### UnsetGasSponsorshipEvidenceDigest
+`func (o *PaymentReceipt) UnsetGasSponsorshipEvidenceDigest()`
+
+UnsetGasSponsorshipEvidenceDigest ensures that no value is present for GasSponsorshipEvidenceDigest, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *PaymentReceipt) GetCreatedAt() time.Time`

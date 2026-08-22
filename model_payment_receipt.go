@@ -34,6 +34,12 @@ type PaymentReceipt struct {
 	FeeQuoteDigest NullableString `json:"fee_quote_digest"`
 	FeeQuoteExpiresAt NullableTime `json:"fee_quote_expires_at"`
 	SettlementAmountAtomic string `json:"settlement_amount_atomic"`
+	GasMode string `json:"gas_mode"`
+	BuyerNativeFeeAtomic NullableString `json:"buyer_native_fee_atomic"`
+	SponsoredNativeFeeAtomic NullableString `json:"sponsored_native_fee_atomic"`
+	SponsoredNativeSymbol NullableString `json:"sponsored_native_symbol"`
+	TenantGasChargeMicros NullableString `json:"tenant_gas_charge_micros"`
+	GasSponsorshipEvidenceDigest NullableString `json:"gas_sponsorship_evidence_digest"`
 	CreatedAt time.Time `json:"created_at"`
 	AdditionalProperties map[string]interface{}
 }
@@ -44,7 +50,7 @@ type _PaymentReceipt PaymentReceipt
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentReceipt(id string, orderId string, settlementJobId string, receipt interface{}, receiptDigest string, signature string, signingKeyVersion string, eligibleAlternatives []NetworkFeeAlternative, feePolicy NullableFeePolicyDocument, feeEvidence NullableNetworkFeeEvidence, feeQuoteDigest NullableString, feeQuoteExpiresAt NullableTime, settlementAmountAtomic string, createdAt time.Time) *PaymentReceipt {
+func NewPaymentReceipt(id string, orderId string, settlementJobId string, receipt interface{}, receiptDigest string, signature string, signingKeyVersion string, eligibleAlternatives []NetworkFeeAlternative, feePolicy NullableFeePolicyDocument, feeEvidence NullableNetworkFeeEvidence, feeQuoteDigest NullableString, feeQuoteExpiresAt NullableTime, settlementAmountAtomic string, gasMode string, buyerNativeFeeAtomic NullableString, sponsoredNativeFeeAtomic NullableString, sponsoredNativeSymbol NullableString, tenantGasChargeMicros NullableString, gasSponsorshipEvidenceDigest NullableString, createdAt time.Time) *PaymentReceipt {
 	this := PaymentReceipt{}
 	this.Id = id
 	this.OrderId = orderId
@@ -59,6 +65,12 @@ func NewPaymentReceipt(id string, orderId string, settlementJobId string, receip
 	this.FeeQuoteDigest = feeQuoteDigest
 	this.FeeQuoteExpiresAt = feeQuoteExpiresAt
 	this.SettlementAmountAtomic = settlementAmountAtomic
+	this.GasMode = gasMode
+	this.BuyerNativeFeeAtomic = buyerNativeFeeAtomic
+	this.SponsoredNativeFeeAtomic = sponsoredNativeFeeAtomic
+	this.SponsoredNativeSymbol = sponsoredNativeSymbol
+	this.TenantGasChargeMicros = tenantGasChargeMicros
+	this.GasSponsorshipEvidenceDigest = gasSponsorshipEvidenceDigest
 	this.CreatedAt = createdAt
 	return &this
 }
@@ -393,6 +405,160 @@ func (o *PaymentReceipt) SetSettlementAmountAtomic(v string) {
 	o.SettlementAmountAtomic = v
 }
 
+// GetGasMode returns the GasMode field value
+func (o *PaymentReceipt) GetGasMode() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.GasMode
+}
+
+// GetGasModeOk returns a tuple with the GasMode field value
+// and a boolean to check if the value has been set.
+func (o *PaymentReceipt) GetGasModeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.GasMode, true
+}
+
+// SetGasMode sets field value
+func (o *PaymentReceipt) SetGasMode(v string) {
+	o.GasMode = v
+}
+
+// GetBuyerNativeFeeAtomic returns the BuyerNativeFeeAtomic field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *PaymentReceipt) GetBuyerNativeFeeAtomic() string {
+	if o == nil || o.BuyerNativeFeeAtomic.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.BuyerNativeFeeAtomic.Get()
+}
+
+// GetBuyerNativeFeeAtomicOk returns a tuple with the BuyerNativeFeeAtomic field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentReceipt) GetBuyerNativeFeeAtomicOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BuyerNativeFeeAtomic.Get(), o.BuyerNativeFeeAtomic.IsSet()
+}
+
+// SetBuyerNativeFeeAtomic sets field value
+func (o *PaymentReceipt) SetBuyerNativeFeeAtomic(v string) {
+	o.BuyerNativeFeeAtomic.Set(&v)
+}
+
+// GetSponsoredNativeFeeAtomic returns the SponsoredNativeFeeAtomic field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *PaymentReceipt) GetSponsoredNativeFeeAtomic() string {
+	if o == nil || o.SponsoredNativeFeeAtomic.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.SponsoredNativeFeeAtomic.Get()
+}
+
+// GetSponsoredNativeFeeAtomicOk returns a tuple with the SponsoredNativeFeeAtomic field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentReceipt) GetSponsoredNativeFeeAtomicOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SponsoredNativeFeeAtomic.Get(), o.SponsoredNativeFeeAtomic.IsSet()
+}
+
+// SetSponsoredNativeFeeAtomic sets field value
+func (o *PaymentReceipt) SetSponsoredNativeFeeAtomic(v string) {
+	o.SponsoredNativeFeeAtomic.Set(&v)
+}
+
+// GetSponsoredNativeSymbol returns the SponsoredNativeSymbol field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *PaymentReceipt) GetSponsoredNativeSymbol() string {
+	if o == nil || o.SponsoredNativeSymbol.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.SponsoredNativeSymbol.Get()
+}
+
+// GetSponsoredNativeSymbolOk returns a tuple with the SponsoredNativeSymbol field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentReceipt) GetSponsoredNativeSymbolOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SponsoredNativeSymbol.Get(), o.SponsoredNativeSymbol.IsSet()
+}
+
+// SetSponsoredNativeSymbol sets field value
+func (o *PaymentReceipt) SetSponsoredNativeSymbol(v string) {
+	o.SponsoredNativeSymbol.Set(&v)
+}
+
+// GetTenantGasChargeMicros returns the TenantGasChargeMicros field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *PaymentReceipt) GetTenantGasChargeMicros() string {
+	if o == nil || o.TenantGasChargeMicros.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.TenantGasChargeMicros.Get()
+}
+
+// GetTenantGasChargeMicrosOk returns a tuple with the TenantGasChargeMicros field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentReceipt) GetTenantGasChargeMicrosOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TenantGasChargeMicros.Get(), o.TenantGasChargeMicros.IsSet()
+}
+
+// SetTenantGasChargeMicros sets field value
+func (o *PaymentReceipt) SetTenantGasChargeMicros(v string) {
+	o.TenantGasChargeMicros.Set(&v)
+}
+
+// GetGasSponsorshipEvidenceDigest returns the GasSponsorshipEvidenceDigest field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *PaymentReceipt) GetGasSponsorshipEvidenceDigest() string {
+	if o == nil || o.GasSponsorshipEvidenceDigest.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.GasSponsorshipEvidenceDigest.Get()
+}
+
+// GetGasSponsorshipEvidenceDigestOk returns a tuple with the GasSponsorshipEvidenceDigest field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentReceipt) GetGasSponsorshipEvidenceDigestOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.GasSponsorshipEvidenceDigest.Get(), o.GasSponsorshipEvidenceDigest.IsSet()
+}
+
+// SetGasSponsorshipEvidenceDigest sets field value
+func (o *PaymentReceipt) SetGasSponsorshipEvidenceDigest(v string) {
+	o.GasSponsorshipEvidenceDigest.Set(&v)
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *PaymentReceipt) GetCreatedAt() time.Time {
 	if o == nil {
@@ -442,6 +608,12 @@ func (o PaymentReceipt) ToMap() (map[string]interface{}, error) {
 	toSerialize["fee_quote_digest"] = o.FeeQuoteDigest.Get()
 	toSerialize["fee_quote_expires_at"] = o.FeeQuoteExpiresAt.Get()
 	toSerialize["settlement_amount_atomic"] = o.SettlementAmountAtomic
+	toSerialize["gas_mode"] = o.GasMode
+	toSerialize["buyer_native_fee_atomic"] = o.BuyerNativeFeeAtomic.Get()
+	toSerialize["sponsored_native_fee_atomic"] = o.SponsoredNativeFeeAtomic.Get()
+	toSerialize["sponsored_native_symbol"] = o.SponsoredNativeSymbol.Get()
+	toSerialize["tenant_gas_charge_micros"] = o.TenantGasChargeMicros.Get()
+	toSerialize["gas_sponsorship_evidence_digest"] = o.GasSponsorshipEvidenceDigest.Get()
 	toSerialize["created_at"] = o.CreatedAt
 
 	for key, value := range o.AdditionalProperties {
@@ -469,6 +641,12 @@ func (o *PaymentReceipt) UnmarshalJSON(data []byte) (err error) {
 		"fee_quote_digest",
 		"fee_quote_expires_at",
 		"settlement_amount_atomic",
+		"gas_mode",
+		"buyer_native_fee_atomic",
+		"sponsored_native_fee_atomic",
+		"sponsored_native_symbol",
+		"tenant_gas_charge_micros",
+		"gas_sponsorship_evidence_digest",
 		"created_at",
 	}
 
@@ -512,6 +690,12 @@ func (o *PaymentReceipt) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "fee_quote_digest")
 		delete(additionalProperties, "fee_quote_expires_at")
 		delete(additionalProperties, "settlement_amount_atomic")
+		delete(additionalProperties, "gas_mode")
+		delete(additionalProperties, "buyer_native_fee_atomic")
+		delete(additionalProperties, "sponsored_native_fee_atomic")
+		delete(additionalProperties, "sponsored_native_symbol")
+		delete(additionalProperties, "tenant_gas_charge_micros")
+		delete(additionalProperties, "gas_sponsorship_evidence_digest")
 		delete(additionalProperties, "created_at")
 		o.AdditionalProperties = additionalProperties
 	}

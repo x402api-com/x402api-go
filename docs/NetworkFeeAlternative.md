@@ -18,6 +18,9 @@ Name | Type | Description | Notes
 **NativeDecimals** | **NullableInt32** |  |
 **NativeUsdQuoteMicros** | **NullableString** |  |
 **EstimatedFeeQuoteMicros** | **NullableString** |  |
+**GasMode** | [**GasModeEnum**](GasModeEnum.md) |  |
+**BuyerNativeFeeAtomic** | **NullableString** |  |
+**MaximumTenantGasReservationMicros** | **string** |  |
 **ProviderDisagreementBps** | **NullableInt32** |  |
 **FeeAllowanceQuoteMicros** | **string** |  |
 **FeeAllowanceAtomic** | **string** |  |
@@ -33,7 +36,7 @@ Name | Type | Description | Notes
 
 ### NewNetworkFeeAlternative
 
-`func NewNetworkFeeAlternative(type_ string, version int32, network string, assetId string, contractAddress string, feeMode FeePolicyModeInputEnum, quoteCurrency FeePolicyQuoteCurrencyInputEnum, listedAmountAtomic string, feeAllowanceCapQuoteMicros string, estimatedNativeFeeAtomic NullableString, nativeSymbol NullableString, nativeDecimals NullableInt32, nativeUsdQuoteMicros NullableString, estimatedFeeQuoteMicros NullableString, providerDisagreementBps NullableInt32, feeAllowanceQuoteMicros string, feeAllowanceAtomic string, buyerPaymentAtomic string, tenantProceedsAtomic string, quoteExpiresAt NullableTime, feeEvidence NetworkFeeEvidence, feeEvidenceDigest string, eligible bool, exclusionReason NullableString, ) *NetworkFeeAlternative`
+`func NewNetworkFeeAlternative(type_ string, version int32, network string, assetId string, contractAddress string, feeMode FeePolicyModeInputEnum, quoteCurrency FeePolicyQuoteCurrencyInputEnum, listedAmountAtomic string, feeAllowanceCapQuoteMicros string, estimatedNativeFeeAtomic NullableString, nativeSymbol NullableString, nativeDecimals NullableInt32, nativeUsdQuoteMicros NullableString, estimatedFeeQuoteMicros NullableString, gasMode GasModeEnum, buyerNativeFeeAtomic NullableString, maximumTenantGasReservationMicros string, providerDisagreementBps NullableInt32, feeAllowanceQuoteMicros string, feeAllowanceAtomic string, buyerPaymentAtomic string, tenantProceedsAtomic string, quoteExpiresAt NullableTime, feeEvidence NetworkFeeEvidence, feeEvidenceDigest string, eligible bool, exclusionReason NullableString, ) *NetworkFeeAlternative`
 
 NewNetworkFeeAlternative instantiates a new NetworkFeeAlternative object
 This constructor will assign default values to properties that have it defined,
@@ -378,6 +381,76 @@ SetEstimatedFeeQuoteMicros sets EstimatedFeeQuoteMicros field to given value.
 `func (o *NetworkFeeAlternative) UnsetEstimatedFeeQuoteMicros()`
 
 UnsetEstimatedFeeQuoteMicros ensures that no value is present for EstimatedFeeQuoteMicros, not even an explicit nil
+### GetGasMode
+
+`func (o *NetworkFeeAlternative) GetGasMode() GasModeEnum`
+
+GetGasMode returns the GasMode field if non-nil, zero value otherwise.
+
+### GetGasModeOk
+
+`func (o *NetworkFeeAlternative) GetGasModeOk() (*GasModeEnum, bool)`
+
+GetGasModeOk returns a tuple with the GasMode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGasMode
+
+`func (o *NetworkFeeAlternative) SetGasMode(v GasModeEnum)`
+
+SetGasMode sets GasMode field to given value.
+
+
+### GetBuyerNativeFeeAtomic
+
+`func (o *NetworkFeeAlternative) GetBuyerNativeFeeAtomic() string`
+
+GetBuyerNativeFeeAtomic returns the BuyerNativeFeeAtomic field if non-nil, zero value otherwise.
+
+### GetBuyerNativeFeeAtomicOk
+
+`func (o *NetworkFeeAlternative) GetBuyerNativeFeeAtomicOk() (*string, bool)`
+
+GetBuyerNativeFeeAtomicOk returns a tuple with the BuyerNativeFeeAtomic field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBuyerNativeFeeAtomic
+
+`func (o *NetworkFeeAlternative) SetBuyerNativeFeeAtomic(v string)`
+
+SetBuyerNativeFeeAtomic sets BuyerNativeFeeAtomic field to given value.
+
+
+### SetBuyerNativeFeeAtomicNil
+
+`func (o *NetworkFeeAlternative) SetBuyerNativeFeeAtomicNil(b bool)`
+
+ SetBuyerNativeFeeAtomicNil sets the value for BuyerNativeFeeAtomic to be an explicit nil
+
+### UnsetBuyerNativeFeeAtomic
+`func (o *NetworkFeeAlternative) UnsetBuyerNativeFeeAtomic()`
+
+UnsetBuyerNativeFeeAtomic ensures that no value is present for BuyerNativeFeeAtomic, not even an explicit nil
+### GetMaximumTenantGasReservationMicros
+
+`func (o *NetworkFeeAlternative) GetMaximumTenantGasReservationMicros() string`
+
+GetMaximumTenantGasReservationMicros returns the MaximumTenantGasReservationMicros field if non-nil, zero value otherwise.
+
+### GetMaximumTenantGasReservationMicrosOk
+
+`func (o *NetworkFeeAlternative) GetMaximumTenantGasReservationMicrosOk() (*string, bool)`
+
+GetMaximumTenantGasReservationMicrosOk returns a tuple with the MaximumTenantGasReservationMicros field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaximumTenantGasReservationMicros
+
+`func (o *NetworkFeeAlternative) SetMaximumTenantGasReservationMicros(v string)`
+
+SetMaximumTenantGasReservationMicros sets MaximumTenantGasReservationMicros field to given value.
+
+
 ### GetProviderDisagreementBps
 
 `func (o *NetworkFeeAlternative) GetProviderDisagreementBps() int32`
