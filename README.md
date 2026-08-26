@@ -27,6 +27,19 @@ client := x402api.NewAPIClient(cfg)
 
 `FacilitatorGetSupported` and `ReceiptVerificationKeysRetrieve` are public and may use `context.Background()` without a token. All other operations use tenant bearer authentication.
 
+Tenant API keys must also grant the exact scope documented by each operation:
+
+- charges: `commerce:write` to create and `commerce:read` to retrieve;
+- network-fee quotes and resource reads: `resources:read`;
+- resource creation and new versions: `resources:write`;
+- orders: `orders:read`;
+- payment readiness: `payment-controls:read`;
+- payments, observations, and receipts: `payments:read`;
+- receiving-address capabilities and lists: `wallets:read`; and
+- wallet balances: `balances:read`.
+
+The SDK excludes dashboard-only mutations that require a human tenant owner with recent step-up. A tenant API key cannot call those operations regardless of its scopes.
+
 ## Quick start: create a charge
 
 ```go
@@ -134,18 +147,11 @@ Methods with optional query or body values use a request builder: call the servi
 | [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `PaymentsRetrieveReceipt(ctx, id).Execute()` | `GET /v1/payments/{id}/receipt` |
 | [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `ReceiptVerificationKeysRetrieve(ctx).Execute()` | `GET /v1/payment-receipt-verification-keys` |
 | [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesGetControlCapabilities(ctx).Execute()` | `GET /v1/receiving-address-control-capabilities` |
-| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesCreateControlChallenge(ctx).IdempotencyKey(...).ExternalAddressControlChallengeCreate(...).Execute()` | `POST /v1/receiving-address-control-challenges` |
 | [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesList(ctx).Cursor(...).PageSize(...).Execute()` | `GET /v1/receiving-addresses` |
-| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesRegister(ctx).IdempotencyKey(...).ExternalReceivingAddressCreate(...).Execute()` | `POST /v1/receiving-addresses` |
-| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesActivate(ctx, readinessID).IdempotencyKey(...).Execute()` | `POST /v1/receiving-addresses/{readiness_id}/activate` |
-| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesRefreshReadiness(ctx, readinessID).IdempotencyKey(...).Execute()` | `POST /v1/receiving-addresses/{readiness_id}/readiness-refreshes` |
-| [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesRotate(ctx, readinessID).IdempotencyKey(...).ExternalReceivingAddressRotation(...).Execute()` | `POST /v1/receiving-addresses/{readiness_id}/rotations` |
 | [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesList(ctx).Cursor(...).PageSize(...).Execute()` | `GET /v1/resources` |
 | [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesCreate(ctx).IdempotencyKey(...).ResourceCreate(...).Execute()` | `POST /v1/resources` |
 | [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesListVersions(ctx, resourceID).Cursor(...).PageSize(...).Execute()` | `GET /v1/resources/{resource_id}/versions` |
 | [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesCreateVersion(ctx, resourceID).IdempotencyKey(...).ResourceVersionCreate(...).Execute()` | `POST /v1/resources/{resource_id}/versions` |
-| [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesActivateVersion(ctx, resourceID, versionID).IdempotencyKey(...).ResourceVersionActivate(...).Execute()` | `POST /v1/resources/{resource_id}/versions/{version_id}/activate` |
-| [`ResourcesAndPricingAPI`](docs/ResourcesAndPricingAPI.md) | `ResourcesRetireVersion(ctx, resourceID, versionID).IdempotencyKey(...).ResourceVersionRetire(...).Execute()` | `POST /v1/resources/{resource_id}/versions/{version_id}/retire` |
 | [`WalletsAndTransfersAPI`](docs/WalletsAndTransfersAPI.md) | `WalletsRetrieveBalance(ctx, id).Finality(...).Execute()` | `GET /v1/wallets/{id}/balances` |
 
 All request and response model documentation is in [`docs/`](docs/). See [`USAGE.md`](USAGE.md) for more complete patterns.
