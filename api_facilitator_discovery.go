@@ -24,7 +24,7 @@ type FacilitatorDiscoveryAPI interface {
 	/*
 	FacilitatorGetSupported Get supported facilitator profiles
 
-	Return the currently approved public x402 facilitator profiles.
+	Return the currently approved public x402 facilitator profiles. Public endpoint; no API key or scope is required.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiFacilitatorGetSupportedRequest
@@ -51,7 +51,7 @@ func (r ApiFacilitatorGetSupportedRequest) Execute() (*SupportedResponse, *http.
 /*
 FacilitatorGetSupported Get supported facilitator profiles
 
-Return the currently approved public x402 facilitator profiles.
+Return the currently approved public x402 facilitator profiles. Public endpoint; no API key or scope is required.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiFacilitatorGetSupportedRequest

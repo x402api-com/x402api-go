@@ -25,7 +25,7 @@ type IdempotencyAPI interface {
 	/*
 	IdempotencyGetOutcome Get an idempotency outcome
 
-	Return the authoritative tenant-scoped outcome for a durable mutation key.
+	Return the authoritative tenant-scoped outcome for a durable mutation key. Requires an authenticated tenant API key; no additional scope is required.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param idempotencyKey
@@ -54,7 +54,7 @@ func (r ApiIdempotencyGetOutcomeRequest) Execute() (*IdempotencyOutcome, *http.R
 /*
 IdempotencyGetOutcome Get an idempotency outcome
 
-Return the authoritative tenant-scoped outcome for a durable mutation key.
+Return the authoritative tenant-scoped outcome for a durable mutation key. Requires an authenticated tenant API key; no additional scope is required.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param idempotencyKey

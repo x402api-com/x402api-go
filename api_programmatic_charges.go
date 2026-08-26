@@ -25,7 +25,7 @@ type ProgrammaticChargesAPI interface {
 	/*
 	ChargesCreate Create a programmatic charge
 
-	Create one idempotent dynamic charge with immutable x402 payment terms.
+	Create one idempotent dynamic charge with immutable x402 payment terms. Requires a tenant API key with the `commerce:write` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiChargesCreateRequest
@@ -39,7 +39,7 @@ type ProgrammaticChargesAPI interface {
 	/*
 	ChargesRetrieve Retrieve a programmatic charge
 
-	Retrieve the frozen terms and current projected status of a tenant charge.
+	Retrieve the frozen terms and current projected status of a tenant charge. Requires a tenant API key with the `commerce:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param chargeId
@@ -80,7 +80,7 @@ func (r ApiChargesCreateRequest) Execute() (*DynamicChargeResponse, *http.Respon
 /*
 ChargesCreate Create a programmatic charge
 
-Create one idempotent dynamic charge with immutable x402 payment terms.
+Create one idempotent dynamic charge with immutable x402 payment terms. Requires a tenant API key with the `commerce:write` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiChargesCreateRequest
@@ -225,7 +225,7 @@ func (r ApiChargesRetrieveRequest) Execute() (*DynamicChargeResponse, *http.Resp
 /*
 ChargesRetrieve Retrieve a programmatic charge
 
-Retrieve the frozen terms and current projected status of a tenant charge.
+Retrieve the frozen terms and current projected status of a tenant charge. Requires a tenant API key with the `commerce:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param chargeId

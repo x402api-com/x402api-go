@@ -25,7 +25,7 @@ type WalletsAndTransfersAPI interface {
 	/*
 	WalletsRetrieveBalance Retrieve wallet balances
 
-	Retrieve finalized external-wallet balance observations at the requested finality.
+	Retrieve finalized external-wallet balance observations at the requested finality. Requires a tenant API key with the `balances:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -60,7 +60,7 @@ func (r ApiWalletsRetrieveBalanceRequest) Execute() (*WalletBalanceResponse, *ht
 /*
 WalletsRetrieveBalance Retrieve wallet balances
 
-Retrieve finalized external-wallet balance observations at the requested finality.
+Retrieve finalized external-wallet balance observations at the requested finality. Requires a tenant API key with the `balances:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id

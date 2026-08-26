@@ -25,7 +25,7 @@ type ResourcesAndPricingAPI interface {
 	/*
 	NetworkFeesCreateQuote Create a network-fee quote
 
-	Preview bounded network fees for the requested resource prices and rails.
+	Preview bounded network fees for the requested resource prices and rails. Requires a tenant API key with the `resources:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiNetworkFeesCreateQuoteRequest
@@ -37,25 +37,9 @@ type ResourcesAndPricingAPI interface {
 	NetworkFeesCreateQuoteExecute(r ApiNetworkFeesCreateQuoteRequest) (*NetworkFeePreviewResponse, *http.Response, error)
 
 	/*
-	ResourcesActivateVersion Activate a resource version
-
-	Activate one immutable resource version idempotently.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId
-	@param versionId
-	@return ApiResourcesActivateVersionRequest
-	*/
-	ResourcesActivateVersion(ctx context.Context, resourceId string, versionId string) ApiResourcesActivateVersionRequest
-
-	// ResourcesActivateVersionExecute executes the request
-	//  @return ResourceVersion
-	ResourcesActivateVersionExecute(r ApiResourcesActivateVersionRequest) (*ResourceVersion, *http.Response, error)
-
-	/*
 	ResourcesCreate Create a resource
 
-	Create one tenant resource idempotently.
+	Create one tenant resource idempotently. Requires a tenant API key with the `resources:write` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiResourcesCreateRequest
@@ -69,7 +53,7 @@ type ResourcesAndPricingAPI interface {
 	/*
 	ResourcesCreateVersion Create a resource version
 
-	Create an immutable priced version of one tenant resource idempotently.
+	Create an immutable priced version of one tenant resource idempotently. Requires a tenant API key with the `resources:write` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param resourceId
@@ -84,7 +68,7 @@ type ResourcesAndPricingAPI interface {
 	/*
 	ResourcesList List resources
 
-	List tenant resources and their visible versions using opaque cursor pagination.
+	List tenant resources and their visible versions using opaque cursor pagination. Requires a tenant API key with the `resources:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiResourcesListRequest
@@ -98,7 +82,7 @@ type ResourcesAndPricingAPI interface {
 	/*
 	ResourcesListVersions List resource versions
 
-	List immutable versions of one tenant resource using opaque cursor pagination.
+	List immutable versions of one tenant resource using opaque cursor pagination. Requires a tenant API key with the `resources:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param resourceId
@@ -109,22 +93,6 @@ type ResourcesAndPricingAPI interface {
 	// ResourcesListVersionsExecute executes the request
 	//  @return []ResourceVersion
 	ResourcesListVersionsExecute(r ApiResourcesListVersionsRequest) ([]ResourceVersion, *http.Response, error)
-
-	/*
-	ResourcesRetireVersion Retire a resource version
-
-	Retire one immutable resource version idempotently.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId
-	@param versionId
-	@return ApiResourcesRetireVersionRequest
-	*/
-	ResourcesRetireVersion(ctx context.Context, resourceId string, versionId string) ApiResourcesRetireVersionRequest
-
-	// ResourcesRetireVersionExecute executes the request
-	//  @return ResourceVersion
-	ResourcesRetireVersionExecute(r ApiResourcesRetireVersionRequest) (*ResourceVersion, *http.Response, error)
 }
 
 // ResourcesAndPricingAPIService ResourcesAndPricingAPI service
@@ -148,7 +116,7 @@ func (r ApiNetworkFeesCreateQuoteRequest) Execute() (*NetworkFeePreviewResponse,
 /*
 NetworkFeesCreateQuote Create a network-fee quote
 
-Preview bounded network fees for the requested resource prices and rails.
+Preview bounded network fees for the requested resource prices and rails. Requires a tenant API key with the `resources:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiNetworkFeesCreateQuoteRequest
@@ -248,160 +216,6 @@ func (a *ResourcesAndPricingAPIService) NetworkFeesCreateQuoteExecute(r ApiNetwo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiResourcesActivateVersionRequest struct {
-	ctx context.Context
-	ApiService ResourcesAndPricingAPI
-	idempotencyKey *string
-	resourceId string
-	versionId string
-	resourceVersionActivate *ResourceVersionActivate
-}
-
-// Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.
-func (r ApiResourcesActivateVersionRequest) IdempotencyKey(idempotencyKey string) ApiResourcesActivateVersionRequest {
-	r.idempotencyKey = &idempotencyKey
-	return r
-}
-
-func (r ApiResourcesActivateVersionRequest) ResourceVersionActivate(resourceVersionActivate ResourceVersionActivate) ApiResourcesActivateVersionRequest {
-	r.resourceVersionActivate = &resourceVersionActivate
-	return r
-}
-
-func (r ApiResourcesActivateVersionRequest) Execute() (*ResourceVersion, *http.Response, error) {
-	return r.ApiService.ResourcesActivateVersionExecute(r)
-}
-
-/*
-ResourcesActivateVersion Activate a resource version
-
-Activate one immutable resource version idempotently.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceId
- @param versionId
- @return ApiResourcesActivateVersionRequest
-*/
-func (a *ResourcesAndPricingAPIService) ResourcesActivateVersion(ctx context.Context, resourceId string, versionId string) ApiResourcesActivateVersionRequest {
-	return ApiResourcesActivateVersionRequest{
-		ApiService: a,
-		ctx: ctx,
-		resourceId: resourceId,
-		versionId: versionId,
-	}
-}
-
-// Execute executes the request
-//  @return ResourceVersion
-func (a *ResourcesAndPricingAPIService) ResourcesActivateVersionExecute(r ApiResourcesActivateVersionRequest) (*ResourceVersion, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResourceVersion
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourcesAndPricingAPIService.ResourcesActivateVersion")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/resources/{resource_id}/versions/{version_id}/activate"
-	localVarPath = strings.Replace(localVarPath, "{"+"resource_id"+"}", url.PathEscape(parameterValueToString(r.resourceId, "resourceId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.idempotencyKey == nil {
-		return localVarReturnValue, nil, reportError("idempotencyKey is required and must be specified")
-	}
-	if strlen(*r.idempotencyKey) < 8 {
-		return localVarReturnValue, nil, reportError("idempotencyKey must have at least 8 elements")
-	}
-	if strlen(*r.idempotencyKey) > 160 {
-		return localVarReturnValue, nil, reportError("idempotencyKey must have less than 160 elements")
-	}
-	if r.resourceVersionActivate == nil {
-		return localVarReturnValue, nil, reportError("resourceVersionActivate is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
-	// body params
-	localVarPostBody = r.resourceVersionActivate
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiErrorEnvelope
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-			var v ApiErrorEnvelope
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiResourcesCreateRequest struct {
 	ctx context.Context
 	ApiService ResourcesAndPricingAPI
@@ -427,7 +241,7 @@ func (r ApiResourcesCreateRequest) Execute() (*Resource, *http.Response, error) 
 /*
 ResourcesCreate Create a resource
 
-Create one tenant resource idempotently.
+Create one tenant resource idempotently. Requires a tenant API key with the `resources:write` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiResourcesCreateRequest
@@ -563,7 +377,7 @@ func (r ApiResourcesCreateVersionRequest) Execute() (*ResourceVersion, *http.Res
 /*
 ResourcesCreateVersion Create a resource version
 
-Create an immutable priced version of one tenant resource idempotently.
+Create an immutable priced version of one tenant resource idempotently. Requires a tenant API key with the `resources:write` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param resourceId
@@ -713,7 +527,7 @@ func (r ApiResourcesListRequest) Execute() ([]Resource, *http.Response, error) {
 /*
 ResourcesList List resources
 
-List tenant resources and their visible versions using opaque cursor pagination.
+List tenant resources and their visible versions using opaque cursor pagination. Requires a tenant API key with the `resources:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiResourcesListRequest
@@ -845,7 +659,7 @@ func (r ApiResourcesListVersionsRequest) Execute() ([]ResourceVersion, *http.Res
 /*
 ResourcesListVersions List resource versions
 
-List immutable versions of one tenant resource using opaque cursor pagination.
+List immutable versions of one tenant resource using opaque cursor pagination. Requires a tenant API key with the `resources:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param resourceId
@@ -929,160 +743,6 @@ func (a *ResourcesAndPricingAPIService) ResourcesListVersionsExecute(r ApiResour
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
-		}
-			var v ApiErrorEnvelope
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiResourcesRetireVersionRequest struct {
-	ctx context.Context
-	ApiService ResourcesAndPricingAPI
-	idempotencyKey *string
-	resourceId string
-	versionId string
-	resourceVersionRetire *ResourceVersionRetire
-}
-
-// Caller-persisted mutation key containing 8 to 160 safe ASCII characters. Replay the exact key and body after an uncertain outcome.
-func (r ApiResourcesRetireVersionRequest) IdempotencyKey(idempotencyKey string) ApiResourcesRetireVersionRequest {
-	r.idempotencyKey = &idempotencyKey
-	return r
-}
-
-func (r ApiResourcesRetireVersionRequest) ResourceVersionRetire(resourceVersionRetire ResourceVersionRetire) ApiResourcesRetireVersionRequest {
-	r.resourceVersionRetire = &resourceVersionRetire
-	return r
-}
-
-func (r ApiResourcesRetireVersionRequest) Execute() (*ResourceVersion, *http.Response, error) {
-	return r.ApiService.ResourcesRetireVersionExecute(r)
-}
-
-/*
-ResourcesRetireVersion Retire a resource version
-
-Retire one immutable resource version idempotently.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceId
- @param versionId
- @return ApiResourcesRetireVersionRequest
-*/
-func (a *ResourcesAndPricingAPIService) ResourcesRetireVersion(ctx context.Context, resourceId string, versionId string) ApiResourcesRetireVersionRequest {
-	return ApiResourcesRetireVersionRequest{
-		ApiService: a,
-		ctx: ctx,
-		resourceId: resourceId,
-		versionId: versionId,
-	}
-}
-
-// Execute executes the request
-//  @return ResourceVersion
-func (a *ResourcesAndPricingAPIService) ResourcesRetireVersionExecute(r ApiResourcesRetireVersionRequest) (*ResourceVersion, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResourceVersion
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourcesAndPricingAPIService.ResourcesRetireVersion")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/resources/{resource_id}/versions/{version_id}/retire"
-	localVarPath = strings.Replace(localVarPath, "{"+"resource_id"+"}", url.PathEscape(parameterValueToString(r.resourceId, "resourceId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.idempotencyKey == nil {
-		return localVarReturnValue, nil, reportError("idempotencyKey is required and must be specified")
-	}
-	if strlen(*r.idempotencyKey) < 8 {
-		return localVarReturnValue, nil, reportError("idempotencyKey must have at least 8 elements")
-	}
-	if strlen(*r.idempotencyKey) > 160 {
-		return localVarReturnValue, nil, reportError("idempotencyKey must have less than 160 elements")
-	}
-	if r.resourceVersionRetire == nil {
-		return localVarReturnValue, nil, reportError("resourceVersionRetire is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
-	// body params
-	localVarPostBody = r.resourceVersionRetire
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiErrorEnvelope
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 			var v ApiErrorEnvelope
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))

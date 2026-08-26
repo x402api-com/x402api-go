@@ -25,7 +25,7 @@ type OrdersAndPaymentsAPI interface {
 	/*
 	OrdersList List orders
 
-	List tenant-visible orders using opaque cursor pagination.
+	List tenant-visible orders using opaque cursor pagination. Requires a tenant API key with the `orders:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiOrdersListRequest
@@ -39,7 +39,7 @@ type OrdersAndPaymentsAPI interface {
 	/*
 	OrdersRetrieve Retrieve an order
 
-	Retrieve one tenant-visible order by its canonical identifier.
+	Retrieve one tenant-visible order by its canonical identifier. Requires a tenant API key with the `orders:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -54,7 +54,7 @@ type OrdersAndPaymentsAPI interface {
 	/*
 	PaymentsList List payments
 
-	List tenant-visible payments using opaque cursor pagination.
+	List tenant-visible payments using opaque cursor pagination. Requires a tenant API key with the `payments:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiPaymentsListRequest
@@ -68,7 +68,7 @@ type OrdersAndPaymentsAPI interface {
 	/*
 	PaymentsListObservations List payment observations
 
-	List finalized and pending chain observations for one tenant-visible payment.
+	List finalized and pending chain observations for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -83,7 +83,7 @@ type OrdersAndPaymentsAPI interface {
 	/*
 	PaymentsRetrieve Retrieve a payment
 
-	Retrieve one tenant-visible payment by its canonical identifier.
+	Retrieve one tenant-visible payment by its canonical identifier. Requires a tenant API key with the `payments:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -98,7 +98,7 @@ type OrdersAndPaymentsAPI interface {
 	/*
 	PaymentsRetrieveReceipt Retrieve a payment receipt
 
-	Retrieve the signed receipt projection for one tenant-visible payment.
+	Retrieve the signed receipt projection for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id
@@ -113,7 +113,7 @@ type OrdersAndPaymentsAPI interface {
 	/*
 	ReceiptVerificationKeysRetrieve Retrieve receipt verification keys
 
-	Return the public receipt verification-key history for out-of-band-pinned verification.
+	Return the public receipt verification-key history for out-of-band-pinned verification. Public endpoint; no API key or scope is required.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiReceiptVerificationKeysRetrieveRequest
@@ -154,7 +154,7 @@ func (r ApiOrdersListRequest) Execute() ([]Order, *http.Response, error) {
 /*
 OrdersList List orders
 
-List tenant-visible orders using opaque cursor pagination.
+List tenant-visible orders using opaque cursor pagination. Requires a tenant API key with the `orders:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiOrdersListRequest
@@ -272,7 +272,7 @@ func (r ApiOrdersRetrieveRequest) Execute() (*Order, *http.Response, error) {
 /*
 OrdersRetrieve Retrieve an order
 
-Retrieve one tenant-visible order by its canonical identifier.
+Retrieve one tenant-visible order by its canonical identifier. Requires a tenant API key with the `orders:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id
@@ -396,7 +396,7 @@ func (r ApiPaymentsListRequest) Execute() ([]SettlementJob, *http.Response, erro
 /*
 PaymentsList List payments
 
-List tenant-visible payments using opaque cursor pagination.
+List tenant-visible payments using opaque cursor pagination. Requires a tenant API key with the `payments:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPaymentsListRequest
@@ -528,7 +528,7 @@ func (r ApiPaymentsListObservationsRequest) Execute() ([]SettlementChainObservat
 /*
 PaymentsListObservations List payment observations
 
-List finalized and pending chain observations for one tenant-visible payment.
+List finalized and pending chain observations for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id
@@ -649,7 +649,7 @@ func (r ApiPaymentsRetrieveRequest) Execute() (*SettlementJob, *http.Response, e
 /*
 PaymentsRetrieve Retrieve a payment
 
-Retrieve one tenant-visible payment by its canonical identifier.
+Retrieve one tenant-visible payment by its canonical identifier. Requires a tenant API key with the `payments:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id
@@ -760,7 +760,7 @@ func (r ApiPaymentsRetrieveReceiptRequest) Execute() (*PaymentReceipt, *http.Res
 /*
 PaymentsRetrieveReceipt Retrieve a payment receipt
 
-Retrieve the signed receipt projection for one tenant-visible payment.
+Retrieve the signed receipt projection for one tenant-visible payment. Requires a tenant API key with the `payments:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id
@@ -870,7 +870,7 @@ func (r ApiReceiptVerificationKeysRetrieveRequest) Execute() (*ReceiptVerificati
 /*
 ReceiptVerificationKeysRetrieve Retrieve receipt verification keys
 
-Return the public receipt verification-key history for out-of-band-pinned verification.
+Return the public receipt verification-key history for out-of-band-pinned verification. Public endpoint; no API key or scope is required.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiReceiptVerificationKeysRetrieveRequest

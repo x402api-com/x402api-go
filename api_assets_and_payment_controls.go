@@ -24,7 +24,7 @@ type AssetsAndPaymentControlsAPI interface {
 	/*
 	PaymentReadinessRetrieve Retrieve payment readiness
 
-	Return the tenant's current external-wallet payment-readiness projection.
+	Return the tenant's current external-wallet payment-readiness projection. Requires a tenant API key with the `payment-controls:read` scope.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiPaymentReadinessRetrieveRequest
@@ -51,7 +51,7 @@ func (r ApiPaymentReadinessRetrieveRequest) Execute() (*PaymentReadiness, *http.
 /*
 PaymentReadinessRetrieve Retrieve payment readiness
 
-Return the tenant's current external-wallet payment-readiness projection.
+Return the tenant's current external-wallet payment-readiness projection. Requires a tenant API key with the `payment-controls:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPaymentReadinessRetrieveRequest
