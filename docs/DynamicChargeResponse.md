@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ChargeId** | **string** |  |
+**ChargeId** | **string** | Immutable challenge UUID created for this charge. |
 **ChargeDigest** | **string** |  |
 **OrderId** | **string** |  |
-**Status** | **string** |  |
+**Status** | **string** | Current projected order status; payment terms remain immutable. |
 **ResourceVersionId** | **string** |  |
-**PaymentIdentifier** | **string** |  |
+**PaymentIdentifier** | **string** | Opaque server challenge handle. Return it to the buyer as X-X402API-Challenge-Handle; it is not the buyer payment identifier. |
 **ExpiresAt** | **time.Time** |  |
 **CreatedAt** | **time.Time** |  |
 **Prices** | [**[]DynamicChargePrice**](DynamicChargePrice.md) |  |
 **RequestedExpiresInSeconds** | **int32** |  |
 **Metadata** | **map[string]interface{}** | Tenant application metadata frozen into the charge digest. Maximum canonical size is 16 KiB; floating-point numbers are not accepted. |
 **MetadataDigest** | **string** |  |
-**PaymentRequired** | **interface{}** |  |
-**PaymentRequiredHeader** | **string** |  |
+**PaymentRequired** | **interface{}** | Complete immutable x402 v2 PAYMENT-REQUIRED document. |
+**PaymentRequiredHeader** | **string** | Canonical base64-encoded value to return in the buyer-facing PAYMENT-REQUIRED header. |
 **EligibleAlternatives** | [**[]NetworkFeeAlternative**](NetworkFeeAlternative.md) |  |
 **FeePolicy** | [**FeePolicyDocument**](FeePolicyDocument.md) |  |
 **FeeQuoteDigest** | **string** |  |

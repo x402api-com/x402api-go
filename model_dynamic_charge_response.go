@@ -21,11 +21,14 @@ var _ MappedNullable = &DynamicChargeResponse{}
 
 // DynamicChargeResponse struct for DynamicChargeResponse
 type DynamicChargeResponse struct {
+	// Immutable challenge UUID created for this charge.
 	ChargeId string `json:"charge_id"`
 	ChargeDigest string `json:"charge_digest" validate:"regexp=^sha256:[0-9a-f]{64}$"`
 	OrderId string `json:"order_id"`
+	// Current projected order status; payment terms remain immutable.
 	Status string `json:"status"`
 	ResourceVersionId string `json:"resource_version_id"`
+	// Opaque server challenge handle. Return it to the buyer as X-X402API-Challenge-Handle; it is not the buyer payment identifier.
 	PaymentIdentifier string `json:"payment_identifier"`
 	ExpiresAt time.Time `json:"expires_at"`
 	CreatedAt time.Time `json:"created_at"`
@@ -34,7 +37,9 @@ type DynamicChargeResponse struct {
 	// Tenant application metadata frozen into the charge digest. Maximum canonical size is 16 KiB; floating-point numbers are not accepted.
 	Metadata map[string]interface{} `json:"metadata"`
 	MetadataDigest string `json:"metadata_digest" validate:"regexp=^sha256:[0-9a-f]{64}$"`
+	// Complete immutable x402 v2 PAYMENT-REQUIRED document.
 	PaymentRequired interface{} `json:"payment_required"`
+	// Canonical base64-encoded value to return in the buyer-facing PAYMENT-REQUIRED header.
 	PaymentRequiredHeader string `json:"payment_required_header"`
 	EligibleAlternatives []NetworkFeeAlternative `json:"eligible_alternatives"`
 	FeePolicy FeePolicyDocument `json:"fee_policy"`
