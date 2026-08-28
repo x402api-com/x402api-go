@@ -1,4 +1,4 @@
-# FeePolicyDocument
+# PublicFeePolicyDocument
 
 ## Properties
 
@@ -8,125 +8,104 @@ Name | Type | Description | Notes
 **Version** | **int32** |  |
 **FeeMode** | [**FeePolicyModeInputEnum**](FeePolicyModeInputEnum.md) |  |
 **QuoteCurrency** | [**FeePolicyQuoteCurrencyInputEnum**](FeePolicyQuoteCurrencyInputEnum.md) |  |
-**FeeAllowanceCapQuoteMicros** | **string** |  |
 
 ## Methods
 
-### NewFeePolicyDocument
+### NewPublicFeePolicyDocument
 
-`func NewFeePolicyDocument(type_ string, version int32, feeMode FeePolicyModeInputEnum, quoteCurrency FeePolicyQuoteCurrencyInputEnum, feeAllowanceCapQuoteMicros string, ) *FeePolicyDocument`
+`func NewPublicFeePolicyDocument(type_ string, version int32, feeMode FeePolicyModeInputEnum, quoteCurrency FeePolicyQuoteCurrencyInputEnum, ) *PublicFeePolicyDocument`
 
-NewFeePolicyDocument instantiates a new FeePolicyDocument object
+NewPublicFeePolicyDocument instantiates a new PublicFeePolicyDocument object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewFeePolicyDocumentWithDefaults
+### NewPublicFeePolicyDocumentWithDefaults
 
-`func NewFeePolicyDocumentWithDefaults() *FeePolicyDocument`
+`func NewPublicFeePolicyDocumentWithDefaults() *PublicFeePolicyDocument`
 
-NewFeePolicyDocumentWithDefaults instantiates a new FeePolicyDocument object
+NewPublicFeePolicyDocumentWithDefaults instantiates a new PublicFeePolicyDocument object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetType
 
-`func (o *FeePolicyDocument) GetType() string`
+`func (o *PublicFeePolicyDocument) GetType() string`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *FeePolicyDocument) GetTypeOk() (*string, bool)`
+`func (o *PublicFeePolicyDocument) GetTypeOk() (*string, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *FeePolicyDocument) SetType(v string)`
+`func (o *PublicFeePolicyDocument) SetType(v string)`
 
 SetType sets Type field to given value.
 
 
 ### GetVersion
 
-`func (o *FeePolicyDocument) GetVersion() int32`
+`func (o *PublicFeePolicyDocument) GetVersion() int32`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *FeePolicyDocument) GetVersionOk() (*int32, bool)`
+`func (o *PublicFeePolicyDocument) GetVersionOk() (*int32, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *FeePolicyDocument) SetVersion(v int32)`
+`func (o *PublicFeePolicyDocument) SetVersion(v int32)`
 
 SetVersion sets Version field to given value.
 
 
 ### GetFeeMode
 
-`func (o *FeePolicyDocument) GetFeeMode() FeePolicyModeInputEnum`
+`func (o *PublicFeePolicyDocument) GetFeeMode() FeePolicyModeInputEnum`
 
 GetFeeMode returns the FeeMode field if non-nil, zero value otherwise.
 
 ### GetFeeModeOk
 
-`func (o *FeePolicyDocument) GetFeeModeOk() (*FeePolicyModeInputEnum, bool)`
+`func (o *PublicFeePolicyDocument) GetFeeModeOk() (*FeePolicyModeInputEnum, bool)`
 
 GetFeeModeOk returns a tuple with the FeeMode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFeeMode
 
-`func (o *FeePolicyDocument) SetFeeMode(v FeePolicyModeInputEnum)`
+`func (o *PublicFeePolicyDocument) SetFeeMode(v FeePolicyModeInputEnum)`
 
 SetFeeMode sets FeeMode field to given value.
 
 
 ### GetQuoteCurrency
 
-`func (o *FeePolicyDocument) GetQuoteCurrency() FeePolicyQuoteCurrencyInputEnum`
+`func (o *PublicFeePolicyDocument) GetQuoteCurrency() FeePolicyQuoteCurrencyInputEnum`
 
 GetQuoteCurrency returns the QuoteCurrency field if non-nil, zero value otherwise.
 
 ### GetQuoteCurrencyOk
 
-`func (o *FeePolicyDocument) GetQuoteCurrencyOk() (*FeePolicyQuoteCurrencyInputEnum, bool)`
+`func (o *PublicFeePolicyDocument) GetQuoteCurrencyOk() (*FeePolicyQuoteCurrencyInputEnum, bool)`
 
 GetQuoteCurrencyOk returns a tuple with the QuoteCurrency field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuoteCurrency
 
-`func (o *FeePolicyDocument) SetQuoteCurrency(v FeePolicyQuoteCurrencyInputEnum)`
+`func (o *PublicFeePolicyDocument) SetQuoteCurrency(v FeePolicyQuoteCurrencyInputEnum)`
 
 SetQuoteCurrency sets QuoteCurrency field to given value.
-
-
-### GetFeeAllowanceCapQuoteMicros
-
-`func (o *FeePolicyDocument) GetFeeAllowanceCapQuoteMicros() string`
-
-GetFeeAllowanceCapQuoteMicros returns the FeeAllowanceCapQuoteMicros field if non-nil, zero value otherwise.
-
-### GetFeeAllowanceCapQuoteMicrosOk
-
-`func (o *FeePolicyDocument) GetFeeAllowanceCapQuoteMicrosOk() (*string, bool)`
-
-GetFeeAllowanceCapQuoteMicrosOk returns a tuple with the FeeAllowanceCapQuoteMicros field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFeeAllowanceCapQuoteMicros
-
-`func (o *FeePolicyDocument) SetFeeAllowanceCapQuoteMicros(v string)`
-
-SetFeeAllowanceCapQuoteMicros sets FeeAllowanceCapQuoteMicros field to given value.
 
 
 

@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **ReceiptDigest** | **string** |  | [readonly]
 **Signature** | **string** |  | [readonly]
 **SigningKeyVersion** | **string** |  | [readonly]
-**EligibleAlternatives** | [**[]NetworkFeeAlternative**](NetworkFeeAlternative.md) |  | [readonly]
-**FeePolicy** | [**NullableFeePolicyDocument**](FeePolicyDocument.md) |  | [readonly]
-**FeeEvidence** | [**NullableNetworkFeeEvidence**](NetworkFeeEvidence.md) |  | [readonly]
+**EligibleAlternatives** | [**[]PublicNetworkFeeAlternative**](PublicNetworkFeeAlternative.md) |  | [readonly]
+**FeePolicy** | [**NullablePublicFeePolicyDocument**](PublicFeePolicyDocument.md) |  | [readonly]
+**FeeEvidence** | **map[string]interface{}** |  | [readonly]
 **FeeQuoteDigest** | **NullableString** |  | [readonly]
 **FeeQuoteExpiresAt** | **NullableTime** |  | [readonly]
 **SettlementAmountAtomic** | **string** |  | [readonly]
@@ -29,7 +29,7 @@ Name | Type | Description | Notes
 
 ### NewPaymentReceipt
 
-`func NewPaymentReceipt(id string, orderId string, settlementJobId string, receipt interface{}, receiptDigest string, signature string, signingKeyVersion string, eligibleAlternatives []NetworkFeeAlternative, feePolicy NullableFeePolicyDocument, feeEvidence NullableNetworkFeeEvidence, feeQuoteDigest NullableString, feeQuoteExpiresAt NullableTime, settlementAmountAtomic string, gasMode string, buyerNativeFeeAtomic NullableString, sponsoredNativeFeeAtomic NullableString, sponsoredNativeSymbol NullableString, tenantGasChargeMicros NullableString, gasSponsorshipEvidenceDigest NullableString, createdAt time.Time, ) *PaymentReceipt`
+`func NewPaymentReceipt(id string, orderId string, settlementJobId string, receipt interface{}, receiptDigest string, signature string, signingKeyVersion string, eligibleAlternatives []PublicNetworkFeeAlternative, feePolicy NullablePublicFeePolicyDocument, feeEvidence map[string]interface{}, feeQuoteDigest NullableString, feeQuoteExpiresAt NullableTime, settlementAmountAtomic string, gasMode string, buyerNativeFeeAtomic NullableString, sponsoredNativeFeeAtomic NullableString, sponsoredNativeSymbol NullableString, tenantGasChargeMicros NullableString, gasSponsorshipEvidenceDigest NullableString, createdAt time.Time, ) *PaymentReceipt`
 
 NewPaymentReceipt instantiates a new PaymentReceipt object
 This constructor will assign default values to properties that have it defined,
@@ -196,40 +196,40 @@ SetSigningKeyVersion sets SigningKeyVersion field to given value.
 
 ### GetEligibleAlternatives
 
-`func (o *PaymentReceipt) GetEligibleAlternatives() []NetworkFeeAlternative`
+`func (o *PaymentReceipt) GetEligibleAlternatives() []PublicNetworkFeeAlternative`
 
 GetEligibleAlternatives returns the EligibleAlternatives field if non-nil, zero value otherwise.
 
 ### GetEligibleAlternativesOk
 
-`func (o *PaymentReceipt) GetEligibleAlternativesOk() (*[]NetworkFeeAlternative, bool)`
+`func (o *PaymentReceipt) GetEligibleAlternativesOk() (*[]PublicNetworkFeeAlternative, bool)`
 
 GetEligibleAlternativesOk returns a tuple with the EligibleAlternatives field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEligibleAlternatives
 
-`func (o *PaymentReceipt) SetEligibleAlternatives(v []NetworkFeeAlternative)`
+`func (o *PaymentReceipt) SetEligibleAlternatives(v []PublicNetworkFeeAlternative)`
 
 SetEligibleAlternatives sets EligibleAlternatives field to given value.
 
 
 ### GetFeePolicy
 
-`func (o *PaymentReceipt) GetFeePolicy() FeePolicyDocument`
+`func (o *PaymentReceipt) GetFeePolicy() PublicFeePolicyDocument`
 
 GetFeePolicy returns the FeePolicy field if non-nil, zero value otherwise.
 
 ### GetFeePolicyOk
 
-`func (o *PaymentReceipt) GetFeePolicyOk() (*FeePolicyDocument, bool)`
+`func (o *PaymentReceipt) GetFeePolicyOk() (*PublicFeePolicyDocument, bool)`
 
 GetFeePolicyOk returns a tuple with the FeePolicy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFeePolicy
 
-`func (o *PaymentReceipt) SetFeePolicy(v FeePolicyDocument)`
+`func (o *PaymentReceipt) SetFeePolicy(v PublicFeePolicyDocument)`
 
 SetFeePolicy sets FeePolicy field to given value.
 
@@ -246,20 +246,20 @@ SetFeePolicy sets FeePolicy field to given value.
 UnsetFeePolicy ensures that no value is present for FeePolicy, not even an explicit nil
 ### GetFeeEvidence
 
-`func (o *PaymentReceipt) GetFeeEvidence() NetworkFeeEvidence`
+`func (o *PaymentReceipt) GetFeeEvidence() map[string]interface{}`
 
 GetFeeEvidence returns the FeeEvidence field if non-nil, zero value otherwise.
 
 ### GetFeeEvidenceOk
 
-`func (o *PaymentReceipt) GetFeeEvidenceOk() (*NetworkFeeEvidence, bool)`
+`func (o *PaymentReceipt) GetFeeEvidenceOk() (*map[string]interface{}, bool)`
 
 GetFeeEvidenceOk returns a tuple with the FeeEvidence field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFeeEvidence
 
-`func (o *PaymentReceipt) SetFeeEvidence(v NetworkFeeEvidence)`
+`func (o *PaymentReceipt) SetFeeEvidence(v map[string]interface{})`
 
 SetFeeEvidence sets FeeEvidence field to given value.
 

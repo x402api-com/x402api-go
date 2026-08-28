@@ -15,45 +15,43 @@ import (
 	"fmt"
 )
 
-// checks if the FeePolicyDocument type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &FeePolicyDocument{}
+// checks if the PublicFeePolicyDocument type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PublicFeePolicyDocument{}
 
-// FeePolicyDocument struct for FeePolicyDocument
-type FeePolicyDocument struct {
+// PublicFeePolicyDocument struct for PublicFeePolicyDocument
+type PublicFeePolicyDocument struct {
 	Type string `json:"type"`
 	Version int32 `json:"version"`
 	FeeMode FeePolicyModeInputEnum `json:"feeMode"`
 	QuoteCurrency FeePolicyQuoteCurrencyInputEnum `json:"quoteCurrency"`
-	FeeAllowanceCapQuoteMicros string `json:"feeAllowanceCapQuoteMicros" validate:"regexp=^(0|[1-9][0-9]*)$"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _FeePolicyDocument FeePolicyDocument
+type _PublicFeePolicyDocument PublicFeePolicyDocument
 
-// NewFeePolicyDocument instantiates a new FeePolicyDocument object
+// NewPublicFeePolicyDocument instantiates a new PublicFeePolicyDocument object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFeePolicyDocument(type_ string, version int32, feeMode FeePolicyModeInputEnum, quoteCurrency FeePolicyQuoteCurrencyInputEnum, feeAllowanceCapQuoteMicros string) *FeePolicyDocument {
-	this := FeePolicyDocument{}
+func NewPublicFeePolicyDocument(type_ string, version int32, feeMode FeePolicyModeInputEnum, quoteCurrency FeePolicyQuoteCurrencyInputEnum) *PublicFeePolicyDocument {
+	this := PublicFeePolicyDocument{}
 	this.Type = type_
 	this.Version = version
 	this.FeeMode = feeMode
 	this.QuoteCurrency = quoteCurrency
-	this.FeeAllowanceCapQuoteMicros = feeAllowanceCapQuoteMicros
 	return &this
 }
 
-// NewFeePolicyDocumentWithDefaults instantiates a new FeePolicyDocument object
+// NewPublicFeePolicyDocumentWithDefaults instantiates a new PublicFeePolicyDocument object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewFeePolicyDocumentWithDefaults() *FeePolicyDocument {
-	this := FeePolicyDocument{}
+func NewPublicFeePolicyDocumentWithDefaults() *PublicFeePolicyDocument {
+	this := PublicFeePolicyDocument{}
 	return &this
 }
 
 // GetType returns the Type field value
-func (o *FeePolicyDocument) GetType() string {
+func (o *PublicFeePolicyDocument) GetType() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -64,7 +62,7 @@ func (o *FeePolicyDocument) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *FeePolicyDocument) GetTypeOk() (*string, bool) {
+func (o *PublicFeePolicyDocument) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -72,12 +70,12 @@ func (o *FeePolicyDocument) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *FeePolicyDocument) SetType(v string) {
+func (o *PublicFeePolicyDocument) SetType(v string) {
 	o.Type = v
 }
 
 // GetVersion returns the Version field value
-func (o *FeePolicyDocument) GetVersion() int32 {
+func (o *PublicFeePolicyDocument) GetVersion() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -88,7 +86,7 @@ func (o *FeePolicyDocument) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
-func (o *FeePolicyDocument) GetVersionOk() (*int32, bool) {
+func (o *PublicFeePolicyDocument) GetVersionOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -96,12 +94,12 @@ func (o *FeePolicyDocument) GetVersionOk() (*int32, bool) {
 }
 
 // SetVersion sets field value
-func (o *FeePolicyDocument) SetVersion(v int32) {
+func (o *PublicFeePolicyDocument) SetVersion(v int32) {
 	o.Version = v
 }
 
 // GetFeeMode returns the FeeMode field value
-func (o *FeePolicyDocument) GetFeeMode() FeePolicyModeInputEnum {
+func (o *PublicFeePolicyDocument) GetFeeMode() FeePolicyModeInputEnum {
 	if o == nil {
 		var ret FeePolicyModeInputEnum
 		return ret
@@ -112,7 +110,7 @@ func (o *FeePolicyDocument) GetFeeMode() FeePolicyModeInputEnum {
 
 // GetFeeModeOk returns a tuple with the FeeMode field value
 // and a boolean to check if the value has been set.
-func (o *FeePolicyDocument) GetFeeModeOk() (*FeePolicyModeInputEnum, bool) {
+func (o *PublicFeePolicyDocument) GetFeeModeOk() (*FeePolicyModeInputEnum, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -120,12 +118,12 @@ func (o *FeePolicyDocument) GetFeeModeOk() (*FeePolicyModeInputEnum, bool) {
 }
 
 // SetFeeMode sets field value
-func (o *FeePolicyDocument) SetFeeMode(v FeePolicyModeInputEnum) {
+func (o *PublicFeePolicyDocument) SetFeeMode(v FeePolicyModeInputEnum) {
 	o.FeeMode = v
 }
 
 // GetQuoteCurrency returns the QuoteCurrency field value
-func (o *FeePolicyDocument) GetQuoteCurrency() FeePolicyQuoteCurrencyInputEnum {
+func (o *PublicFeePolicyDocument) GetQuoteCurrency() FeePolicyQuoteCurrencyInputEnum {
 	if o == nil {
 		var ret FeePolicyQuoteCurrencyInputEnum
 		return ret
@@ -136,7 +134,7 @@ func (o *FeePolicyDocument) GetQuoteCurrency() FeePolicyQuoteCurrencyInputEnum {
 
 // GetQuoteCurrencyOk returns a tuple with the QuoteCurrency field value
 // and a boolean to check if the value has been set.
-func (o *FeePolicyDocument) GetQuoteCurrencyOk() (*FeePolicyQuoteCurrencyInputEnum, bool) {
+func (o *PublicFeePolicyDocument) GetQuoteCurrencyOk() (*FeePolicyQuoteCurrencyInputEnum, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -144,35 +142,11 @@ func (o *FeePolicyDocument) GetQuoteCurrencyOk() (*FeePolicyQuoteCurrencyInputEn
 }
 
 // SetQuoteCurrency sets field value
-func (o *FeePolicyDocument) SetQuoteCurrency(v FeePolicyQuoteCurrencyInputEnum) {
+func (o *PublicFeePolicyDocument) SetQuoteCurrency(v FeePolicyQuoteCurrencyInputEnum) {
 	o.QuoteCurrency = v
 }
 
-// GetFeeAllowanceCapQuoteMicros returns the FeeAllowanceCapQuoteMicros field value
-func (o *FeePolicyDocument) GetFeeAllowanceCapQuoteMicros() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.FeeAllowanceCapQuoteMicros
-}
-
-// GetFeeAllowanceCapQuoteMicrosOk returns a tuple with the FeeAllowanceCapQuoteMicros field value
-// and a boolean to check if the value has been set.
-func (o *FeePolicyDocument) GetFeeAllowanceCapQuoteMicrosOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.FeeAllowanceCapQuoteMicros, true
-}
-
-// SetFeeAllowanceCapQuoteMicros sets field value
-func (o *FeePolicyDocument) SetFeeAllowanceCapQuoteMicros(v string) {
-	o.FeeAllowanceCapQuoteMicros = v
-}
-
-func (o FeePolicyDocument) MarshalJSON() ([]byte, error) {
+func (o PublicFeePolicyDocument) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -180,13 +154,12 @@ func (o FeePolicyDocument) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o FeePolicyDocument) ToMap() (map[string]interface{}, error) {
+func (o PublicFeePolicyDocument) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
 	toSerialize["version"] = o.Version
 	toSerialize["feeMode"] = o.FeeMode
 	toSerialize["quoteCurrency"] = o.QuoteCurrency
-	toSerialize["feeAllowanceCapQuoteMicros"] = o.FeeAllowanceCapQuoteMicros
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -195,7 +168,7 @@ func (o FeePolicyDocument) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *FeePolicyDocument) UnmarshalJSON(data []byte) (err error) {
+func (o *PublicFeePolicyDocument) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -204,7 +177,6 @@ func (o *FeePolicyDocument) UnmarshalJSON(data []byte) (err error) {
 		"version",
 		"feeMode",
 		"quoteCurrency",
-		"feeAllowanceCapQuoteMicros",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -221,15 +193,15 @@ func (o *FeePolicyDocument) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varFeePolicyDocument := _FeePolicyDocument{}
+	varPublicFeePolicyDocument := _PublicFeePolicyDocument{}
 
-	err = json.Unmarshal(data, &varFeePolicyDocument)
+	err = json.Unmarshal(data, &varPublicFeePolicyDocument)
 
 	if err != nil {
 		return err
 	}
 
-	*o = FeePolicyDocument(varFeePolicyDocument)
+	*o = PublicFeePolicyDocument(varPublicFeePolicyDocument)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -238,45 +210,44 @@ func (o *FeePolicyDocument) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "feeMode")
 		delete(additionalProperties, "quoteCurrency")
-		delete(additionalProperties, "feeAllowanceCapQuoteMicros")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableFeePolicyDocument struct {
-	value *FeePolicyDocument
+type NullablePublicFeePolicyDocument struct {
+	value *PublicFeePolicyDocument
 	isSet bool
 }
 
-func (v NullableFeePolicyDocument) Get() *FeePolicyDocument {
+func (v NullablePublicFeePolicyDocument) Get() *PublicFeePolicyDocument {
 	return v.value
 }
 
-func (v *NullableFeePolicyDocument) Set(val *FeePolicyDocument) {
+func (v *NullablePublicFeePolicyDocument) Set(val *PublicFeePolicyDocument) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableFeePolicyDocument) IsSet() bool {
+func (v NullablePublicFeePolicyDocument) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableFeePolicyDocument) Unset() {
+func (v *NullablePublicFeePolicyDocument) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableFeePolicyDocument(val *FeePolicyDocument) *NullableFeePolicyDocument {
-	return &NullableFeePolicyDocument{value: val, isSet: true}
+func NewNullablePublicFeePolicyDocument(val *PublicFeePolicyDocument) *NullablePublicFeePolicyDocument {
+	return &NullablePublicFeePolicyDocument{value: val, isSet: true}
 }
 
-func (v NullableFeePolicyDocument) MarshalJSON() ([]byte, error) {
+func (v NullablePublicFeePolicyDocument) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableFeePolicyDocument) UnmarshalJSON(src []byte) error {
+func (v *NullablePublicFeePolicyDocument) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

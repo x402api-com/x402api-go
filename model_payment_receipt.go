@@ -28,9 +28,9 @@ type PaymentReceipt struct {
 	ReceiptDigest string `json:"receipt_digest"`
 	Signature string `json:"signature"`
 	SigningKeyVersion string `json:"signing_key_version"`
-	EligibleAlternatives []NetworkFeeAlternative `json:"eligible_alternatives"`
-	FeePolicy NullableFeePolicyDocument `json:"fee_policy"`
-	FeeEvidence NullableNetworkFeeEvidence `json:"fee_evidence"`
+	EligibleAlternatives []PublicNetworkFeeAlternative `json:"eligible_alternatives"`
+	FeePolicy NullablePublicFeePolicyDocument `json:"fee_policy"`
+	FeeEvidence map[string]interface{} `json:"fee_evidence"`
 	FeeQuoteDigest NullableString `json:"fee_quote_digest"`
 	FeeQuoteExpiresAt NullableTime `json:"fee_quote_expires_at"`
 	SettlementAmountAtomic string `json:"settlement_amount_atomic"`
@@ -50,7 +50,7 @@ type _PaymentReceipt PaymentReceipt
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentReceipt(id string, orderId string, settlementJobId string, receipt interface{}, receiptDigest string, signature string, signingKeyVersion string, eligibleAlternatives []NetworkFeeAlternative, feePolicy NullableFeePolicyDocument, feeEvidence NullableNetworkFeeEvidence, feeQuoteDigest NullableString, feeQuoteExpiresAt NullableTime, settlementAmountAtomic string, gasMode string, buyerNativeFeeAtomic NullableString, sponsoredNativeFeeAtomic NullableString, sponsoredNativeSymbol NullableString, tenantGasChargeMicros NullableString, gasSponsorshipEvidenceDigest NullableString, createdAt time.Time) *PaymentReceipt {
+func NewPaymentReceipt(id string, orderId string, settlementJobId string, receipt interface{}, receiptDigest string, signature string, signingKeyVersion string, eligibleAlternatives []PublicNetworkFeeAlternative, feePolicy NullablePublicFeePolicyDocument, feeEvidence map[string]interface{}, feeQuoteDigest NullableString, feeQuoteExpiresAt NullableTime, settlementAmountAtomic string, gasMode string, buyerNativeFeeAtomic NullableString, sponsoredNativeFeeAtomic NullableString, sponsoredNativeSymbol NullableString, tenantGasChargeMicros NullableString, gasSponsorshipEvidenceDigest NullableString, createdAt time.Time) *PaymentReceipt {
 	this := PaymentReceipt{}
 	this.Id = id
 	this.OrderId = orderId
@@ -254,9 +254,9 @@ func (o *PaymentReceipt) SetSigningKeyVersion(v string) {
 }
 
 // GetEligibleAlternatives returns the EligibleAlternatives field value
-func (o *PaymentReceipt) GetEligibleAlternatives() []NetworkFeeAlternative {
+func (o *PaymentReceipt) GetEligibleAlternatives() []PublicNetworkFeeAlternative {
 	if o == nil {
-		var ret []NetworkFeeAlternative
+		var ret []PublicNetworkFeeAlternative
 		return ret
 	}
 
@@ -265,7 +265,7 @@ func (o *PaymentReceipt) GetEligibleAlternatives() []NetworkFeeAlternative {
 
 // GetEligibleAlternativesOk returns a tuple with the EligibleAlternatives field value
 // and a boolean to check if the value has been set.
-func (o *PaymentReceipt) GetEligibleAlternativesOk() ([]NetworkFeeAlternative, bool) {
+func (o *PaymentReceipt) GetEligibleAlternativesOk() ([]PublicNetworkFeeAlternative, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -273,15 +273,15 @@ func (o *PaymentReceipt) GetEligibleAlternativesOk() ([]NetworkFeeAlternative, b
 }
 
 // SetEligibleAlternatives sets field value
-func (o *PaymentReceipt) SetEligibleAlternatives(v []NetworkFeeAlternative) {
+func (o *PaymentReceipt) SetEligibleAlternatives(v []PublicNetworkFeeAlternative) {
 	o.EligibleAlternatives = v
 }
 
 // GetFeePolicy returns the FeePolicy field value
-// If the value is explicit nil, the zero value for FeePolicyDocument will be returned
-func (o *PaymentReceipt) GetFeePolicy() FeePolicyDocument {
+// If the value is explicit nil, the zero value for PublicFeePolicyDocument will be returned
+func (o *PaymentReceipt) GetFeePolicy() PublicFeePolicyDocument {
 	if o == nil || o.FeePolicy.Get() == nil {
-		var ret FeePolicyDocument
+		var ret PublicFeePolicyDocument
 		return ret
 	}
 
@@ -291,7 +291,7 @@ func (o *PaymentReceipt) GetFeePolicy() FeePolicyDocument {
 // GetFeePolicyOk returns a tuple with the FeePolicy field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PaymentReceipt) GetFeePolicyOk() (*FeePolicyDocument, bool) {
+func (o *PaymentReceipt) GetFeePolicyOk() (*PublicFeePolicyDocument, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -299,34 +299,34 @@ func (o *PaymentReceipt) GetFeePolicyOk() (*FeePolicyDocument, bool) {
 }
 
 // SetFeePolicy sets field value
-func (o *PaymentReceipt) SetFeePolicy(v FeePolicyDocument) {
+func (o *PaymentReceipt) SetFeePolicy(v PublicFeePolicyDocument) {
 	o.FeePolicy.Set(&v)
 }
 
 // GetFeeEvidence returns the FeeEvidence field value
-// If the value is explicit nil, the zero value for NetworkFeeEvidence will be returned
-func (o *PaymentReceipt) GetFeeEvidence() NetworkFeeEvidence {
-	if o == nil || o.FeeEvidence.Get() == nil {
-		var ret NetworkFeeEvidence
+// If the value is explicit nil, the zero value for map[string]interface{} will be returned
+func (o *PaymentReceipt) GetFeeEvidence() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
 		return ret
 	}
 
-	return *o.FeeEvidence.Get()
+	return o.FeeEvidence
 }
 
 // GetFeeEvidenceOk returns a tuple with the FeeEvidence field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PaymentReceipt) GetFeeEvidenceOk() (*NetworkFeeEvidence, bool) {
-	if o == nil {
-		return nil, false
+func (o *PaymentReceipt) GetFeeEvidenceOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.FeeEvidence) {
+		return map[string]interface{}{}, false
 	}
-	return o.FeeEvidence.Get(), o.FeeEvidence.IsSet()
+	return o.FeeEvidence, true
 }
 
 // SetFeeEvidence sets field value
-func (o *PaymentReceipt) SetFeeEvidence(v NetworkFeeEvidence) {
-	o.FeeEvidence.Set(&v)
+func (o *PaymentReceipt) SetFeeEvidence(v map[string]interface{}) {
+	o.FeeEvidence = v
 }
 
 // GetFeeQuoteDigest returns the FeeQuoteDigest field value
@@ -604,7 +604,9 @@ func (o PaymentReceipt) ToMap() (map[string]interface{}, error) {
 	toSerialize["signing_key_version"] = o.SigningKeyVersion
 	toSerialize["eligible_alternatives"] = o.EligibleAlternatives
 	toSerialize["fee_policy"] = o.FeePolicy.Get()
-	toSerialize["fee_evidence"] = o.FeeEvidence.Get()
+	if o.FeeEvidence != nil {
+		toSerialize["fee_evidence"] = o.FeeEvidence
+	}
 	toSerialize["fee_quote_digest"] = o.FeeQuoteDigest.Get()
 	toSerialize["fee_quote_expires_at"] = o.FeeQuoteExpiresAt.Get()
 	toSerialize["settlement_amount_atomic"] = o.SettlementAmountAtomic

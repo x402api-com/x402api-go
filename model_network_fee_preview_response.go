@@ -20,8 +20,8 @@ var _ MappedNullable = &NetworkFeePreviewResponse{}
 
 // NetworkFeePreviewResponse struct for NetworkFeePreviewResponse
 type NetworkFeePreviewResponse struct {
-	FeePolicy FeePolicyDocument `json:"fee_policy"`
-	Alternatives []NetworkFeeAlternative `json:"alternatives"`
+	FeePolicy PublicFeePolicyDocument `json:"fee_policy"`
+	Alternatives []PublicNetworkFeeAlternative `json:"alternatives"`
 	FeeQuoteDigest string `json:"fee_quote_digest" validate:"regexp=^sha256:[0-9a-f]{64}$"`
 	AdditionalProperties map[string]interface{}
 }
@@ -32,7 +32,7 @@ type _NetworkFeePreviewResponse NetworkFeePreviewResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNetworkFeePreviewResponse(feePolicy FeePolicyDocument, alternatives []NetworkFeeAlternative, feeQuoteDigest string) *NetworkFeePreviewResponse {
+func NewNetworkFeePreviewResponse(feePolicy PublicFeePolicyDocument, alternatives []PublicNetworkFeeAlternative, feeQuoteDigest string) *NetworkFeePreviewResponse {
 	this := NetworkFeePreviewResponse{}
 	this.FeePolicy = feePolicy
 	this.Alternatives = alternatives
@@ -49,9 +49,9 @@ func NewNetworkFeePreviewResponseWithDefaults() *NetworkFeePreviewResponse {
 }
 
 // GetFeePolicy returns the FeePolicy field value
-func (o *NetworkFeePreviewResponse) GetFeePolicy() FeePolicyDocument {
+func (o *NetworkFeePreviewResponse) GetFeePolicy() PublicFeePolicyDocument {
 	if o == nil {
-		var ret FeePolicyDocument
+		var ret PublicFeePolicyDocument
 		return ret
 	}
 
@@ -60,7 +60,7 @@ func (o *NetworkFeePreviewResponse) GetFeePolicy() FeePolicyDocument {
 
 // GetFeePolicyOk returns a tuple with the FeePolicy field value
 // and a boolean to check if the value has been set.
-func (o *NetworkFeePreviewResponse) GetFeePolicyOk() (*FeePolicyDocument, bool) {
+func (o *NetworkFeePreviewResponse) GetFeePolicyOk() (*PublicFeePolicyDocument, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -68,14 +68,14 @@ func (o *NetworkFeePreviewResponse) GetFeePolicyOk() (*FeePolicyDocument, bool) 
 }
 
 // SetFeePolicy sets field value
-func (o *NetworkFeePreviewResponse) SetFeePolicy(v FeePolicyDocument) {
+func (o *NetworkFeePreviewResponse) SetFeePolicy(v PublicFeePolicyDocument) {
 	o.FeePolicy = v
 }
 
 // GetAlternatives returns the Alternatives field value
-func (o *NetworkFeePreviewResponse) GetAlternatives() []NetworkFeeAlternative {
+func (o *NetworkFeePreviewResponse) GetAlternatives() []PublicNetworkFeeAlternative {
 	if o == nil {
-		var ret []NetworkFeeAlternative
+		var ret []PublicNetworkFeeAlternative
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *NetworkFeePreviewResponse) GetAlternatives() []NetworkFeeAlternative {
 
 // GetAlternativesOk returns a tuple with the Alternatives field value
 // and a boolean to check if the value has been set.
-func (o *NetworkFeePreviewResponse) GetAlternativesOk() ([]NetworkFeeAlternative, bool) {
+func (o *NetworkFeePreviewResponse) GetAlternativesOk() ([]PublicNetworkFeeAlternative, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *NetworkFeePreviewResponse) GetAlternativesOk() ([]NetworkFeeAlternative
 }
 
 // SetAlternatives sets field value
-func (o *NetworkFeePreviewResponse) SetAlternatives(v []NetworkFeeAlternative) {
+func (o *NetworkFeePreviewResponse) SetAlternatives(v []PublicNetworkFeeAlternative) {
 	o.Alternatives = v
 }
 

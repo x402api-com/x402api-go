@@ -18,15 +18,15 @@ Name | Type | Description | Notes
 **MetadataDigest** | **string** |  |
 **PaymentRequired** | **interface{}** | Complete immutable x402 v2 PAYMENT-REQUIRED document. |
 **PaymentRequiredHeader** | **string** | Canonical base64-encoded value to return in the buyer-facing PAYMENT-REQUIRED header. |
-**EligibleAlternatives** | [**[]NetworkFeeAlternative**](NetworkFeeAlternative.md) |  |
-**FeePolicy** | [**FeePolicyDocument**](FeePolicyDocument.md) |  |
+**EligibleAlternatives** | [**[]PublicNetworkFeeAlternative**](PublicNetworkFeeAlternative.md) |  |
+**FeePolicy** | [**PublicFeePolicyDocument**](PublicFeePolicyDocument.md) |  |
 **FeeQuoteDigest** | **string** |  |
 
 ## Methods
 
 ### NewDynamicChargeResponse
 
-`func NewDynamicChargeResponse(chargeId string, chargeDigest string, orderId string, status string, resourceVersionId string, paymentIdentifier string, expiresAt time.Time, createdAt time.Time, prices []DynamicChargePrice, requestedExpiresInSeconds int32, metadata map[string]interface{}, metadataDigest string, paymentRequired interface{}, paymentRequiredHeader string, eligibleAlternatives []NetworkFeeAlternative, feePolicy FeePolicyDocument, feeQuoteDigest string, ) *DynamicChargeResponse`
+`func NewDynamicChargeResponse(chargeId string, chargeDigest string, orderId string, status string, resourceVersionId string, paymentIdentifier string, expiresAt time.Time, createdAt time.Time, prices []DynamicChargePrice, requestedExpiresInSeconds int32, metadata map[string]interface{}, metadataDigest string, paymentRequired interface{}, paymentRequiredHeader string, eligibleAlternatives []PublicNetworkFeeAlternative, feePolicy PublicFeePolicyDocument, feeQuoteDigest string, ) *DynamicChargeResponse`
 
 NewDynamicChargeResponse instantiates a new DynamicChargeResponse object
 This constructor will assign default values to properties that have it defined,
@@ -333,40 +333,40 @@ SetPaymentRequiredHeader sets PaymentRequiredHeader field to given value.
 
 ### GetEligibleAlternatives
 
-`func (o *DynamicChargeResponse) GetEligibleAlternatives() []NetworkFeeAlternative`
+`func (o *DynamicChargeResponse) GetEligibleAlternatives() []PublicNetworkFeeAlternative`
 
 GetEligibleAlternatives returns the EligibleAlternatives field if non-nil, zero value otherwise.
 
 ### GetEligibleAlternativesOk
 
-`func (o *DynamicChargeResponse) GetEligibleAlternativesOk() (*[]NetworkFeeAlternative, bool)`
+`func (o *DynamicChargeResponse) GetEligibleAlternativesOk() (*[]PublicNetworkFeeAlternative, bool)`
 
 GetEligibleAlternativesOk returns a tuple with the EligibleAlternatives field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEligibleAlternatives
 
-`func (o *DynamicChargeResponse) SetEligibleAlternatives(v []NetworkFeeAlternative)`
+`func (o *DynamicChargeResponse) SetEligibleAlternatives(v []PublicNetworkFeeAlternative)`
 
 SetEligibleAlternatives sets EligibleAlternatives field to given value.
 
 
 ### GetFeePolicy
 
-`func (o *DynamicChargeResponse) GetFeePolicy() FeePolicyDocument`
+`func (o *DynamicChargeResponse) GetFeePolicy() PublicFeePolicyDocument`
 
 GetFeePolicy returns the FeePolicy field if non-nil, zero value otherwise.
 
 ### GetFeePolicyOk
 
-`func (o *DynamicChargeResponse) GetFeePolicyOk() (*FeePolicyDocument, bool)`
+`func (o *DynamicChargeResponse) GetFeePolicyOk() (*PublicFeePolicyDocument, bool)`
 
 GetFeePolicyOk returns a tuple with the FeePolicy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFeePolicy
 
-`func (o *DynamicChargeResponse) SetFeePolicy(v FeePolicyDocument)`
+`func (o *DynamicChargeResponse) SetFeePolicy(v PublicFeePolicyDocument)`
 
 SetFeePolicy sets FeePolicy field to given value.
 

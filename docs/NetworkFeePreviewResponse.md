@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FeePolicy** | [**FeePolicyDocument**](FeePolicyDocument.md) |  |
-**Alternatives** | [**[]NetworkFeeAlternative**](NetworkFeeAlternative.md) |  |
+**FeePolicy** | [**PublicFeePolicyDocument**](PublicFeePolicyDocument.md) |  |
+**Alternatives** | [**[]PublicNetworkFeeAlternative**](PublicNetworkFeeAlternative.md) |  |
 **FeeQuoteDigest** | **string** |  |
 
 ## Methods
 
 ### NewNetworkFeePreviewResponse
 
-`func NewNetworkFeePreviewResponse(feePolicy FeePolicyDocument, alternatives []NetworkFeeAlternative, feeQuoteDigest string, ) *NetworkFeePreviewResponse`
+`func NewNetworkFeePreviewResponse(feePolicy PublicFeePolicyDocument, alternatives []PublicNetworkFeeAlternative, feeQuoteDigest string, ) *NetworkFeePreviewResponse`
 
 NewNetworkFeePreviewResponse instantiates a new NetworkFeePreviewResponse object
 This constructor will assign default values to properties that have it defined,
@@ -29,40 +29,40 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetFeePolicy
 
-`func (o *NetworkFeePreviewResponse) GetFeePolicy() FeePolicyDocument`
+`func (o *NetworkFeePreviewResponse) GetFeePolicy() PublicFeePolicyDocument`
 
 GetFeePolicy returns the FeePolicy field if non-nil, zero value otherwise.
 
 ### GetFeePolicyOk
 
-`func (o *NetworkFeePreviewResponse) GetFeePolicyOk() (*FeePolicyDocument, bool)`
+`func (o *NetworkFeePreviewResponse) GetFeePolicyOk() (*PublicFeePolicyDocument, bool)`
 
 GetFeePolicyOk returns a tuple with the FeePolicy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFeePolicy
 
-`func (o *NetworkFeePreviewResponse) SetFeePolicy(v FeePolicyDocument)`
+`func (o *NetworkFeePreviewResponse) SetFeePolicy(v PublicFeePolicyDocument)`
 
 SetFeePolicy sets FeePolicy field to given value.
 
 
 ### GetAlternatives
 
-`func (o *NetworkFeePreviewResponse) GetAlternatives() []NetworkFeeAlternative`
+`func (o *NetworkFeePreviewResponse) GetAlternatives() []PublicNetworkFeeAlternative`
 
 GetAlternatives returns the Alternatives field if non-nil, zero value otherwise.
 
 ### GetAlternativesOk
 
-`func (o *NetworkFeePreviewResponse) GetAlternativesOk() (*[]NetworkFeeAlternative, bool)`
+`func (o *NetworkFeePreviewResponse) GetAlternativesOk() (*[]PublicNetworkFeeAlternative, bool)`
 
 GetAlternativesOk returns a tuple with the Alternatives field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAlternatives
 
-`func (o *NetworkFeePreviewResponse) SetAlternatives(v []NetworkFeeAlternative)`
+`func (o *NetworkFeePreviewResponse) SetAlternatives(v []PublicNetworkFeeAlternative)`
 
 SetAlternatives sets Alternatives field to given value.
 

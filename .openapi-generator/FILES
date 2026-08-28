@@ -28,7 +28,6 @@ docs/ExternalReceivingAddress.md
 docs/ExternalReceivingAddressCreate.md
 docs/ExternalReceivingAddressRotation.md
 docs/FacilitatorDiscoveryAPI.md
-docs/FeePolicyDocument.md
 docs/FeePolicyModeInputEnum.md
 docs/FeePolicyQuoteCurrencyInputEnum.md
 docs/GasModeEnum.md
@@ -36,10 +35,6 @@ docs/HTTPMethodEnum.md
 docs/IdempotencyAPI.md
 docs/IdempotencyOutcome.md
 docs/IdempotencyOutcomeStateEnum.md
-docs/NativeFeeObservationEvidence.md
-docs/NativeUsdObservationEvidence.md
-docs/NetworkFeeAlternative.md
-docs/NetworkFeeEvidence.md
 docs/NetworkFeePreview.md
 docs/NetworkFeePreviewPrice.md
 docs/NetworkFeePreviewResponse.md
@@ -58,6 +53,8 @@ docs/PaymentReadinessStateEnum.md
 docs/PaymentReceipt.md
 docs/PriceInput.md
 docs/ProgrammaticChargesAPI.md
+docs/PublicFeePolicyDocument.md
+docs/PublicNetworkFeeAlternative.md
 docs/ReadinessStatusEnum.md
 docs/ReceiptVerificationKey.md
 docs/ReceiptVerificationKeyHistory.md
@@ -125,17 +122,12 @@ model_external_address_proof_method_enum.go
 model_external_receiving_address.go
 model_external_receiving_address_create.go
 model_external_receiving_address_rotation.go
-model_fee_policy_document.go
 model_fee_policy_mode_input_enum.go
 model_fee_policy_quote_currency_input_enum.go
 model_gas_mode_enum.go
 model_http_method_enum.go
 model_idempotency_outcome.go
 model_idempotency_outcome_state_enum.go
-model_native_fee_observation_evidence.go
-model_native_usd_observation_evidence.go
-model_network_fee_alternative.go
-model_network_fee_evidence.go
 model_network_fee_preview.go
 model_network_fee_preview_price.go
 model_network_fee_preview_response.go
@@ -152,6 +144,8 @@ model_payment_readiness_rail_status_enum.go
 model_payment_readiness_state_enum.go
 model_payment_receipt.go
 model_price_input.go
+model_public_fee_policy_document.go
+model_public_network_fee_alternative.go
 model_readiness_status_enum.go
 model_receipt_verification_key.go
 model_receipt_verification_key_history.go

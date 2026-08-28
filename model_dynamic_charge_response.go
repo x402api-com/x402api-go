@@ -41,8 +41,8 @@ type DynamicChargeResponse struct {
 	PaymentRequired interface{} `json:"payment_required"`
 	// Canonical base64-encoded value to return in the buyer-facing PAYMENT-REQUIRED header.
 	PaymentRequiredHeader string `json:"payment_required_header"`
-	EligibleAlternatives []NetworkFeeAlternative `json:"eligible_alternatives"`
-	FeePolicy FeePolicyDocument `json:"fee_policy"`
+	EligibleAlternatives []PublicNetworkFeeAlternative `json:"eligible_alternatives"`
+	FeePolicy PublicFeePolicyDocument `json:"fee_policy"`
 	FeeQuoteDigest string `json:"fee_quote_digest" validate:"regexp=^sha256:[0-9a-f]{64}$"`
 	AdditionalProperties map[string]interface{}
 }
@@ -53,7 +53,7 @@ type _DynamicChargeResponse DynamicChargeResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDynamicChargeResponse(chargeId string, chargeDigest string, orderId string, status string, resourceVersionId string, paymentIdentifier string, expiresAt time.Time, createdAt time.Time, prices []DynamicChargePrice, requestedExpiresInSeconds int32, metadata map[string]interface{}, metadataDigest string, paymentRequired interface{}, paymentRequiredHeader string, eligibleAlternatives []NetworkFeeAlternative, feePolicy FeePolicyDocument, feeQuoteDigest string) *DynamicChargeResponse {
+func NewDynamicChargeResponse(chargeId string, chargeDigest string, orderId string, status string, resourceVersionId string, paymentIdentifier string, expiresAt time.Time, createdAt time.Time, prices []DynamicChargePrice, requestedExpiresInSeconds int32, metadata map[string]interface{}, metadataDigest string, paymentRequired interface{}, paymentRequiredHeader string, eligibleAlternatives []PublicNetworkFeeAlternative, feePolicy PublicFeePolicyDocument, feeQuoteDigest string) *DynamicChargeResponse {
 	this := DynamicChargeResponse{}
 	this.ChargeId = chargeId
 	this.ChargeDigest = chargeDigest
@@ -422,9 +422,9 @@ func (o *DynamicChargeResponse) SetPaymentRequiredHeader(v string) {
 }
 
 // GetEligibleAlternatives returns the EligibleAlternatives field value
-func (o *DynamicChargeResponse) GetEligibleAlternatives() []NetworkFeeAlternative {
+func (o *DynamicChargeResponse) GetEligibleAlternatives() []PublicNetworkFeeAlternative {
 	if o == nil {
-		var ret []NetworkFeeAlternative
+		var ret []PublicNetworkFeeAlternative
 		return ret
 	}
 
@@ -433,7 +433,7 @@ func (o *DynamicChargeResponse) GetEligibleAlternatives() []NetworkFeeAlternativ
 
 // GetEligibleAlternativesOk returns a tuple with the EligibleAlternatives field value
 // and a boolean to check if the value has been set.
-func (o *DynamicChargeResponse) GetEligibleAlternativesOk() ([]NetworkFeeAlternative, bool) {
+func (o *DynamicChargeResponse) GetEligibleAlternativesOk() ([]PublicNetworkFeeAlternative, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -441,14 +441,14 @@ func (o *DynamicChargeResponse) GetEligibleAlternativesOk() ([]NetworkFeeAlterna
 }
 
 // SetEligibleAlternatives sets field value
-func (o *DynamicChargeResponse) SetEligibleAlternatives(v []NetworkFeeAlternative) {
+func (o *DynamicChargeResponse) SetEligibleAlternatives(v []PublicNetworkFeeAlternative) {
 	o.EligibleAlternatives = v
 }
 
 // GetFeePolicy returns the FeePolicy field value
-func (o *DynamicChargeResponse) GetFeePolicy() FeePolicyDocument {
+func (o *DynamicChargeResponse) GetFeePolicy() PublicFeePolicyDocument {
 	if o == nil {
-		var ret FeePolicyDocument
+		var ret PublicFeePolicyDocument
 		return ret
 	}
 
@@ -457,7 +457,7 @@ func (o *DynamicChargeResponse) GetFeePolicy() FeePolicyDocument {
 
 // GetFeePolicyOk returns a tuple with the FeePolicy field value
 // and a boolean to check if the value has been set.
-func (o *DynamicChargeResponse) GetFeePolicyOk() (*FeePolicyDocument, bool) {
+func (o *DynamicChargeResponse) GetFeePolicyOk() (*PublicFeePolicyDocument, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -465,7 +465,7 @@ func (o *DynamicChargeResponse) GetFeePolicyOk() (*FeePolicyDocument, bool) {
 }
 
 // SetFeePolicy sets field value
-func (o *DynamicChargeResponse) SetFeePolicy(v FeePolicyDocument) {
+func (o *DynamicChargeResponse) SetFeePolicy(v PublicFeePolicyDocument) {
 	o.FeePolicy = v
 }
 
