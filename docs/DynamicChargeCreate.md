@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceVersionId** | **string** |  |
+**ResourceVersionId** | **string** | Current active resource-version UUID used as the charge template. Read resources[].active_version.id from GET /v1/resources or copy Active version UUID (charge API) in the tenant dashboard. Do not use the top-level resource id or pay_ public_payment_id. |
 **Method** | Pointer to [**HTTPMethodEnum**](HTTPMethodEnum.md) |  | [optional] [default to HTTPMETHODENUM_POST]
 **ResourceUrl** | **string** |  |
 **BodyBase64** | Pointer to **string** |  | [optional] [default to ""]
