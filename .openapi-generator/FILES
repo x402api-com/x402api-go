@@ -15,6 +15,7 @@ docs/AssetsAndPaymentControlsAPI.md
 docs/BalanceAsset.md
 docs/CanonicalPaymentReadinessRail.md
 docs/DynamicChargeCreate.md
+docs/DynamicChargePaymentResponse.md
 docs/DynamicChargePrice.md
 docs/DynamicChargeResponse.md
 docs/ExternalAddressControlCapabilities.md
@@ -110,6 +111,7 @@ model_api_error_envelope.go
 model_balance_asset.go
 model_canonical_payment_readiness_rail.go
 model_dynamic_charge_create.go
+model_dynamic_charge_payment_response.go
 model_dynamic_charge_price.go
 model_dynamic_charge_response.go
 model_external_address_control_capabilities.go
