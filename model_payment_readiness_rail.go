@@ -12,6 +12,7 @@ package x402api
 
 import (
 	"encoding/json"
+	"time"
 	"fmt"
 )
 
@@ -27,6 +28,10 @@ type PaymentReadinessRail struct {
 	WalletReady bool `json:"wallet_ready"`
 	PlatformAvailable bool `json:"platform_available"`
 	AcceptingNewPayments bool `json:"accepting_new_payments"`
+	ReadyForNewPayment bool `json:"ready_for_new_payment"`
+	ReadinessValidUntil NullableTime `json:"readiness_valid_until"`
+	FeeQuoteReady bool `json:"fee_quote_ready"`
+	FeeQuoteValidUntil NullableTime `json:"fee_quote_valid_until"`
 	Status string `json:"status"`
 	Blockers []PaymentReadinessBlocker `json:"blockers"`
 	TenantChallengesEnabled bool `json:"tenant_challenges_enabled"`
@@ -44,7 +49,7 @@ type _PaymentReadinessRail PaymentReadinessRail
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentReadinessRail(assetId string, network string, symbol string, selected bool, walletReady bool, platformAvailable bool, acceptingNewPayments bool, status string, blockers []PaymentReadinessBlocker, tenantChallengesEnabled bool, tenantSettlementEnabled bool, networkAssistanceEnabled bool, challengeControlReady bool, settlementControlReady bool, assets []PaymentReadinessAsset) *PaymentReadinessRail {
+func NewPaymentReadinessRail(assetId string, network string, symbol string, selected bool, walletReady bool, platformAvailable bool, acceptingNewPayments bool, readyForNewPayment bool, readinessValidUntil NullableTime, feeQuoteReady bool, feeQuoteValidUntil NullableTime, status string, blockers []PaymentReadinessBlocker, tenantChallengesEnabled bool, tenantSettlementEnabled bool, networkAssistanceEnabled bool, challengeControlReady bool, settlementControlReady bool, assets []PaymentReadinessAsset) *PaymentReadinessRail {
 	this := PaymentReadinessRail{}
 	this.AssetId = assetId
 	this.Network = network
@@ -53,6 +58,10 @@ func NewPaymentReadinessRail(assetId string, network string, symbol string, sele
 	this.WalletReady = walletReady
 	this.PlatformAvailable = platformAvailable
 	this.AcceptingNewPayments = acceptingNewPayments
+	this.ReadyForNewPayment = readyForNewPayment
+	this.ReadinessValidUntil = readinessValidUntil
+	this.FeeQuoteReady = feeQuoteReady
+	this.FeeQuoteValidUntil = feeQuoteValidUntil
 	this.Status = status
 	this.Blockers = blockers
 	this.TenantChallengesEnabled = tenantChallengesEnabled
@@ -238,6 +247,106 @@ func (o *PaymentReadinessRail) GetAcceptingNewPaymentsOk() (*bool, bool) {
 // SetAcceptingNewPayments sets field value
 func (o *PaymentReadinessRail) SetAcceptingNewPayments(v bool) {
 	o.AcceptingNewPayments = v
+}
+
+// GetReadyForNewPayment returns the ReadyForNewPayment field value
+func (o *PaymentReadinessRail) GetReadyForNewPayment() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.ReadyForNewPayment
+}
+
+// GetReadyForNewPaymentOk returns a tuple with the ReadyForNewPayment field value
+// and a boolean to check if the value has been set.
+func (o *PaymentReadinessRail) GetReadyForNewPaymentOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ReadyForNewPayment, true
+}
+
+// SetReadyForNewPayment sets field value
+func (o *PaymentReadinessRail) SetReadyForNewPayment(v bool) {
+	o.ReadyForNewPayment = v
+}
+
+// GetReadinessValidUntil returns the ReadinessValidUntil field value
+// If the value is explicit nil, the zero value for time.Time will be returned
+func (o *PaymentReadinessRail) GetReadinessValidUntil() time.Time {
+	if o == nil || o.ReadinessValidUntil.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return *o.ReadinessValidUntil.Get()
+}
+
+// GetReadinessValidUntilOk returns a tuple with the ReadinessValidUntil field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentReadinessRail) GetReadinessValidUntilOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ReadinessValidUntil.Get(), o.ReadinessValidUntil.IsSet()
+}
+
+// SetReadinessValidUntil sets field value
+func (o *PaymentReadinessRail) SetReadinessValidUntil(v time.Time) {
+	o.ReadinessValidUntil.Set(&v)
+}
+
+// GetFeeQuoteReady returns the FeeQuoteReady field value
+func (o *PaymentReadinessRail) GetFeeQuoteReady() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.FeeQuoteReady
+}
+
+// GetFeeQuoteReadyOk returns a tuple with the FeeQuoteReady field value
+// and a boolean to check if the value has been set.
+func (o *PaymentReadinessRail) GetFeeQuoteReadyOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FeeQuoteReady, true
+}
+
+// SetFeeQuoteReady sets field value
+func (o *PaymentReadinessRail) SetFeeQuoteReady(v bool) {
+	o.FeeQuoteReady = v
+}
+
+// GetFeeQuoteValidUntil returns the FeeQuoteValidUntil field value
+// If the value is explicit nil, the zero value for time.Time will be returned
+func (o *PaymentReadinessRail) GetFeeQuoteValidUntil() time.Time {
+	if o == nil || o.FeeQuoteValidUntil.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return *o.FeeQuoteValidUntil.Get()
+}
+
+// GetFeeQuoteValidUntilOk returns a tuple with the FeeQuoteValidUntil field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentReadinessRail) GetFeeQuoteValidUntilOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FeeQuoteValidUntil.Get(), o.FeeQuoteValidUntil.IsSet()
+}
+
+// SetFeeQuoteValidUntil sets field value
+func (o *PaymentReadinessRail) SetFeeQuoteValidUntil(v time.Time) {
+	o.FeeQuoteValidUntil.Set(&v)
 }
 
 // GetStatus returns the Status field value
@@ -449,6 +558,10 @@ func (o PaymentReadinessRail) ToMap() (map[string]interface{}, error) {
 	toSerialize["wallet_ready"] = o.WalletReady
 	toSerialize["platform_available"] = o.PlatformAvailable
 	toSerialize["accepting_new_payments"] = o.AcceptingNewPayments
+	toSerialize["ready_for_new_payment"] = o.ReadyForNewPayment
+	toSerialize["readiness_valid_until"] = o.ReadinessValidUntil.Get()
+	toSerialize["fee_quote_ready"] = o.FeeQuoteReady
+	toSerialize["fee_quote_valid_until"] = o.FeeQuoteValidUntil.Get()
 	toSerialize["status"] = o.Status
 	toSerialize["blockers"] = o.Blockers
 	toSerialize["tenant_challenges_enabled"] = o.TenantChallengesEnabled
@@ -477,6 +590,10 @@ func (o *PaymentReadinessRail) UnmarshalJSON(data []byte) (err error) {
 		"wallet_ready",
 		"platform_available",
 		"accepting_new_payments",
+		"ready_for_new_payment",
+		"readiness_valid_until",
+		"fee_quote_ready",
+		"fee_quote_valid_until",
 		"status",
 		"blockers",
 		"tenant_challenges_enabled",
@@ -521,6 +638,10 @@ func (o *PaymentReadinessRail) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "wallet_ready")
 		delete(additionalProperties, "platform_available")
 		delete(additionalProperties, "accepting_new_payments")
+		delete(additionalProperties, "ready_for_new_payment")
+		delete(additionalProperties, "readiness_valid_until")
+		delete(additionalProperties, "fee_quote_ready")
+		delete(additionalProperties, "fee_quote_valid_until")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "blockers")
 		delete(additionalProperties, "tenant_challenges_enabled")

@@ -11,6 +11,10 @@ Name | Type | Description | Notes
 **WalletReady** | **bool** |  | [readonly]
 **PlatformAvailable** | **bool** |  | [readonly]
 **AcceptingNewPayments** | **bool** |  | [readonly]
+**ReadyForNewPayment** | **bool** |  | [readonly]
+**ReadinessValidUntil** | **NullableTime** |  | [readonly]
+**FeeQuoteReady** | **bool** |  | [readonly]
+**FeeQuoteValidUntil** | **NullableTime** |  | [readonly]
 **Status** | **string** |  | [readonly]
 **Blockers** | [**[]PaymentReadinessBlocker**](PaymentReadinessBlocker.md) |  | [readonly]
 **TenantChallengesEnabled** | **bool** |  | [readonly]
@@ -24,7 +28,7 @@ Name | Type | Description | Notes
 
 ### NewPaymentReadinessRail
 
-`func NewPaymentReadinessRail(assetId string, network string, symbol string, selected bool, walletReady bool, platformAvailable bool, acceptingNewPayments bool, status string, blockers []PaymentReadinessBlocker, tenantChallengesEnabled bool, tenantSettlementEnabled bool, networkAssistanceEnabled bool, challengeControlReady bool, settlementControlReady bool, assets []PaymentReadinessAsset, ) *PaymentReadinessRail`
+`func NewPaymentReadinessRail(assetId string, network string, symbol string, selected bool, walletReady bool, platformAvailable bool, acceptingNewPayments bool, readyForNewPayment bool, readinessValidUntil NullableTime, feeQuoteReady bool, feeQuoteValidUntil NullableTime, status string, blockers []PaymentReadinessBlocker, tenantChallengesEnabled bool, tenantSettlementEnabled bool, networkAssistanceEnabled bool, challengeControlReady bool, settlementControlReady bool, assets []PaymentReadinessAsset, ) *PaymentReadinessRail`
 
 NewPaymentReadinessRail instantiates a new PaymentReadinessRail object
 This constructor will assign default values to properties that have it defined,
@@ -179,6 +183,106 @@ and a boolean to check if the value has been set.
 SetAcceptingNewPayments sets AcceptingNewPayments field to given value.
 
 
+### GetReadyForNewPayment
+
+`func (o *PaymentReadinessRail) GetReadyForNewPayment() bool`
+
+GetReadyForNewPayment returns the ReadyForNewPayment field if non-nil, zero value otherwise.
+
+### GetReadyForNewPaymentOk
+
+`func (o *PaymentReadinessRail) GetReadyForNewPaymentOk() (*bool, bool)`
+
+GetReadyForNewPaymentOk returns a tuple with the ReadyForNewPayment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReadyForNewPayment
+
+`func (o *PaymentReadinessRail) SetReadyForNewPayment(v bool)`
+
+SetReadyForNewPayment sets ReadyForNewPayment field to given value.
+
+
+### GetReadinessValidUntil
+
+`func (o *PaymentReadinessRail) GetReadinessValidUntil() time.Time`
+
+GetReadinessValidUntil returns the ReadinessValidUntil field if non-nil, zero value otherwise.
+
+### GetReadinessValidUntilOk
+
+`func (o *PaymentReadinessRail) GetReadinessValidUntilOk() (*time.Time, bool)`
+
+GetReadinessValidUntilOk returns a tuple with the ReadinessValidUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReadinessValidUntil
+
+`func (o *PaymentReadinessRail) SetReadinessValidUntil(v time.Time)`
+
+SetReadinessValidUntil sets ReadinessValidUntil field to given value.
+
+
+### SetReadinessValidUntilNil
+
+`func (o *PaymentReadinessRail) SetReadinessValidUntilNil(b bool)`
+
+ SetReadinessValidUntilNil sets the value for ReadinessValidUntil to be an explicit nil
+
+### UnsetReadinessValidUntil
+`func (o *PaymentReadinessRail) UnsetReadinessValidUntil()`
+
+UnsetReadinessValidUntil ensures that no value is present for ReadinessValidUntil, not even an explicit nil
+### GetFeeQuoteReady
+
+`func (o *PaymentReadinessRail) GetFeeQuoteReady() bool`
+
+GetFeeQuoteReady returns the FeeQuoteReady field if non-nil, zero value otherwise.
+
+### GetFeeQuoteReadyOk
+
+`func (o *PaymentReadinessRail) GetFeeQuoteReadyOk() (*bool, bool)`
+
+GetFeeQuoteReadyOk returns a tuple with the FeeQuoteReady field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFeeQuoteReady
+
+`func (o *PaymentReadinessRail) SetFeeQuoteReady(v bool)`
+
+SetFeeQuoteReady sets FeeQuoteReady field to given value.
+
+
+### GetFeeQuoteValidUntil
+
+`func (o *PaymentReadinessRail) GetFeeQuoteValidUntil() time.Time`
+
+GetFeeQuoteValidUntil returns the FeeQuoteValidUntil field if non-nil, zero value otherwise.
+
+### GetFeeQuoteValidUntilOk
+
+`func (o *PaymentReadinessRail) GetFeeQuoteValidUntilOk() (*time.Time, bool)`
+
+GetFeeQuoteValidUntilOk returns a tuple with the FeeQuoteValidUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFeeQuoteValidUntil
+
+`func (o *PaymentReadinessRail) SetFeeQuoteValidUntil(v time.Time)`
+
+SetFeeQuoteValidUntil sets FeeQuoteValidUntil field to given value.
+
+
+### SetFeeQuoteValidUntilNil
+
+`func (o *PaymentReadinessRail) SetFeeQuoteValidUntilNil(b bool)`
+
+ SetFeeQuoteValidUntilNil sets the value for FeeQuoteValidUntil to be an explicit nil
+
+### UnsetFeeQuoteValidUntil
+`func (o *PaymentReadinessRail) UnsetFeeQuoteValidUntil()`
+
+UnsetFeeQuoteValidUntil ensures that no value is present for FeeQuoteValidUntil, not even an explicit nil
 ### GetStatus
 
 `func (o *PaymentReadinessRail) GetStatus() string`

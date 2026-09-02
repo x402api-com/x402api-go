@@ -6,9 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **State** | [**PaymentReadinessStateEnum**](PaymentReadinessStateEnum.md) |  | [readonly]
 **AcceptingNewPayments** | **bool** |  | [readonly]
+**ReadyForNewPayment** | **bool** |  | [readonly]
 **PausedByTenant** | **bool** |  | [readonly]
 **PlatformAvailable** | **bool** |  | [readonly]
-**HealthValidUntil** | **time.Time** |  | [readonly]
+**HealthValidUntil** | **NullableTime** |  | [readonly]
 **ObservedAt** | **time.Time** |  | [readonly]
 **TenantStatus** | **string** |  | [readonly]
 **TenantAcceptingNewChallenges** | **bool** |  | [readonly]
@@ -24,7 +25,7 @@ Name | Type | Description | Notes
 
 ### NewPaymentReadiness
 
-`func NewPaymentReadiness(state PaymentReadinessStateEnum, acceptingNewPayments bool, pausedByTenant bool, platformAvailable bool, healthValidUntil time.Time, observedAt time.Time, tenantStatus string, tenantAcceptingNewChallenges bool, globalChallengesEnabled bool, globalSettlementEnabled bool, controlPlaneReadyForNewChallenges bool, controlPlaneReadyForSettlement bool, externalOnboarding interface{}, rails []PaymentReadinessRail, canonicalRails []CanonicalPaymentReadinessRail, ) *PaymentReadiness`
+`func NewPaymentReadiness(state PaymentReadinessStateEnum, acceptingNewPayments bool, readyForNewPayment bool, pausedByTenant bool, platformAvailable bool, healthValidUntil NullableTime, observedAt time.Time, tenantStatus string, tenantAcceptingNewChallenges bool, globalChallengesEnabled bool, globalSettlementEnabled bool, controlPlaneReadyForNewChallenges bool, controlPlaneReadyForSettlement bool, externalOnboarding interface{}, rails []PaymentReadinessRail, canonicalRails []CanonicalPaymentReadinessRail, ) *PaymentReadiness`
 
 NewPaymentReadiness instantiates a new PaymentReadiness object
 This constructor will assign default values to properties that have it defined,
@@ -77,6 +78,26 @@ and a boolean to check if the value has been set.
 `func (o *PaymentReadiness) SetAcceptingNewPayments(v bool)`
 
 SetAcceptingNewPayments sets AcceptingNewPayments field to given value.
+
+
+### GetReadyForNewPayment
+
+`func (o *PaymentReadiness) GetReadyForNewPayment() bool`
+
+GetReadyForNewPayment returns the ReadyForNewPayment field if non-nil, zero value otherwise.
+
+### GetReadyForNewPaymentOk
+
+`func (o *PaymentReadiness) GetReadyForNewPaymentOk() (*bool, bool)`
+
+GetReadyForNewPaymentOk returns a tuple with the ReadyForNewPayment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReadyForNewPayment
+
+`func (o *PaymentReadiness) SetReadyForNewPayment(v bool)`
+
+SetReadyForNewPayment sets ReadyForNewPayment field to given value.
 
 
 ### GetPausedByTenant
@@ -139,6 +160,16 @@ and a boolean to check if the value has been set.
 SetHealthValidUntil sets HealthValidUntil field to given value.
 
 
+### SetHealthValidUntilNil
+
+`func (o *PaymentReadiness) SetHealthValidUntilNil(b bool)`
+
+ SetHealthValidUntilNil sets the value for HealthValidUntil to be an explicit nil
+
+### UnsetHealthValidUntil
+`func (o *PaymentReadiness) UnsetHealthValidUntil()`
+
+UnsetHealthValidUntil ensures that no value is present for HealthValidUntil, not even an explicit nil
 ### GetObservedAt
 
 `func (o *PaymentReadiness) GetObservedAt() time.Time`

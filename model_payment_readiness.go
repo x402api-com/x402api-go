@@ -23,9 +23,10 @@ var _ MappedNullable = &PaymentReadiness{}
 type PaymentReadiness struct {
 	State PaymentReadinessStateEnum `json:"state"`
 	AcceptingNewPayments bool `json:"accepting_new_payments"`
+	ReadyForNewPayment bool `json:"ready_for_new_payment"`
 	PausedByTenant bool `json:"paused_by_tenant"`
 	PlatformAvailable bool `json:"platform_available"`
-	HealthValidUntil time.Time `json:"health_valid_until"`
+	HealthValidUntil NullableTime `json:"health_valid_until"`
 	ObservedAt time.Time `json:"observed_at"`
 	TenantStatus string `json:"tenant_status"`
 	// Deprecated
@@ -50,10 +51,11 @@ type _PaymentReadiness PaymentReadiness
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentReadiness(state PaymentReadinessStateEnum, acceptingNewPayments bool, pausedByTenant bool, platformAvailable bool, healthValidUntil time.Time, observedAt time.Time, tenantStatus string, tenantAcceptingNewChallenges bool, globalChallengesEnabled bool, globalSettlementEnabled bool, controlPlaneReadyForNewChallenges bool, controlPlaneReadyForSettlement bool, externalOnboarding interface{}, rails []PaymentReadinessRail, canonicalRails []CanonicalPaymentReadinessRail) *PaymentReadiness {
+func NewPaymentReadiness(state PaymentReadinessStateEnum, acceptingNewPayments bool, readyForNewPayment bool, pausedByTenant bool, platformAvailable bool, healthValidUntil NullableTime, observedAt time.Time, tenantStatus string, tenantAcceptingNewChallenges bool, globalChallengesEnabled bool, globalSettlementEnabled bool, controlPlaneReadyForNewChallenges bool, controlPlaneReadyForSettlement bool, externalOnboarding interface{}, rails []PaymentReadinessRail, canonicalRails []CanonicalPaymentReadinessRail) *PaymentReadiness {
 	this := PaymentReadiness{}
 	this.State = state
 	this.AcceptingNewPayments = acceptingNewPayments
+	this.ReadyForNewPayment = readyForNewPayment
 	this.PausedByTenant = pausedByTenant
 	this.PlatformAvailable = platformAvailable
 	this.HealthValidUntil = healthValidUntil
@@ -126,6 +128,30 @@ func (o *PaymentReadiness) SetAcceptingNewPayments(v bool) {
 	o.AcceptingNewPayments = v
 }
 
+// GetReadyForNewPayment returns the ReadyForNewPayment field value
+func (o *PaymentReadiness) GetReadyForNewPayment() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.ReadyForNewPayment
+}
+
+// GetReadyForNewPaymentOk returns a tuple with the ReadyForNewPayment field value
+// and a boolean to check if the value has been set.
+func (o *PaymentReadiness) GetReadyForNewPaymentOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ReadyForNewPayment, true
+}
+
+// SetReadyForNewPayment sets field value
+func (o *PaymentReadiness) SetReadyForNewPayment(v bool) {
+	o.ReadyForNewPayment = v
+}
+
 // GetPausedByTenant returns the PausedByTenant field value
 func (o *PaymentReadiness) GetPausedByTenant() bool {
 	if o == nil {
@@ -175,27 +201,29 @@ func (o *PaymentReadiness) SetPlatformAvailable(v bool) {
 }
 
 // GetHealthValidUntil returns the HealthValidUntil field value
+// If the value is explicit nil, the zero value for time.Time will be returned
 func (o *PaymentReadiness) GetHealthValidUntil() time.Time {
-	if o == nil {
+	if o == nil || o.HealthValidUntil.Get() == nil {
 		var ret time.Time
 		return ret
 	}
 
-	return o.HealthValidUntil
+	return *o.HealthValidUntil.Get()
 }
 
 // GetHealthValidUntilOk returns a tuple with the HealthValidUntil field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaymentReadiness) GetHealthValidUntilOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.HealthValidUntil, true
+	return o.HealthValidUntil.Get(), o.HealthValidUntil.IsSet()
 }
 
 // SetHealthValidUntil sets field value
 func (o *PaymentReadiness) SetHealthValidUntil(v time.Time) {
-	o.HealthValidUntil = v
+	o.HealthValidUntil.Set(&v)
 }
 
 // GetObservedAt returns the ObservedAt field value
@@ -467,9 +495,10 @@ func (o PaymentReadiness) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["state"] = o.State
 	toSerialize["accepting_new_payments"] = o.AcceptingNewPayments
+	toSerialize["ready_for_new_payment"] = o.ReadyForNewPayment
 	toSerialize["paused_by_tenant"] = o.PausedByTenant
 	toSerialize["platform_available"] = o.PlatformAvailable
-	toSerialize["health_valid_until"] = o.HealthValidUntil
+	toSerialize["health_valid_until"] = o.HealthValidUntil.Get()
 	toSerialize["observed_at"] = o.ObservedAt
 	toSerialize["tenant_status"] = o.TenantStatus
 	toSerialize["tenant_accepting_new_challenges"] = o.TenantAcceptingNewChallenges
@@ -497,6 +526,7 @@ func (o *PaymentReadiness) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"state",
 		"accepting_new_payments",
+		"ready_for_new_payment",
 		"paused_by_tenant",
 		"platform_available",
 		"health_valid_until",
@@ -541,6 +571,7 @@ func (o *PaymentReadiness) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "state")
 		delete(additionalProperties, "accepting_new_payments")
+		delete(additionalProperties, "ready_for_new_payment")
 		delete(additionalProperties, "paused_by_tenant")
 		delete(additionalProperties, "platform_available")
 		delete(additionalProperties, "health_valid_until")
