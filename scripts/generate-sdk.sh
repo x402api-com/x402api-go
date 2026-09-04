@@ -10,7 +10,7 @@ if [[ -f .openapi-generator/FILES ]]; then
   while IFS= read -r generated_file; do
     [[ -z "${generated_file}" ]] && continue
     case "${generated_file}" in
-      /*|*../*|README.md|USAGE.md|LICENSE|CONTRIBUTING.md|.github/*|.openapi/*|scripts/*)
+      /*|*../*|README.md|USAGE.md|LICENSE|CONTRIBUTING.md|.github/*|.openapi/*|scripts/*|payment_receipt_result.go|payment_receipt_result_test.go)
         continue
         ;;
     esac
@@ -31,4 +31,5 @@ docker run --rm \
   --additional-properties "packageVersion=${sdk_version}" \
   --global-property apiTests=false,modelTests=false
 
+python3 scripts/patch-receipt-status.py
 python3 scripts/normalize-generated.py

@@ -46,6 +46,7 @@ if response != nil {
 }
 if err != nil {
     handleError(response, err)
+    return
 }
 
 sameCharge, response, err := client.ProgrammaticChargesAPI.
@@ -87,6 +88,34 @@ for {
 ```
 
 Treat the cursor as opaque and pass it back unchanged. The same pattern applies to orders, payment observations, receiving addresses, resources, and resource versions.
+
+## Retrieve a receipt without confusing pending finality with success
+
+The receipt route returns HTTP `202` with a `PaymentReceiptStatus` until its signed finalized receipt is ready. Use `ExecuteStatusAware` to handle both documented success variants with one HTTP request:
+
+```go
+result, response, err := client.OrdersAndPaymentsAPI.
+    PaymentsRetrieveReceipt(ctx, paymentID).
+    ExecuteStatusAware()
+if response != nil {
+    defer response.Body.Close()
+}
+if err != nil {
+    handleError(response, err)
+}
+
+switch {
+case result.IsFinalized():
+    verifyAndStoreReceipt(result.Receipt)
+case result.IsPending():
+    if result.IsConfirmed() {
+        markPaymentConfirmed(result.PendingStatus.PaymentId)
+    }
+    scheduleReceiptPoll(result.RetryAfter)
+}
+```
+
+`ExecuteStatusAware` does not retry. Persist your polling state, honor `Retry-After`, and do not resubmit a payment while its receipt is pending. If existing code calls `Execute`, a valid HTTP `202` is returned as `*PaymentReceiptPendingError`; use `errors.As` to distinguish that polling outcome from an API failure.
 
 ## Error handling
 

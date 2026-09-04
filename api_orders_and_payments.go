@@ -830,6 +830,20 @@ func (a *OrdersAndPaymentsAPIService) PaymentsRetrieveReceiptExecute(r ApiPaymen
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
+	// x402api: decode HTTP 202 as PaymentReceiptStatus, never PaymentReceipt.
+	if localVarHTTPResponse.StatusCode == http.StatusAccepted {
+		pendingErr, decodeErr := newPaymentReceiptPendingError(
+			a.client,
+			r.id,
+			localVarHTTPResponse,
+			localVarBody,
+		)
+		if decodeErr != nil {
+			return localVarReturnValue, localVarHTTPResponse, decodeErr
+		}
+		return localVarReturnValue, localVarHTTPResponse, pendingErr
+	}
+
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
