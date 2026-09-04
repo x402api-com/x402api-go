@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **OrderId** | **string** |  |
 **PaymentId** | **string** | Durable settlement identifier used by payment and receipt APIs. |
 **State** | **string** |  |
+**Confirmed** | Pointer to **bool** |  | [optional]
+**Finalized** | Pointer to **bool** |  | [optional]
 **Payer** | **string** |  |
 **Transaction** | **string** |  |
 **Network** | **string** |  |
@@ -111,6 +113,56 @@ and a boolean to check if the value has been set.
 
 SetState sets State field to given value.
 
+
+### GetConfirmed
+
+`func (o *DynamicChargePaymentResponse) GetConfirmed() bool`
+
+GetConfirmed returns the Confirmed field if non-nil, zero value otherwise.
+
+### GetConfirmedOk
+
+`func (o *DynamicChargePaymentResponse) GetConfirmedOk() (*bool, bool)`
+
+GetConfirmedOk returns a tuple with the Confirmed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfirmed
+
+`func (o *DynamicChargePaymentResponse) SetConfirmed(v bool)`
+
+SetConfirmed sets Confirmed field to given value.
+
+### HasConfirmed
+
+`func (o *DynamicChargePaymentResponse) HasConfirmed() bool`
+
+HasConfirmed returns a boolean if a field has been set.
+
+### GetFinalized
+
+`func (o *DynamicChargePaymentResponse) GetFinalized() bool`
+
+GetFinalized returns the Finalized field if non-nil, zero value otherwise.
+
+### GetFinalizedOk
+
+`func (o *DynamicChargePaymentResponse) GetFinalizedOk() (*bool, bool)`
+
+GetFinalizedOk returns a tuple with the Finalized field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFinalized
+
+`func (o *DynamicChargePaymentResponse) SetFinalized(v bool)`
+
+SetFinalized sets Finalized field to given value.
+
+### HasFinalized
+
+`func (o *DynamicChargePaymentResponse) HasFinalized() bool`
+
+HasFinalized returns a boolean if a field has been set.
 
 ### GetPayer
 
