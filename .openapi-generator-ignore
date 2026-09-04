@@ -7,6 +7,8 @@ CONTRIBUTING.md
 .openapi/**
 .openapi-generator-ignore
 scripts/**
+payment_receipt_result.go
+payment_receipt_result_test.go
 
 # Legacy CI and generator helper files are intentionally not used.
 .travis.yml

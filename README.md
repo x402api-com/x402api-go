@@ -144,7 +144,7 @@ Methods with optional query or body values use a request builder: call the servi
 | [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `PaymentsList(ctx).Cursor(...).PageSize(...).Execute()` | `GET /v1/payments` |
 | [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `PaymentsRetrieve(ctx, id).Execute()` | `GET /v1/payments/{id}` |
 | [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `PaymentsListObservations(ctx, id).Cursor(...).PageSize(...).Execute()` | `GET /v1/payments/{id}/observations` |
-| [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `PaymentsRetrieveReceipt(ctx, id).Execute()` | `GET /v1/payments/{id}/receipt` |
+| [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `PaymentsRetrieveReceipt(ctx, id).ExecuteStatusAware()` | `GET /v1/payments/{id}/receipt` |
 | [`OrdersAndPaymentsAPI`](docs/OrdersAndPaymentsAPI.md) | `ReceiptVerificationKeysRetrieve(ctx).Execute()` | `GET /v1/payment-receipt-verification-keys` |
 | [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesGetControlCapabilities(ctx).Execute()` | `GET /v1/receiving-address-control-capabilities` |
 | [`ReceivingAddressesAPI`](docs/ReceivingAddressesAPI.md) | `ReceivingAddressesList(ctx).Cursor(...).PageSize(...).Execute()` | `GET /v1/receiving-addresses` |

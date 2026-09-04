@@ -52,11 +52,13 @@ docs/PaymentReadinessRail.md
 docs/PaymentReadinessRailStatusEnum.md
 docs/PaymentReadinessStateEnum.md
 docs/PaymentReceipt.md
+docs/PaymentReceiptStatus.md
 docs/PriceInput.md
 docs/ProgrammaticChargesAPI.md
 docs/PublicFeePolicyDocument.md
 docs/PublicNetworkFeeAlternative.md
 docs/ReadinessStatusEnum.md
+docs/ReceiptStatusEnum.md
 docs/ReceiptVerificationKey.md
 docs/ReceiptVerificationKeyHistory.md
 docs/ReceivingAddressesAPI.md
@@ -145,10 +147,12 @@ model_payment_readiness_rail.go
 model_payment_readiness_rail_status_enum.go
 model_payment_readiness_state_enum.go
 model_payment_receipt.go
+model_payment_receipt_status.go
 model_price_input.go
 model_public_fee_policy_document.go
 model_public_network_fee_alternative.go
 model_readiness_status_enum.go
+model_receipt_status_enum.go
 model_receipt_verification_key.go
 model_receipt_verification_key_history.go
 model_resource.go
