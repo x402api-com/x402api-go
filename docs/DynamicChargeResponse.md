@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **ResourceVersionId** | **string** |  |
 **PaymentIdentifier** | **string** | Opaque server challenge handle. Return it to the buyer as X-X402API-Challenge-Handle; it is not the buyer payment identifier. |
 **ExpiresAt** | **time.Time** |  |
+**HumanCheckoutUrl** | Pointer to **string** | Optional HTTPS hosted checkout for this exact charge. It is a short-lived bearer capability and expires with expires_at. | [optional]
+**QrPayload** | Pointer to **string** | Optional canonical hosted-checkout URL to encode as a QR; never a recipient address. | [optional]
 **CreatedAt** | **time.Time** |  |
 **Prices** | [**[]DynamicChargePrice**](DynamicChargePrice.md) |  |
 **RequestedExpiresInSeconds** | **int32** |  |
@@ -180,6 +182,56 @@ and a boolean to check if the value has been set.
 
 SetExpiresAt sets ExpiresAt field to given value.
 
+
+### GetHumanCheckoutUrl
+
+`func (o *DynamicChargeResponse) GetHumanCheckoutUrl() string`
+
+GetHumanCheckoutUrl returns the HumanCheckoutUrl field if non-nil, zero value otherwise.
+
+### GetHumanCheckoutUrlOk
+
+`func (o *DynamicChargeResponse) GetHumanCheckoutUrlOk() (*string, bool)`
+
+GetHumanCheckoutUrlOk returns a tuple with the HumanCheckoutUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHumanCheckoutUrl
+
+`func (o *DynamicChargeResponse) SetHumanCheckoutUrl(v string)`
+
+SetHumanCheckoutUrl sets HumanCheckoutUrl field to given value.
+
+### HasHumanCheckoutUrl
+
+`func (o *DynamicChargeResponse) HasHumanCheckoutUrl() bool`
+
+HasHumanCheckoutUrl returns a boolean if a field has been set.
+
+### GetQrPayload
+
+`func (o *DynamicChargeResponse) GetQrPayload() string`
+
+GetQrPayload returns the QrPayload field if non-nil, zero value otherwise.
+
+### GetQrPayloadOk
+
+`func (o *DynamicChargeResponse) GetQrPayloadOk() (*string, bool)`
+
+GetQrPayloadOk returns a tuple with the QrPayload field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQrPayload
+
+`func (o *DynamicChargeResponse) SetQrPayload(v string)`
+
+SetQrPayload sets QrPayload field to given value.
+
+### HasQrPayload
+
+`func (o *DynamicChargeResponse) HasQrPayload() bool`
+
+HasQrPayload returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
